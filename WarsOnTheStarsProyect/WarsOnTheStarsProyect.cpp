@@ -2,8 +2,19 @@
 //
 
 #include <iostream>
-#include "FAriasSimpleGraphics.h"
+#include <time.h>
+#include "Engine.h";
+#include "Background.h";
+#include "FAriasSimpleGraphics.h";
+
+//Height = 50
+//Width = 200
+
 int main()
 {
-    
+	srand(time(NULL));
+
+	Background();
+
+	//FASG::InitConsole(W, H);
 }
