@@ -18,7 +18,8 @@ struct Player
 
 	Vector2D pos;
 	//Vector2D speed;
-	float speed= 40.f;
+	float speed= 80.f;
+	char KeyPressed;//poner en engine, en menu hace unas cosas fuera de menu otra, switch cas
 	FASG::Sprite sprite = FASG::Sprite("Player.txt");
 };
 
