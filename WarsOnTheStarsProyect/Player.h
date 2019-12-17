@@ -9,7 +9,7 @@
 
 enum PlayerMovement
 {
-	UP, DOWN, LEFT, RIGHT, STILL //quietoxd
+	UP, DOWN, LEFT, RIGHT, STILL
 };
 
 struct Player
@@ -18,8 +18,8 @@ struct Player
 
 	Vector2D pos;
 	//Vector2D speed;
-	float speed= 80.f;
-	char KeyPressed;//poner en engine, en menu hace unas cosas fuera de menu otra, switch cas
+	float speed= 60.f;
+	char KeyPressed;	//poner en engine, en menu hace unas cosas fuera de menu otra, switch case
 	FASG::Sprite sprite = FASG::Sprite("Player.txt");
 };
 

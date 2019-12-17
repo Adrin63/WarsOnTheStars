@@ -19,5 +19,6 @@ struct Vector2D
 struct Game
 {
 	int W, H;
-	bool gameOver = false;
+	bool gameplay = false;
+	bool executable = false;
 };

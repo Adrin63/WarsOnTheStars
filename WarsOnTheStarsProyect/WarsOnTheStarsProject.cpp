@@ -7,6 +7,7 @@
 #include "Background.h"
 #include "FAriasSimpleGraphics.h"
 #include "Player.h"
+#include "LoginScreen.h"
 
 extern Player player;
 extern Game game;
@@ -20,11 +21,23 @@ int main()
 
 	InitPlayer();
 
-	while (!game.gameOver)
+	LogScreen();
+
+	while (!game.executable)
 	{
-		MovementPlayer();
-		DrawPlayer();
+		//Menu();	para hacer el menu un contador 
+		//FASG::RenderFrame();
+
+		while (!game.gameplay)
+		{
+			MovementPlayer();
+			DrawPlayer();
+			FASG::RenderFrame();
+
+		}
+
 		FASG::RenderFrame();
+
 	}
 
 	FASG::DestroyConsole();

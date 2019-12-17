@@ -17,11 +17,16 @@ void InitPlayer()
 
 void DrawPlayer()
 {
+	//dibuja en pantalla el sprite del personaje en su X y Y
+
 	FASG::WriteSpriteBuffer(player.pos.X, player.pos.Y, player.sprite);
 }
 
+
 void MovementPlayer()
 {
+	//Movimiento del jugador
+
 	if (FASG::IsKeyPressed('W'))
 	{
 		PlayerMovement direction = PlayerMovement::UP;
