@@ -9,6 +9,15 @@
 #include "Player.h"
 #include "LoginScreen.h"
 
+
+
+
+/*IsKeyPressed no puedes hacer switch case porque no puedes guardar el valor en una variable, pixeles cuadrados khbit va demasiado lento*/
+
+
+
+
+
 extern Player player;
 extern Game game;
 
