@@ -8,15 +8,8 @@
 #include "FAriasSimpleGraphics.h"
 #include "Player.h"
 #include "LoginScreen.h"
-
-
-
-
+#include "Stars.h"
 /*IsKeyPressed no puedes hacer switch case porque no puedes guardar el valor en una variable, pixeles cuadrados khbit va demasiado lento*/
-
-
-
-
 
 extern Player player;
 extern Game game;
@@ -29,7 +22,7 @@ int main()
 	FASG::InitConsole(game.W, game.H);
 
 	InitPlayer();
-
+	Init_Stars();
 	LogScreen();
 
 	while (!game.executable)
@@ -40,6 +33,7 @@ int main()
 		while (!game.gameplay)
 		{
 			MovementPlayer();
+			Draw_Stars();
 			DrawPlayer();
 			FASG::RenderFrame();
 
