@@ -27,10 +27,6 @@ void MovementPlayer()
 {
 	//Movimiento del jugador
 
-	if ((player.pos.X += player.speed * FASG::GetDeltaTime()) >= game.W || (player.pos.X -= player.speed * FASG::GetDeltaTime()) < 0 || (player.pos.Y += player.speed * FASG::GetDeltaTime()) >= game.H || (player.pos.Y -= player.speed * FASG::GetDeltaTime()) < 0)
-	{
-		return;
-	}
 
 	if (FASG::IsKeyPressed('W'))
 	{
@@ -54,8 +50,10 @@ void MovementPlayer()
 	{
 		PlayerMovement direction = PlayerMovement::LEFT;
 		player.pos.X -= player.speed * FASG::GetDeltaTime();
-		
-		/* Main
+
+	}
+}
+	/* Main
 
 		int incX = 0, incY = 0;
 
@@ -71,34 +69,30 @@ void MovementPlayer()
 				
 				
 				
-				void DrawPlayer(int incX, int incY)
+					void DrawPlayer(int incX, int incY)
+
+		{
+		float x, y;
+
+		x = pX + incX * FASG::GetDeltaTime() * pS;
+		y = pY + incY * FASG::GetDeltaTime() * pS;
+
+		if (x >= W || x < 0 || y >= H || y < 0)
+		{
+			return;
+		}
+
+		pX = x;
+		pY = y;
+
+		FASG::WritePixelBuffer(pX, pY, FASG::EBackColor::LightWhite);
+	
+	*/
+
+
+
+
+/*switch (PlayerMovement direction)
 {
-	float x, y;
-
-	x = pX + incX * FASG::GetDeltaTime() * pS;
-	y = pY + incY * FASG::GetDeltaTime() * pS;
-
-	if (x >= W || x < 0 || y >= H || y < 0)
-	{
-		return;
-	}
-
-	pX = x;
-	pY = y;
-
-	FASG::WritePixelBuffer(pX, pY, FASG::EBackColor::LightWhite);
-
-	if (incX != 0 || incY != 0)
-	{
-		FASG::WritePixelBuffer(pX - incX, pY - incY, FASG::EBackColor::LightGreen);
-		FASG::WritePixelBuffer(pX - 2 * incX, pY - 2 * incY, FASG::EBackColor::Green);
-	}
-}
-				*/
-	}
-
-	/*switch (PlayerMovement direction)
-	{
-	case PlayerMovement::RIGHT:
-	}*/
-}
+case PlayerMovement::RIGHT:
+}*/
