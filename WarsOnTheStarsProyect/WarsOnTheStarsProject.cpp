@@ -10,7 +10,11 @@
 #include "LoginScreen.h"
 #include "Stars.h"
 
-/*IsKeyPressed no puedes hacer switch case porque no puedes guardar el valor en una variable, pixeles cuadrados khbit va demasiado lento*/
+			/*IsKeyPressed no puedes hacer switch case porque no puedes guardar el valor en una variable,
+			pixeles cuadrados khbit va demasiado lento*/
+
+//FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
+
 
 extern Player player;
 extern Game game;
