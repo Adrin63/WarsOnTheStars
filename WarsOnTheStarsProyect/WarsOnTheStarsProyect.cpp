@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include <time.h>
-#include "Engine.h";
-#include "Background.h";
-#include "FAriasSimpleGraphics.h";
+#include "Engine.h"
+#include "Background.h"
+#include "FAriasSimpleGraphics.h"
+
+Game game;
 
 //Height = 50
 //Width = 200
@@ -13,8 +15,18 @@
 int main()
 {
 	srand(time(NULL));
+	game.W = 200;
+	game.H = 50;
 
-	Background();
+	FASG::InitConsole(game.W, game.H);
 
-	//FASG::InitConsole(W, H);
+	Init_Stars();
+
+	Draw_Stars();
+
+	
+
+	//InitPlayer();
+
+	FASG::DestroyConsole();
 }

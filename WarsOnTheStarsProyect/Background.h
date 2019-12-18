@@ -1,6 +1,14 @@
 #pragma once
-#include "Console.h";
-#include "Background.h";
-#include "FAriasSimpleGraphics.h";
+#include "Engine.h"
 
-void Background();
+struct Star
+{
+	Vector2D starPos;
+	float starSpeed = 0;
+	char starSkin[3] = { '*','.','+' };
+	//FALTA COLOR ESTRELLAS (VARIAR ENTRE BLANCO Y AMARILLO PALIDO)
+		//void WriteCharBuffer(int x, int y, char _char, EForeColor color);
+};
+
+void Init_Stars();
+void Draw_Stars();
