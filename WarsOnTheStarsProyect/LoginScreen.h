@@ -1,4 +1,5 @@
 #pragma once
 void LogScreen();
-void LogoWS();
-void Tool(int weight_start, int weight_end, int height_start, int height_end);
+void DrawPixelInConsole(int linesX_start, int linesX_end, int linesY_start, int linesY_end);
+void DrawNameLogScreen();
+void BackgroundWords(int initialX, int finalX, int Y);
