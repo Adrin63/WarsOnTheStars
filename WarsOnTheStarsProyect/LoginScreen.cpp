@@ -38,7 +38,7 @@ void LogoWS()
 
 void LogScreen()
 {	
-	LogoWS();
+	//LogoWS();
 	FASG::WriteStringBuffer(41,FASG::EAligned::CENTER,"Presione cualquier tecla para continuar", FASG::EForeColor::White);
 	FASG::WriteStringBuffer(46, FASG::EAligned::CENTER, "X para cerrar", FASG::EForeColor::White);
 
