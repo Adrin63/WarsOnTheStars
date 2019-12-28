@@ -38,6 +38,7 @@ int main()
 		while (!game.gameplay)
 		{
 			MovementPlayer();
+			//DrawObjects();
 			Draw_Stars();
 			DrawPlayer();
 			FASG::RenderFrame();
