@@ -5,30 +5,37 @@
 #include <Windows.h>
 #include <iostream>
 #include <string>
+#include <map>
 
 namespace FASG
 {
 	class Vector2;
 	class Sprite;
 
+
+	enum class ConsoleFontRatios : short
+	{
+		_4x6 = 0, _8x8, _5x12, _7x12, _8x18, _9x20, _10x18, _11x24, _12x16, _13x28, _16x8, _16x12, _17x36, _24x24
+	};
+
 	enum class EBackColor : unsigned short
 	{
 		Black = 0x00,
-		Red = BACKGROUND_RED,										//1
-		Green = BACKGROUND_GREEN,									//2
-		Yellow = BACKGROUND_RED | BACKGROUND_GREEN,					//3
-		Blue = BACKGROUND_BLUE,										//4
-		Magenta = BACKGROUND_RED | BACKGROUND_BLUE,					//5
-		Cyan = BACKGROUND_BLUE | BACKGROUND_GREEN,					//6
-		White = BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN,//7
-		LightBlack = Black | BACKGROUND_INTENSITY,					//8
-		LightRed = Red | BACKGROUND_INTENSITY,						//9
-		LightGreen = Green | BACKGROUND_INTENSITY,					//A
-		LightYellow = Yellow | BACKGROUND_INTENSITY,				//B
-		LightBlue = Blue | BACKGROUND_INTENSITY,					//C
-		LightMagenta = Magenta | BACKGROUND_INTENSITY,				//D
-		LightCyan = Cyan | BACKGROUND_INTENSITY,					//E
-		LightWhite = White | BACKGROUND_INTENSITY,					//F
+		Red = BACKGROUND_RED,
+		Green = BACKGROUND_GREEN,
+		Yellow = BACKGROUND_RED | BACKGROUND_GREEN,
+		Blue = BACKGROUND_BLUE,
+		Magenta = BACKGROUND_RED | BACKGROUND_BLUE,
+		Cyan = BACKGROUND_BLUE | BACKGROUND_GREEN,
+		White = BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN,
+		LightBlack = Black | BACKGROUND_INTENSITY,
+		LightRed = Red | BACKGROUND_INTENSITY,
+		LightGreen = Green | BACKGROUND_INTENSITY,
+		LightYellow = Yellow | BACKGROUND_INTENSITY,
+		LightBlue = Blue | BACKGROUND_INTENSITY,
+		LightMagenta = Magenta | BACKGROUND_INTENSITY,
+		LightCyan = Cyan | BACKGROUND_INTENSITY,
+		LightWhite = White | BACKGROUND_INTENSITY,
 		Alpha0 = 0b100000000
 	};
 
@@ -64,6 +71,7 @@ namespace FASG
 	void DestroyConsole();
 
 	void ShowConsoleCursor(bool showFlag);
+	void SetFontSizeRatio(ConsoleFontRatios size);
 
 	void WritePixelBuffer(int x, int y, EBackColor color);
 	void WritePixelBuffer(int x1, int y1, int x2, int y2, EBackColor color);
@@ -96,17 +104,35 @@ namespace FASG
 
 	};
 
+	bool CheckBoundingBoxes(FASG::Sprite* sp1, FASG::Sprite* sp2);
+
 	class Sprite final
 	{
 
 		EBackColor AtoBackColor(char c);
 
 	public:
+		Sprite();
 		Sprite(std::string SpriteAssetFileName);
 		~Sprite();
 
+		void LoadSprite(std::string SpriteAssetFileName);
+
+		Vector2 Location;
+		static void SetCollisionCallback(void (*callbackFunc)(std::string sprite1Tag, std::string sprite2Tag));
+		static void AddToCollisionSystem(Sprite& sprite, std::string spriteTag);
+
+		int GetWidth() const { return spwidth; }
+		int GetHeight() const { return spheight; }
+		EBackColor* GetBuffer() const { return bufferColor; }
+	private:
 		int spwidth;
 		int spheight;
 		EBackColor* bufferColor;
+		static std::map<std::string, Sprite*> collisionSprites;
+		static void (*OnCollision)(std::string sprite1Tag, std::string sprite2Tag);
+		static void CheckCollisions();
+
+		friend void RenderFrame();
 	};
 }
