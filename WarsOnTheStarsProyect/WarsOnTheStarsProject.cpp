@@ -10,8 +10,6 @@
 #include "LoginScreen.h"
 #include "Stars.h"
 HANDLE hndl;
-			/*IsKeyPressed no puedes hacer switch case porque no puedes guardar el valor en una variable,
-			pixeles cuadrados khbit va demasiado lento*/
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
 

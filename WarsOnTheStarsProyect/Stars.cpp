@@ -7,7 +7,7 @@
 extern Game game;
 
 //Constantes
-const int MAX_INIT_STARS = 50;
+const int MAX_INIT_STARS = 500;
 
 //Variables
 Star stars[MAX_INIT_STARS];
