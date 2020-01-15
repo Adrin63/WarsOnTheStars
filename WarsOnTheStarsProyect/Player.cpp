@@ -6,6 +6,8 @@ Player player;
 
 Game game;
 
+Disparo disparo;
+
 extern float speed;
 
 void InitPlayer()
@@ -62,6 +64,12 @@ void MovementPlayer()
 
 		if (player.pos.X < 0)
 			player.pos.X = 0;
+	}
+
+	if (FASG::IsKeyPressed('E'))
+	{
+		FASG::WriteSpriteBuffer(disparo.posX, disparo.posY, FASG::Sprite("Disparo.txt"));
+		disparo.posX += disparo.speed * FASG::GetDeltaTime();
 	}
 }
 	/* Main

@@ -162,6 +162,7 @@
     <ClCompile Include="WarsOnTheStarsProject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Disparo.txt" />
     <Text Include="Player.txt" />
   </ItemGroup>
   <ItemGroup>

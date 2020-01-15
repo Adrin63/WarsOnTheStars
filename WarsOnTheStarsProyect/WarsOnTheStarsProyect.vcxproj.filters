@@ -35,6 +35,9 @@
     <Text Include="Player.txt">
       <Filter>Archivos de origen</Filter>
     </Text>
+    <Text Include="Disparo.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
