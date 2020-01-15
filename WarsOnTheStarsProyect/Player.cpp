@@ -32,18 +32,27 @@ void MovementPlayer()
 	{
 		PlayerMovement direction = PlayerMovement::UP;
 		player.pos.Y -= player.speed * FASG::GetDeltaTime();
+
+		if (player.pos.Y < 0)
+			player.pos.Y = 0;
 	}
 
 	if (FASG::IsKeyPressed('D'))
 	{
 		PlayerMovement direction = PlayerMovement::RIGHT;
 		player.pos.X += player.speed * FASG::GetDeltaTime();
+
+		if (player.pos.X >= 192)
+			player.pos.X = 192;
 	}
 
 	if (FASG::IsKeyPressed('S'))
 	{
 		PlayerMovement direction = PlayerMovement::DOWN;
 		player.pos.Y += player.speed * FASG::GetDeltaTime();
+
+		if (player.pos.Y >= 46)
+			player.pos.Y = 46;
 	}
 
 	if (FASG::IsKeyPressed('A'))
@@ -51,6 +60,8 @@ void MovementPlayer()
 		PlayerMovement direction = PlayerMovement::LEFT;
 		player.pos.X -= player.speed * FASG::GetDeltaTime();
 
+		if (player.pos.X < 0)
+			player.pos.X = 0;
 	}
 }
 	/* Main
