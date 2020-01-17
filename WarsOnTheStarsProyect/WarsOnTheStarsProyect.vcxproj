@@ -162,10 +162,11 @@
     <ClCompile Include="WarsOnTheStarsProject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Disparo.txt" />
+    <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Shoot.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FAriasSimpleGraphics.h" />
     <ClInclude Include="LoginScreen.h" />

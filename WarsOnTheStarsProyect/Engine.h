@@ -23,10 +23,3 @@ struct Game
 	bool gameplay = false;
 	bool executable = false;
 };
-
-struct Disparo
-{
-	int posX = player.pos.X + 7;
-	int posY = player.pos.Y + 1;
-	const float speed = 10.f;
-};

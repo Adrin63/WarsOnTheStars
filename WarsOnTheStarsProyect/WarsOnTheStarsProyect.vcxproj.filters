@@ -35,7 +35,7 @@
     <Text Include="Player.txt">
       <Filter>Archivos de origen</Filter>
     </Text>
-    <Text Include="Disparo.txt">
+    <Text Include="Shoot.txt">
       <Filter>Archivos de origen</Filter>
     </Text>
   </ItemGroup>
@@ -53,6 +53,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="FAriasSimpleGraphics.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Shoot.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

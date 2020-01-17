@@ -20,9 +20,10 @@ extern Game game;
 int main()
 {
 	srand(time(NULL));
-	game.W = 200; game.H = 50;
+	game.W = 300; game.H = 60;
 
 	FASG::InitConsole(game.W, game.H);
+	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
 
 	InitPlayer();
 	Init_Stars();
