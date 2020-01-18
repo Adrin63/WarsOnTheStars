@@ -13,49 +13,73 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de origen\OffGameplay">
+      <UniqueIdentifier>{82163c42-9cc5-43f1-836c-33432e7bf8a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Player">
+      <UniqueIdentifier>{6ca4d21f-ae60-4da4-983c-767db3c58774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OffGameplay">
+      <UniqueIdentifier>{f02166bf-ca47-4142-984d-3362b097d96e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player">
+      <UniqueIdentifier>{2a63fc06-0049-4916-bf5c-d685ff9fec08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Enemies">
+      <UniqueIdentifier>{d8fb5338-244a-4942-bd7e-fe270d5f0233}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="WarsOnTheStarsProject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="LoginScreen.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
     <ClCompile Include="Stars.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Archivos de origen\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Player.txt">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Player</Filter>
     </Text>
     <Text Include="Shoot.txt">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Player</Filter>
+    </Text>
+    <Text Include="Enemie.txt">
+      <Filter>Archivos de origen\Enemies</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginScreen.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Stars.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="FAriasSimpleGraphics.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="LoginScreen.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Stars.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
     <ClInclude Include="Shoot.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemies.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

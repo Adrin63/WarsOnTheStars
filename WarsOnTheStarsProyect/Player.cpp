@@ -45,9 +45,6 @@ void DrawPlayer()
 
 void MovementPlayer()
 {
-	//Movimiento del jugador
-
-
 	if (FASG::IsKeyPressed('W'))
 	{
 		PlayerMovement direction = PlayerMovement::UP;

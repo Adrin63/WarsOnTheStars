@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "LoginScreen.h"
 #include "Stars.h"
+#include "Enemies.h"
 HANDLE hndl;
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
@@ -27,6 +28,7 @@ int main()
 
 	InitPlayer();
 	Init_Stars();
+	InitEnemies();
 	LogScreen();
 
 	while (!game.executable)
@@ -40,6 +42,7 @@ int main()
 			//DrawObjects();
 			Draw_Stars();
 			DrawPlayer();
+			DrawEnemies();
 			FASG::RenderFrame();
 
 		}
