@@ -24,7 +24,10 @@ int main()
 
 	FASG::InitConsole(game.W, game.H);
 	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
+<<<<<<< HEAD
 
+=======
+>>>>>>> Adrin
 	InitPlayer();
 	Init_Stars();
 	LogScreen();

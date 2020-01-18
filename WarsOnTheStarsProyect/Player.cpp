@@ -20,7 +20,16 @@ void InitPlayer()
 	player.pos.Y = game.H *0.5f;
 	pShoot.posSh.X = player.pos.X + 7;
 	pShoot.posSh.Y = player.pos.Y + 1;
-	pShoot.speedSh = 20.f;
+	pShoot.speedSh = 70.f;
+}
+
+void DisparoPlayer()
+{
+	FASG::WriteSpriteBuffer(pShoot.posSh.X, pShoot.posSh.Y, FASG::Sprite("Shoot.txt"));
+	pShoot.posSh.X += pShoot.speedSh * FASG::GetDeltaTime();
+	
+	//Posibles soluciones: 1 - Cambiar el IsKeyPressed por un comando que ejecute la funcion sin que tengamos que tener la tecla pulsada.
+	//					   2 - Retocar la funcion para que se ejecute cada vez que se pulse la tecla "E".
 }
 
 void DrawPlayer()
@@ -74,8 +83,7 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('E'))
 	{
-		FASG::WriteSpriteBuffer(pShoot.posSh.X, pShoot.posSh.Y, FASG::Sprite("Shoot.txt"));
-		pShoot.posSh.X += pShoot.speedSh * FASG::GetDeltaTime();
+		DisparoPlayer();	
 	}
 }
 	
