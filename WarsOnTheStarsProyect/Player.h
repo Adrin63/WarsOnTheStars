@@ -24,4 +24,4 @@ struct Player
 void DrawPlayer();
 void InitPlayer();
 void MovementPlayer();
-void DisparoPlayer();
+void ShootPlayer();

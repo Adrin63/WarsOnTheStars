@@ -9,7 +9,7 @@ Game game;
 
 Shoot pShoot;
 
-//Disparo disparo;
+bool ShootOn = false;
 
 extern float speed;
 
@@ -18,24 +18,27 @@ void InitPlayer()
 	//vidas tambien tendrian que ser iniciadas aqui...
 	player.pos.X = 10.f;
 	player.pos.Y = game.H *0.5f;
-	pShoot.posSh.X = player.pos.X + 7;
-	pShoot.posSh.Y = player.pos.Y + 1;
-	pShoot.speedSh = 70.f;
+	pShoot.speedSh = 300.f;
+	pShoot.posSh.X = player.pos.X + 5;
+	pShoot.posSh.Y = player.pos.Y + 2;
 }
 
-void DisparoPlayer()
+void ShootPlayer()
 {
 	FASG::WriteSpriteBuffer(pShoot.posSh.X, pShoot.posSh.Y, FASG::Sprite("Shoot.txt"));
 	pShoot.posSh.X += pShoot.speedSh * FASG::GetDeltaTime();
+
+	if (pShoot.posSh.X >= 300)
+	{
+		ShootOn = false;
+		pShoot.posSh.X = player.pos.X + 5;
+		pShoot.posSh.Y = player.pos.Y + 2;
+	}
 	
-	//Posibles soluciones: 1 - Cambiar el IsKeyPressed por un comando que ejecute la funcion sin que tengamos que tener la tecla pulsada.
-	//					   2 - Retocar la funcion para que se ejecute cada vez que se pulse la tecla "E".
 }
 
 void DrawPlayer()
 {
-	//dibuja en pantalla el sprite del personaje en su X y Y
-
 	FASG::WriteSpriteBuffer(player.pos.X, player.pos.Y, player.sprite);
 }
 
@@ -81,9 +84,22 @@ void MovementPlayer()
 			player.pos.X = 0;
 	}
 
+	if (!ShootOn)
+	{
+		pShoot.posSh.X = player.pos.X + 5;
+		pShoot.posSh.Y = player.pos.Y + 2;
+	}
+
 	if (FASG::IsKeyPressed('E'))
 	{
-		DisparoPlayer();	
+		ShootOn = true;
 	}
+
+	if (ShootOn)
+	{
+		ShootPlayer();
+	}
+
+	
 }
 	
