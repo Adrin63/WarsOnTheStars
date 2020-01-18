@@ -56,7 +56,7 @@
     <Text Include="Shoot.txt">
       <Filter>Archivos de origen\Player</Filter>
     </Text>
-    <Text Include="Enemie.txt">
+    <Text Include="EnemieLittle.txt">
       <Filter>Archivos de origen\Enemies</Filter>
     </Text>
   </ItemGroup>

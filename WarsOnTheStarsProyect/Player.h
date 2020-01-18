@@ -17,7 +17,7 @@ struct Player
 	PlayerMovement direction = PlayerMovement::STILL;
 
 	Vector2D pos;
-	float speed= 60.f;
+	float speed= 90.f;
 	FASG::Sprite sprite = FASG::Sprite("Player.txt");
 };
 

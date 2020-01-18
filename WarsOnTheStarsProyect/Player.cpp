@@ -2,6 +2,8 @@
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
 #include "Shoot.h"
+#include "LoginScreen.h"
+#include <conio.h>
 
 Player player;
 
@@ -9,28 +11,26 @@ Game game;
 
 Shoot pShoot;
 
-bool ShootOn = false;
-
 extern float speed;
 
 void InitPlayer()
 {
-	//vidas tambien tendrian que ser iniciadas aqui...
+	//vidas...
 	player.pos.X = 10.f;
 	player.pos.Y = game.H *0.5f;
+
 	pShoot.speedSh = 300.f;
-	pShoot.posSh.X = player.pos.X + 5;
-	pShoot.posSh.Y = player.pos.Y + 2;
+	pShoot.ShootOn = false;
 }
 
 void ShootPlayer()
 {
-	FASG::WriteSpriteBuffer(pShoot.posSh.X, pShoot.posSh.Y, FASG::Sprite("Shoot.txt"));
+	FASG::WriteSpriteBuffer(pShoot.posSh.X, pShoot.posSh.Y, pShoot.shootPlayer);
 	pShoot.posSh.X += pShoot.speedSh * FASG::GetDeltaTime();
 
 	if (pShoot.posSh.X >= 300)
 	{
-		ShootOn = false;
+		pShoot.ShootOn = false;
 		pShoot.posSh.X = player.pos.X + 5;
 		pShoot.posSh.Y = player.pos.Y + 2;
 	}
@@ -59,8 +59,8 @@ void MovementPlayer()
 		PlayerMovement direction = PlayerMovement::RIGHT;
 		player.pos.X += player.speed * FASG::GetDeltaTime();
 
-		if (player.pos.X >= 292)
-			player.pos.X = 292;
+		if (player.pos.X >= 286)
+			player.pos.X = 286;
 	}
 
 	if (FASG::IsKeyPressed('S'))
@@ -68,8 +68,8 @@ void MovementPlayer()
 		PlayerMovement direction = PlayerMovement::DOWN;
 		player.pos.Y += player.speed * FASG::GetDeltaTime();
 
-		if (player.pos.Y >= 56)
-			player.pos.Y = 56;
+		if (player.pos.Y >= 54)
+			player.pos.Y = 54;
 	}
 
 	if (FASG::IsKeyPressed('A'))
@@ -81,22 +81,34 @@ void MovementPlayer()
 			player.pos.X = 0;
 	}
 
-	if (!ShootOn)
+	if (!pShoot.ShootOn)
 	{
 		pShoot.posSh.X = player.pos.X + 5;
 		pShoot.posSh.Y = player.pos.Y + 2;
 	}
 
-	if (FASG::IsKeyPressed('E'))
+	if (FASG::IsKeyPressed('J'))
 	{
-		ShootOn = true;
+		pShoot.ShootOn = true;
 	}
 
-	if (ShootOn)
+	if (pShoot.ShootOn)
 	{
 		ShootPlayer();
 	}
 
-	
+	if (FASG::IsKeyPressed('P'))
+	{
+		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::Black);
+		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER AL MENU", FASG::EForeColor::Black);
+		BackgroundWords(128, 172, 30);
+		BackgroundWords(137, 163, 35);
+		int a = toupper(_getch());
+		if (a == 'O')
+		{
+			game.executable = true;
+			game.gameplay = true;
+		}
+	}
 }
 	

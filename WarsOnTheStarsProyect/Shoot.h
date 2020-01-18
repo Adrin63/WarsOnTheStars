@@ -4,4 +4,6 @@ struct Shoot
 {
 	Vector2D posSh;
 	float speedSh;
+	bool ShootOn;
+	FASG::Sprite shootPlayer = FASG::Sprite("Shoot.txt");
 };

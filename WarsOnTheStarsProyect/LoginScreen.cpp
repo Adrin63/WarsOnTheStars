@@ -104,7 +104,7 @@ void BackgroundWords(int initialX, int finalX, int Y)
 {
 	for (initialX; initialX <= finalX; initialX++)
 	{
-		FASG::WritePixelBuffer(initialX, Y, FASG::EBackColor::LightYellow);
+		FASG::WritePixelBuffer(initialX, Y, FASG::EBackColor::LightWhite);
 	}
 }
 

@@ -2,12 +2,18 @@
 #include "Engine.h"
 #include "FAriasSimpleGraphics.h"
 
-struct Enemie
+struct TypeEnemieLittle
 {
 	Vector2D pos;
 	float speed;
-	FASG::Sprite spriteEn = FASG::Sprite("Enemie.txt");
+	FASG::Sprite sprite = FASG::Sprite("EnemieLittle.txt");
 };
+
+/*
+FASG::Sprite spriteEnMiddle = FASG::Sprite("EnemieLittle.txt");
+FASG::Sprite spriteEnGiga = FASG::Sprite("EnemieLittle.txt");
+FASG::Sprite spriteEnBigChungus = FASG::Sprite("EnemieLittle.txt");
+*/
 
 void InitEnemies();
 void DrawEnemies();

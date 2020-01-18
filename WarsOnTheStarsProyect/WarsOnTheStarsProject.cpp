@@ -34,6 +34,7 @@ int main()
 	while (!game.executable)
 	{
 		//Menu();	para hacer el menu un contador 
+		//bucle para menu
 		//FASG::RenderFrame();
 
 		while (!game.gameplay)

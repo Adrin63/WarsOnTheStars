@@ -163,7 +163,7 @@
     <ClCompile Include="WarsOnTheStarsProject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Enemie.txt" />
+    <Text Include="EnemieLittle.txt" />
     <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
   </ItemGroup>
