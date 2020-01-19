@@ -2,6 +2,11 @@
 #include "Engine.h"
 #include "FAriasSimpleGraphics.h"
 
+enum enemiMovement
+{
+	enDOWN, enUP
+};
+
 struct TypeEnemieLittle
 {
 	Vector2D pos;

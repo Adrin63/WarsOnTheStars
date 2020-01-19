@@ -10,6 +10,7 @@
 #include "LoginScreen.h"
 #include "Stars.h"
 #include "Enemies.h"
+
 HANDLE hndl;
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);

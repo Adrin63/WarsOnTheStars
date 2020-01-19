@@ -23,3 +23,5 @@ struct Game
 	bool gameplay = false;
 	bool executable = false;
 };
+
+void Move(int cuantity, int &y);

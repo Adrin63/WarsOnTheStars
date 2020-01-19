@@ -4,8 +4,17 @@
 
 int const EnemiesLit = 3;
 
-TypeEnemieLittle enemiesLittle[EnemiesLit];
+enemiMovement movEnemie = enemiMovement::enUP;
 
+float const MovementCD = 1.f;
+
+float CD = MovementCD;
+
+bool CDoff = false;
+
+int contador=0;
+
+TypeEnemieLittle enemiesLittle[EnemiesLit];
 
 void InitEnemies()
 {
@@ -21,6 +30,46 @@ void InitEnemies()
 
 void DrawEnemies()
 {
+	CD -= FASG::GetDeltaTime();
+
+	if (CD <= 0)
+	{
+		for (int i = 0; i < EnemiesLit; i++)
+		{
+			switch (movEnemie)
+			{
+			case enUP:
+				enemiesLittle[i].pos.Y--;
+				break;
+			case enDOWN:
+				enemiesLittle[i].pos.Y++;
+				break;
+			}
+		}
+
+		switch (movEnemie)
+		{
+		case enUP:
+			contador++;
+			break;
+		case enDOWN:
+			contador--;
+			break;
+		}
+		
+		switch (contador)
+		{
+		case 5:
+			movEnemie = enemiMovement::enDOWN;
+			break;
+		case 0:
+			movEnemie = enemiMovement::enUP;
+			break;
+		}
+
+		CD = MovementCD;
+	}
+
 	for (int draw = 0; draw < EnemiesLit; draw++)
 	{
 		FASG::WriteSpriteBuffer(enemiesLittle[draw].pos.X, enemiesLittle[draw].pos.Y, enemiesLittle[draw].sprite);
