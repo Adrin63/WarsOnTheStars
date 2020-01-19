@@ -1,5 +1,12 @@
 #pragma once
+#include "Engine.h"
+#include "FAriasSimpleGraphics.h"
+
+struct Logear
+{
+	Vector2D pos;
+	FASG::Sprite dou = FASG::Sprite("LS.txt");
+};
+
 void LogScreen();
-void DrawPixelInConsole(int linesX_start, int linesX_end, int linesY_start, int linesY_end);
-void DrawNameLogScreen();
-void BackgroundWords(int initialX, int finalX, int Y);
+//void InitLogScreen();

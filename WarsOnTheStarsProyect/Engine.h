@@ -20,8 +20,9 @@ struct Vector2D
 struct Game
 {
 	int W, H;
-	bool gameplay = false;
-	bool executable = false;
+	bool gameplay = true;
+	bool executable = true;
+	bool login = false;
 };
 
-void Move(int cuantity, int &y);
+void BackgroundWords(int initialX, int finalX, int Y);

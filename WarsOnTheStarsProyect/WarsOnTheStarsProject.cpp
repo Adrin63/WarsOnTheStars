@@ -30,27 +30,25 @@ int main()
 	InitPlayer();
 	Init_Stars();
 	InitEnemies();
-	LogScreen();
-
-	while (!game.executable)
+	//InitLogScreen();
+	while (!game.login)
 	{
-		//Menu();	para hacer el menu un contador 
-		//bucle para menu
-		//FASG::RenderFrame();
+		LogScreen();
 
-		while (!game.gameplay)
+		while (!game.executable)
 		{
-			MovementPlayer();
-			//DrawObjects();
-			Draw_Stars();
-			DrawPlayer();
-			DrawEnemies();
-			FASG::RenderFrame();
+			while (!game.gameplay)
+			{
+				MovementPlayer();
+				//DrawObjects();
+				Draw_Stars();
+				DrawPlayer();
+				DrawEnemies();
+				FASG::RenderFrame();
 
+			}
 		}
-
 		FASG::RenderFrame();
-
 	}
 
 	FASG::DestroyConsole();

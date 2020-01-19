@@ -2,7 +2,7 @@
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
 
-int const EnemiesLit = 3;
+int const EnemiesLit = 4;
 
 enemiMovement movEnemie = enemiMovement::enUP;
 
@@ -10,17 +10,16 @@ float const MovementCD = 1.f;
 
 float CD = MovementCD;
 
-bool CDoff = false;
-
 int contador=0;
 
 TypeEnemieLittle enemiesLittle[EnemiesLit];
 
 void InitEnemies()
 {
-	enemiesLittle[0].pos.Y = 15;
-	enemiesLittle[1].pos.Y = 30;
-	enemiesLittle[2].pos.Y = 45;
+	enemiesLittle[0].pos.Y = 12;
+	enemiesLittle[1].pos.Y = 24;
+	enemiesLittle[2].pos.Y = 36;
+	enemiesLittle[3].pos.Y = 48;
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{

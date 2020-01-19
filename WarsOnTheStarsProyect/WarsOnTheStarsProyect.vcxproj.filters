@@ -28,6 +28,9 @@
     <Filter Include="Archivos de origen\Enemies">
       <UniqueIdentifier>{d8fb5338-244a-4942-bd7e-fe270d5f0233}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Enemies">
+      <UniqueIdentifier>{ed2eb8b2-3582-4ada-a6b7-3b6521d14437}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WarsOnTheStarsProject.cpp">
@@ -59,6 +62,12 @@
     <Text Include="EnemieLittle.txt">
       <Filter>Archivos de origen\Enemies</Filter>
     </Text>
+    <Text Include="LS.txt">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </Text>
+    <Text Include="Player_Right.txt">
+      <Filter>Archivos de origen\Player</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -80,7 +89,7 @@
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
     <ClInclude Include="Enemies.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

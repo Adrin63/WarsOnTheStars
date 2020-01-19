@@ -164,6 +164,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="EnemieLittle.txt" />
+    <Text Include="LS.txt" />
+    <Text Include="Player_Right.txt" />
     <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
   </ItemGroup>

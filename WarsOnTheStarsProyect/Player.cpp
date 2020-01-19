@@ -2,11 +2,11 @@
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
 #include "Shoot.h"
-#include "LoginScreen.h"
 #include <conio.h>
 
 Player player;
 
+PlayerMovement direction = PlayerMovement::STILL;
 Game game;
 
 Shoot pShoot;
@@ -39,7 +39,18 @@ void ShootPlayer()
 
 void DrawPlayer()
 {
-	FASG::WriteSpriteBuffer(player.pos.X, player.pos.Y, player.sprite);
+	switch (direction)
+	{
+		case PlayerMovement::RIGHT:
+		FASG::WriteSpriteBuffer(player.pos.X, player.pos.Y, player.sprite2);
+		direction = PlayerMovement::STILL;
+		break;
+		default: 
+		FASG::WriteSpriteBuffer(player.pos.X, player.pos.Y, player.sprite);
+		direction = PlayerMovement::STILL;
+	}
+
+	
 }
 
 
@@ -47,7 +58,7 @@ void MovementPlayer()
 {
 	if (FASG::IsKeyPressed('W'))
 	{
-		PlayerMovement direction = PlayerMovement::UP;
+		direction = PlayerMovement::UP;
 		player.pos.Y -= player.speed * FASG::GetDeltaTime();
 
 		if (player.pos.Y < 0)
@@ -56,16 +67,16 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('D'))
 	{
-		PlayerMovement direction = PlayerMovement::RIGHT;
+		direction = PlayerMovement::RIGHT;
 		player.pos.X += player.speed * FASG::GetDeltaTime();
 
-		if (player.pos.X >= 286)
-			player.pos.X = 286;
+		if (player.pos.X >= 170)
+			player.pos.X = 170;
 	}
 
 	if (FASG::IsKeyPressed('S'))
 	{
-		PlayerMovement direction = PlayerMovement::DOWN;
+		direction = PlayerMovement::DOWN;
 		player.pos.Y += player.speed * FASG::GetDeltaTime();
 
 		if (player.pos.Y >= 54)
@@ -74,7 +85,7 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('A'))
 	{
-		PlayerMovement direction = PlayerMovement::LEFT;
+		direction = PlayerMovement::LEFT;
 		player.pos.X -= player.speed * FASG::GetDeltaTime();
 
 		if (player.pos.X < 0)
@@ -99,11 +110,12 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('P'))
 	{
-		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::Black);
-		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER AL MENU", FASG::EForeColor::Black);
+		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::LightWhite);
+		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 		BackgroundWords(128, 172, 30);
 		BackgroundWords(137, 163, 35);
 		int a = toupper(_getch());
+
 		if (a == 'O')
 		{
 			game.executable = true;
