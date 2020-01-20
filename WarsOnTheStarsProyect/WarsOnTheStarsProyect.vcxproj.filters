@@ -68,12 +68,10 @@
     <Text Include="EnemieLittle.txt">
       <Filter>Archivos de origen\Enemies</Filter>
     </Text>
-    <Text Include="LS.txt">
-      <Filter>Archivos de origen\OffGameplay</Filter>
-    </Text>
     <Text Include="Player_Right.txt">
       <Filter>Archivos de origen\Player</Filter>
     </Text>
+    <Text Include="LS.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">

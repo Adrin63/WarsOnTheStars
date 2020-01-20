@@ -111,7 +111,7 @@ void MovementPlayer()
 	if (FASG::IsKeyPressed('P'))
 	{
 		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::LightWhite);
-		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
+		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER A LA PANTALLA PRINCIPAL", FASG::EForeColor::LightWhite);
 		BackgroundWords(128, 172, 30);
 		BackgroundWords(137, 163, 35);
 		int a = toupper(_getch());

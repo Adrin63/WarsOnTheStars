@@ -51,7 +51,7 @@ void Menu()
 		BackgroundWords(146, 154, 20);
 		break;
 	case 1:
-		BackgroundWords(143, 154, 25);
+		BackgroundWords(143, 156, 25);
 		break;
 	case 2:
 		BackgroundWords(144, 155, 30);

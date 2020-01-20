@@ -38,6 +38,7 @@ int main()
 	{
 		LogScreen();
 
+		FASG::RenderFrame();
 		while (!game.executable)
 		{
 			Menu();
@@ -71,8 +72,6 @@ int main()
 
 			FASG::RenderFrame();
 		}
-
-		FASG::RenderFrame();
 	}
 
 	FASG::DestroyConsole();

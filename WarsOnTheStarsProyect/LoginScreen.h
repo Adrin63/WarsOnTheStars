@@ -5,7 +5,7 @@
 struct Logear
 {
 	Vector2D pos;
-	FASG::Sprite dou = FASG::Sprite("LS.txt");
+	FASG::Sprite dou;
 };
 
 void LogScreen();

@@ -14,9 +14,11 @@ float culdown = DissapearCD;
 
 void InitLogScreen()
 {
-	logscrin.pos.X = 97;
-	logscrin.pos.Y = 5;
+	logscrin.dou.LoadSprite("LS.txt");
+	logscrin.dou.Location.x = 97;
+	logscrin.dou.Location.y = 5;
 }
+
 
 void LogScreen()
 {	
@@ -42,13 +44,15 @@ void LogScreen()
 		on = false;
 	}
 
+	FASG::WriteSpriteBuffer(logscrin.dou.Location.x, logscrin.dou.Location.y, logscrin.dou);
+
 	if (on)
 	{
 		FASG::WriteStringBuffer(50, FASG::EAligned::CENTER, "Presione espacio para continuar", FASG::EForeColor::Yellow);
 		FASG::WriteStringBuffer(54, FASG::EAligned::CENTER, "X para cerrar", FASG::EForeColor::Yellow);
 	}
 
-	FASG::WriteSpriteBuffer(logscrin.pos.X, logscrin.pos.Y, logscrin.dou);
+	
 
 	
 	if (FASG::IsKeyPressed ('X'))
