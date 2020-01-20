@@ -6,7 +6,7 @@ int const EnemiesLit = 4;
 
 enemiMovement movEnemie = enemiMovement::enUP;
 
-float const MovementCD = 1.f;
+float const MovementCD = 0.2f;
 
 float CD = MovementCD;
 
@@ -16,10 +16,10 @@ TypeEnemieLittle enemiesLittle[EnemiesLit];
 
 void InitEnemies()
 {
-	enemiesLittle[0].pos.Y = 12;
-	enemiesLittle[1].pos.Y = 24;
-	enemiesLittle[2].pos.Y = 36;
-	enemiesLittle[3].pos.Y = 48;
+	enemiesLittle[0].pos.Y = 16;
+	enemiesLittle[1].pos.Y = 28;
+	enemiesLittle[2].pos.Y = 40;
+	enemiesLittle[3].pos.Y = 52;
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{
@@ -38,10 +38,10 @@ void DrawEnemies()
 			switch (movEnemie)
 			{
 			case enUP:
-				enemiesLittle[i].pos.Y--;
+				enemiesLittle[i].pos.Y-= 2;
 				break;
 			case enDOWN:
-				enemiesLittle[i].pos.Y++;
+				enemiesLittle[i].pos.Y+= 2;
 				break;
 			}
 		}
@@ -58,11 +58,17 @@ void DrawEnemies()
 		
 		switch (contador)
 		{
-		case 5:
+		case 3:
 			movEnemie = enemiMovement::enDOWN;
+			for (int i = 0; i < EnemiesLit; i++)
+				enemiesLittle[i].pos.X-= 4;
+			
 			break;
 		case 0:
 			movEnemie = enemiMovement::enUP;
+
+			for (int i = 0; i < EnemiesLit; i++)
+			enemiesLittle[i].pos.X-=4;
 			break;
 		}
 

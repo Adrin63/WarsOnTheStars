@@ -23,6 +23,9 @@ struct Game
 	bool gameplay = true;
 	bool executable = true;
 	bool login = false;
+	bool difficulty = true;
+	bool glossary = true;
+	bool howToPlay = true;
 };
 
 void BackgroundWords(int initialX, int finalX, int Y);

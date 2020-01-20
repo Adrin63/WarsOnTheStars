@@ -10,6 +10,8 @@
 #include "LoginScreen.h"
 #include "Stars.h"
 #include "Enemies.h"
+#include "Menu.h"
+#include "Difficulty.h"
 
 HANDLE hndl;
 
@@ -30,13 +32,16 @@ int main()
 	InitPlayer();
 	Init_Stars();
 	InitEnemies();
-	//InitLogScreen();
+	InitLogScreen();
+
 	while (!game.login)
 	{
 		LogScreen();
 
 		while (!game.executable)
 		{
+			Menu();
+
 			while (!game.gameplay)
 			{
 				MovementPlayer();
@@ -47,7 +52,26 @@ int main()
 				FASG::RenderFrame();
 
 			}
+
+			while (!game.difficulty)
+			{
+				Difficulty();
+				FASG::RenderFrame();
+			}
+
+			while (!game.glossary)
+			{
+				FASG::RenderFrame();
+			}
+
+			while (!game.howToPlay)
+			{
+				FASG::RenderFrame();
+			}
+
+			FASG::RenderFrame();
 		}
+
 		FASG::RenderFrame();
 	}
 

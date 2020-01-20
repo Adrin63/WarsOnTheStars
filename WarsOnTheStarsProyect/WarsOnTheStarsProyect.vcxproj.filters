@@ -51,6 +51,12 @@
     <ClCompile Include="Enemies.cpp">
       <Filter>Archivos de origen\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Difficulty.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Player.txt">
@@ -90,6 +96,12 @@
     </ClInclude>
     <ClInclude Include="Enemies.h">
       <Filter>Archivos de encabezado\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Difficulty.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

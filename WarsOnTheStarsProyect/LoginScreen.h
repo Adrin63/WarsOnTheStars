@@ -9,4 +9,4 @@ struct Logear
 };
 
 void LogScreen();
-//void InitLogScreen();
+void InitLogScreen();
