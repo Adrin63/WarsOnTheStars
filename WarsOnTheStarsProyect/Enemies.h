@@ -11,7 +11,7 @@ struct TypeEnemieLittle
 {
 	Vector2D pos;
 	float speed;
-	FASG::Sprite sprite = FASG::Sprite("EnemieLittle.txt");
+	FASG::Sprite sprite;
 };
 
 /*

@@ -6,7 +6,7 @@ int const EnemiesLit = 4;
 
 enemiMovement movEnemie = enemiMovement::enUP;
 
-float const MovementCD = 0.2f;
+float const MovementCD = 0.1f;
 
 float CD = MovementCD;
 
@@ -16,14 +16,16 @@ TypeEnemieLittle enemiesLittle[EnemiesLit];
 
 void InitEnemies()
 {
-	enemiesLittle[0].pos.Y = 16;
-	enemiesLittle[1].pos.Y = 28;
-	enemiesLittle[2].pos.Y = 40;
-	enemiesLittle[3].pos.Y = 52;
+	
+	enemiesLittle[0].sprite.Location.y = 16;
+	enemiesLittle[1].sprite.Location.y = 28;
+	enemiesLittle[2].sprite.Location.y = 40;
+	enemiesLittle[3].sprite.Location.y = 52;
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{
-		enemiesLittle[i].pos.X = 200;
+		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
+		enemiesLittle[i].sprite.Location.x = 200;
 	}
 }
 
@@ -38,10 +40,10 @@ void DrawEnemies()
 			switch (movEnemie)
 			{
 			case enUP:
-				enemiesLittle[i].pos.Y-= 2;
+				enemiesLittle[i].sprite.Location.y -= 2;
 				break;
 			case enDOWN:
-				enemiesLittle[i].pos.Y+= 2;
+				enemiesLittle[i].sprite.Location.y += 2;
 				break;
 			}
 		}
@@ -61,14 +63,14 @@ void DrawEnemies()
 		case 3:
 			movEnemie = enemiMovement::enDOWN;
 			for (int i = 0; i < EnemiesLit; i++)
-				enemiesLittle[i].pos.X-= 4;
+				enemiesLittle[i].sprite.Location.x -= 4;
 			
 			break;
 		case 0:
 			movEnemie = enemiMovement::enUP;
 
 			for (int i = 0; i < EnemiesLit; i++)
-			enemiesLittle[i].pos.X-=4;
+				enemiesLittle[i].sprite.Location.x -=4;
 			break;
 		}
 
@@ -77,6 +79,6 @@ void DrawEnemies()
 
 	for (int draw = 0; draw < EnemiesLit; draw++)
 	{
-		FASG::WriteSpriteBuffer(enemiesLittle[draw].pos.X, enemiesLittle[draw].pos.Y, enemiesLittle[draw].sprite);
+		FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
 	}
 }

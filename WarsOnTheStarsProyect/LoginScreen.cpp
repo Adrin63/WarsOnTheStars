@@ -14,9 +14,9 @@ float culdown = DissapearCD;
 
 void InitLogScreen()
 {
-	logscrin.dou.LoadSprite("LS.txt");
-	logscrin.dou.Location.x = 97;
-	logscrin.dou.Location.y = 5;
+	logscrin.log.LoadSprite("LS.txt");
+	logscrin.log.Location.x = 97;
+	logscrin.log.Location.y = 5;
 }
 
 
@@ -44,7 +44,7 @@ void LogScreen()
 		on = false;
 	}
 
-	FASG::WriteSpriteBuffer(logscrin.dou.Location.x, logscrin.dou.Location.y, logscrin.dou);
+	FASG::WriteSpriteBuffer(logscrin.log.Location.x, logscrin.log.Location.y, logscrin.log);
 
 	if (on)
 	{

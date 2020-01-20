@@ -12,27 +12,18 @@
 #include "Enemies.h"
 #include "Menu.h"
 #include "Difficulty.h"
+#include "HowToPlay.h"
 
 HANDLE hndl;
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
-
 
 extern Player player;
 extern Game game;
 
 int main()
 {
-	srand(time(NULL));
-	game.W = 300; game.H = 60;
-
-	FASG::InitConsole(game.W, game.H);
-	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
-
-	InitPlayer();
-	Init_Stars();
-	InitEnemies();
-	InitLogScreen();
+	InitGame();
 
 	while (!game.login)
 	{
@@ -43,13 +34,11 @@ int main()
 		{
 			Menu();
 
+			FASG::RenderFrame();
 			while (!game.gameplay)
 			{
 				MovementPlayer();
-				//DrawObjects();
-				Draw_Stars();
-				DrawPlayer();
-				DrawEnemies();
+				DrawGame();
 				FASG::RenderFrame();
 
 			}
@@ -67,12 +56,31 @@ int main()
 
 			while (!game.howToPlay)
 			{
+				HowToPlay();
 				FASG::RenderFrame();
 			}
-
-			FASG::RenderFrame();
 		}
 	}
-
 	FASG::DestroyConsole();
+}
+
+void InitGame()
+{
+	srand(time(NULL));
+	game.W = 300; game.H = 60;
+
+	FASG::InitConsole(game.W, game.H);
+	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
+
+	InitPlayer();
+	Init_Stars();
+	InitEnemies();
+	InitLogScreen();
+}
+
+void DrawGame()
+{
+	Draw_Stars();
+	DrawPlayer();
+	DrawEnemies();
 }

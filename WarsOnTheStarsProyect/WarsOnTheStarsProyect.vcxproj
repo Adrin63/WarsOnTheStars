@@ -158,6 +158,7 @@
     <ClCompile Include="Difficulty.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="HowToPlay.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -165,8 +166,11 @@
     <ClCompile Include="WarsOnTheStarsProject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Controles.txt" />
+    <Text Include="Dificultad.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="LS.txt" />
+    <Text Include="Menu.txt" />
     <Text Include="Player_Right.txt" />
     <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
@@ -174,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="Enemies.h" />
+    <ClInclude Include="HowToPlay.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Shoot.h" />
     <ClInclude Include="Engine.h" />

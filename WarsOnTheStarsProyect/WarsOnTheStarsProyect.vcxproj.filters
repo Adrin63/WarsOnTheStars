@@ -57,21 +57,19 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
+    <ClCompile Include="HowToPlay.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Player.txt">
-      <Filter>Archivos de origen\Player</Filter>
-    </Text>
-    <Text Include="Shoot.txt">
-      <Filter>Archivos de origen\Player</Filter>
-    </Text>
-    <Text Include="EnemieLittle.txt">
-      <Filter>Archivos de origen\Enemies</Filter>
-    </Text>
-    <Text Include="Player_Right.txt">
-      <Filter>Archivos de origen\Player</Filter>
-    </Text>
     <Text Include="LS.txt" />
+    <Text Include="Shoot.txt" />
+    <Text Include="Player.txt" />
+    <Text Include="Player_Right.txt" />
+    <Text Include="EnemieLittle.txt" />
+    <Text Include="Controles.txt" />
+    <Text Include="Dificultad.txt" />
+    <Text Include="Menu.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -99,6 +97,9 @@
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="HowToPlay.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,3 +29,7 @@ struct Game
 };
 
 void BackgroundWords(int initialX, int finalX, int Y);
+
+void InitGame();
+
+void DrawGame();

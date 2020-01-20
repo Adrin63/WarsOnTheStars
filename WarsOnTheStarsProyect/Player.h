@@ -16,8 +16,8 @@ struct Player
 {
 	Vector2D pos;
 	float speed= 90.f;
-	FASG::Sprite sprite2 = FASG::Sprite("Player_Right.txt");
-	FASG::Sprite sprite = FASG::Sprite("Player.txt");
+	FASG::Sprite spriteInMove;
+	FASG::Sprite sprite;
 };
 
 void DrawPlayer();

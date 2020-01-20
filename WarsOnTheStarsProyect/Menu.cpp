@@ -38,12 +38,18 @@ void Menu()
 			game.gameplay = true;
 			game.difficulty = false;
 		}
+
+		if (DifChar == 'E' && contadorMenu == 2)
+		{
+			game.executable = true;
+			game.howToPlay = false;
+		}
 	}
+	FASG::WriteSpriteBuffer(113, 5, FASG::Sprite("Menu.txt"));
 
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "DIFICULTAD", FASG::EForeColor::LightWhite);
-	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "GLOSARIO", FASG::EForeColor::LightWhite);
-	FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "COMO JUGAR", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "COMO JUGAR", FASG::EForeColor::LightWhite);
 
 	switch (contadorMenu)
 	{
@@ -54,18 +60,15 @@ void Menu()
 		BackgroundWords(143, 156, 25);
 		break;
 	case 2:
-		BackgroundWords(144, 155, 30);
+		BackgroundWords(143, 156, 30);
 		break;
 	case 3:
-		BackgroundWords(143, 156, 35);
+		contadorMenu = 2;
+		BackgroundWords(143, 156, 30);
 		break;
 	case -1:
 		BackgroundWords(146, 154, 20);
 		contadorMenu = 0;
-		break;
-	case 4:
-		contadorMenu = 3;
-		BackgroundWords(143, 156, 35);
 		break;
 	}
 }
