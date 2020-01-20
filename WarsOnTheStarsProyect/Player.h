@@ -14,8 +14,8 @@ enum PlayerMovement
 
 struct Player
 {
-	Vector2D pos;
 	float speed= 90.f;
+
 	FASG::Sprite spriteInMove;
 	FASG::Sprite sprite;
 };

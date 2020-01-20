@@ -6,25 +6,24 @@ extern Game game;
 
 bool on = true;
 
-Logear logscrin;
+Logear logscreen;
 
 float const DissapearCD = 1.f;
 
-float culdown = DissapearCD;
+float coolDown = DissapearCD;
 
 void InitLogScreen()
 {
-	logscrin.log.LoadSprite("LS.txt");
-	logscrin.log.Location.x = 97;
-	logscrin.log.Location.y = 5;
+	logscreen.log.LoadSprite("LS.txt");
+	logscreen.log.Location.x = 97;
+	logscreen.log.Location.y = 5;
 }
-
 
 void LogScreen()
 {	
-	culdown -= FASG::GetDeltaTime();
+	coolDown -= FASG::GetDeltaTime();
 
-	if (culdown <= 0)
+	if (coolDown <= 0)
 	{
 		switch (on)
 		{
@@ -35,16 +34,16 @@ void LogScreen()
 			on = true;
 			break;
 		}
-		culdown = DissapearCD;
+		coolDown = DissapearCD;
 	}
 
 	if (FASG::IsKeyPressed(' '))
 	{
-		game.executable = false;
+		game.executable = true;
 		on = false;
 	}
 
-	FASG::WriteSpriteBuffer(logscrin.log.Location.x, logscrin.log.Location.y, logscrin.log);
+	FASG::WriteSpriteBuffer(logscreen.log.Location.x, logscreen.log.Location.y, logscreen.log);
 
 	if (on)
 	{
@@ -52,13 +51,9 @@ void LogScreen()
 		FASG::WriteStringBuffer(54, FASG::EAligned::CENTER, "X para cerrar", FASG::EForeColor::Yellow);
 	}
 
-	
-
-	
 	if (FASG::IsKeyPressed ('X'))
 	{
-		game.executable = true;
-		game.gameplay = true;
-		game.login = true;
+		game.executable = false;
+		game.login = false;
 	}	
 }

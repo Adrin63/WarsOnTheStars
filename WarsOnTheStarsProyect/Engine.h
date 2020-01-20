@@ -1,5 +1,4 @@
 #pragma once
-
 struct Vector2D
 {
 	float X = 0;
@@ -20,12 +19,12 @@ struct Vector2D
 struct Game
 {
 	int W, H;
-	bool gameplay = true;
-	bool executable = true;
-	bool login = false;
-	bool difficulty = true;
-	bool glossary = true;
-	bool howToPlay = true;
+	bool gameplay = false;
+	bool executable = false;
+	bool login = true;
+	bool difficulty = false;
+	bool glossary = false;
+	bool howToPlay = false;
 };
 
 void BackgroundWords(int initialX, int finalX, int Y);

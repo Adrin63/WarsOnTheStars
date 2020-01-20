@@ -34,8 +34,6 @@ void ShootPlayer()
 	if (pShoot.shootPlayer.Location.x >= 300)
 	{
 		pShoot.ShootOn = false;
-		pShoot.shootPlayer.Location.x = player.sprite.Location.x + 5;
-		pShoot.shootPlayer.Location.y = player.sprite.Location.y + 2;
 	}
 	
 }
@@ -46,19 +44,17 @@ void DrawPlayer()
 	{
 		case PlayerMovement::RIGHT:
 		FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.spriteInMove);
-		direction = PlayerMovement::STILL;
 		break;
 		default: 
 		FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.sprite);
-		direction = PlayerMovement::STILL;
 	}
-
-	
 }
 
 
 void MovementPlayer()
 {
+	direction = PlayerMovement::STILL;
+
 	if (FASG::IsKeyPressed('W'))
 	{
 		direction = PlayerMovement::UP;
@@ -121,8 +117,8 @@ void MovementPlayer()
 
 		if (a == 'O')
 		{
-			game.executable = true;
-			game.gameplay = true;
+			game.executable = false;
+			game.gameplay = false;
 		}
 	}
 }

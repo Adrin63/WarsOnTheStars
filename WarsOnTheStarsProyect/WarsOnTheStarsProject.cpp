@@ -18,24 +18,24 @@ HANDLE hndl;
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
 
-extern Player player;
+//extern Player player;
 extern Game game;
 
 int main()
 {
 	InitGame();
 
-	while (!game.login)
+	while (game.login)
 	{
 		LogScreen();
-
 		FASG::RenderFrame();
-		while (!game.executable)
+
+		while (game.executable)
 		{
 			Menu();
-
 			FASG::RenderFrame();
-			while (!game.gameplay)
+
+			while (game.gameplay)
 			{
 				MovementPlayer();
 				DrawGame();
@@ -43,24 +43,20 @@ int main()
 
 			}
 
-			while (!game.difficulty)
+			while (game.difficulty)
 			{
 				Difficulty();
 				FASG::RenderFrame();
 			}
 
-			while (!game.glossary)
-			{
-				FASG::RenderFrame();
-			}
-
-			while (!game.howToPlay)
+			while (game.howToPlay)
 			{
 				HowToPlay();
 				FASG::RenderFrame();
 			}
 		}
 	}
+
 	FASG::DestroyConsole();
 }
 

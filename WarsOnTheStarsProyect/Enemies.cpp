@@ -70,7 +70,7 @@ void DrawEnemies()
 			movEnemie = enemiMovement::enUP;
 
 			for (int i = 0; i < EnemiesLit; i++)
-				enemiesLittle[i].sprite.Location.x -=4;
+				enemiesLittle[i].sprite.Location.x -= 4;
 			break;
 		}
 

@@ -28,21 +28,21 @@ void Menu()
 
 		if (DifChar == 'E' && contadorMenu == 0)
 		{
-			game.executable = true;
-			game.gameplay = false;
+			game.executable = false;
+			game.gameplay = true;
 		}
 
 		if (DifChar == 'E' && contadorMenu == 1)
 		{
-			game.executable = true;
-			game.gameplay = true;
-			game.difficulty = false;
+			game.executable = false;
+			game.gameplay = false;
+			game.difficulty = true;
 		}
 
 		if (DifChar == 'E' && contadorMenu == 2)
 		{
-			game.executable = true;
-			game.howToPlay = false;
+			game.executable = false;
+			game.howToPlay = true;
 		}
 	}
 	FASG::WriteSpriteBuffer(113, 5, FASG::Sprite("Menu.txt"));

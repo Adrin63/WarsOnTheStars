@@ -15,8 +15,8 @@ void HowToPlay()
 
         if (ComJugChar == 'X')
         {
-            game.executable = false;
-            game.howToPlay = true;
+            game.executable = true;
+            game.howToPlay = false;
         }
     }
     FASG::WriteSpriteBuffer(89, 5, FASG::Sprite("Controles.txt"));

@@ -28,23 +28,23 @@ void Difficulty()
 
 		if (DifChar == 'E' && contadorDifficulty == 0)
 		{
-			game.executable = false;
-			game.gameplay = false;
-			game.difficulty = true;
+			game.executable = true;
+			game.gameplay = true;
+			game.difficulty = false;
 		}
 
 		if (DifChar == 'E' && contadorDifficulty == 1)
 		{
-			game.executable = false;
-			game.gameplay = false;
-			game.difficulty = true;
+			game.executable = true;
+			game.gameplay = true;
+			game.difficulty = false;
 		}
 
 		if (DifChar == 'E' && contadorDifficulty == 2)
 		{
-			game.executable = false;
-			game.gameplay = false;
-			game.difficulty = true;
+			game.executable = true;
+			game.gameplay = true;
+			game.difficulty = false;
 		}
 	}
 
