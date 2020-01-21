@@ -70,6 +70,10 @@
     <Text Include="Controles.txt" />
     <Text Include="Dificultad.txt" />
     <Text Include="Menu.txt" />
+    <Text Include="EnemieMedium.txt" />
+    <Text Include="EnemieLarge.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
