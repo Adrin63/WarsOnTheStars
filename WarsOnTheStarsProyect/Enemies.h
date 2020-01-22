@@ -31,11 +31,9 @@ struct TypeEnemieLarge
 	int vida = 10;
 };
 
-/*
-FASG::Sprite spriteEnMiddle = FASG::Sprite("EnemieLittle.txt");
-FASG::Sprite spriteEnGiga = FASG::Sprite("EnemieLittle.txt");
-FASG::Sprite spriteEnBigChungus = FASG::Sprite("EnemieLittle.txt");
-*/
-
 void InitEnemies();
 void DrawEnemies();
+
+void MovementLittle();
+void MovementMiddle();
+void MovementLarge();

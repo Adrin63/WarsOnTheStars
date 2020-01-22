@@ -8,14 +8,23 @@ int const EnemiesLar = 2;
 
 enemiMovement movEnemie = enemiMovement::enUP;
 
-float const MovementCDLittle = 0.85f, MovementCDMedium = 1.25f, MovementCDLarge = 2.f;
+float const MovementCDLittle = 0.85f, MovementCDMedium = 1.25f, MovementCDLarge = 3.f;
 
 float CDLittle = MovementCDLittle, CDMedium = MovementCDMedium, CDLarge = MovementCDLarge;
 
-int contador=0;
+float timeUntilAppear = 2.f;
+float CDUntilAppear = timeUntilAppear;
+
+int contador = 0;
+
+bool RestartLarge[EnemiesLar];
+
+bool allAway = false;
 
 TypeEnemieLittle enemiesLittle[EnemiesLit];
+
 TypeEnemieMedium enemiesMedium[EnemiesMed];
+
 TypeEnemieLarge enemiesLarge[EnemiesLar];
 
 void InitEnemies()
@@ -45,7 +54,7 @@ void InitEnemies()
 	enemiesLarge[0].sprite.Location.y = 3;
 	enemiesLarge[1].sprite.Location.y = 41;
 
-	for (int j = 0; j < EnemiesMed; j++)
+	for (int j = 0; j < EnemiesLar; j++)
 	{
 		enemiesLarge[j].sprite.LoadSprite("EnemieLarge.txt");
 		enemiesLarge[j].sprite.Location.x = 260;
@@ -58,7 +67,33 @@ void DrawEnemies()
 	CDMedium -= FASG::GetDeltaTime();
 	CDLarge -= FASG::GetDeltaTime();
 
-	//Moviemiento Pequeño
+	MovementLittle();
+	
+	MovementMiddle();
+
+	MovementLarge();
+
+	for (int draw = 0; draw < EnemiesLit; draw++)
+	{
+		if (enemiesLittle[draw].vida > 0)
+			FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
+	}
+
+	for (int draw = 0; draw < EnemiesMed; draw++)
+	{
+		if (enemiesMedium[draw].vida > 0)
+			FASG::WriteSpriteBuffer(enemiesMedium[draw].sprite.Location.x, enemiesMedium[draw].sprite.Location.y, enemiesMedium[draw].sprite);
+	}
+
+	for (int draw = 0; draw < EnemiesLar; draw++)
+	{
+		if (enemiesLarge[draw].vida > 0)
+			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+	}
+}
+
+void MovementLittle()
+{
 	if (CDLittle <= 0)
 	{
 		for (int i = 0; i < EnemiesLit; i++)
@@ -83,14 +118,14 @@ void DrawEnemies()
 			contador--;
 			break;
 		}
-		
+
 		switch (contador)
 		{
 		case 3:
 			movEnemie = enemiMovement::enDOWN;
 			for (int i = 0; i < EnemiesLit; i++)
 				enemiesLittle[i].sprite.Location.x -= 4;
-			
+
 			break;
 		case 0:
 			movEnemie = enemiMovement::enUP;
@@ -102,8 +137,10 @@ void DrawEnemies()
 
 		CDLittle = MovementCDLittle;
 	}
+}
 
-	//Movimiento Mediano
+void MovementMiddle()
+{
 	if (CDMedium <= 0)
 	{
 		for (int i = 0; i < EnemiesMed; i++)
@@ -147,34 +184,52 @@ void DrawEnemies()
 
 		CDMedium = MovementCDMedium;
 	}
+}
 
-	//Moviemiento Grande
-	/*if (CDLarge <= 0)
+void MovementLarge()
+{
+	if (!allAway)
 	{
-		for (int i = 0; i < EnemiesLar; i++)
+		if (CDLarge <= 0)
 		{
-			enemiesLarge[i].sprite.Location.x -= 2;		
+			for (int i = 0; i < EnemiesLar; i++)
+			{
+				enemiesLarge[i].sprite.Location.x -= 2;
+
+				if (enemiesLarge[i].sprite.Location.x <= -22)
+				{
+					RestartLarge[i] = true;
+					allAway = true;
+				}
+			}
 		}
-	}*/
-
-
-	for (int draw = 0; draw < EnemiesLit; draw++)
-	{
-		if (enemiesLittle[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
 	}
 
-	for (int draw = 0; draw < EnemiesMed; draw++)
+	if (allAway)
 	{
-		if (enemiesMedium[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesMedium[draw].sprite.Location.x, enemiesMedium[draw].sprite.Location.y, enemiesMedium[draw].sprite);
+		CDUntilAppear -= FASG::GetDeltaTime();
+
+		if (CDUntilAppear <= 0)
+		{
+			for (int i = 0; i < EnemiesLar; i++)
+			{
+				if (RestartLarge[i])
+				{
+					enemiesLarge[i].sprite.Location.x = 308;
+					RestartLarge[i] = false;
+				}
+
+				enemiesLarge[i].sprite.Location.x--;
+
+				if (enemiesLarge[i].sprite.Location.x <= 260)
+				{
+					enemiesLarge[i].sprite.Location.x = 260;
+					CDUntilAppear = timeUntilAppear;
+					CDLarge = MovementCDLarge;
+					RestartLarge[i] = true;
+					allAway = false;
+				}
+			}
+		}
 	}
-
-	for (int draw = 0; draw < EnemiesLar; draw++)
-	{
-		if (enemiesLarge[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
-	}
-
-
 }

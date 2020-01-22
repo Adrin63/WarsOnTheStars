@@ -46,8 +46,7 @@ int main()
 			while (game.difficulty)
 			{
 				Difficulty();
-				FASG::RenderFrame();
-			}
+				FASG::RenderFrame();			}
 
 			while (game.howToPlay)
 			{
