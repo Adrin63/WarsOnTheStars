@@ -12,6 +12,23 @@ struct TypeEnemieLittle
 	Vector2D pos;
 	float speed;
 	FASG::Sprite sprite;
+	int vida = 1;
+};
+
+struct TypeEnemieMedium
+{
+	Vector2D pos;
+	float speed;
+	FASG::Sprite sprite;
+	int vida = 5;
+};
+
+struct TypeEnemieLarge
+{
+	Vector2D pos;
+	float speed;
+	FASG::Sprite sprite;
+	int vida = 10;
 };
 
 /*
