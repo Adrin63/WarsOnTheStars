@@ -36,6 +36,6 @@ int envLitEnQuantity();
 int envMidEnQuantity();
 int envLarEnQuantity();
 
-void ReciveLitDmg(int i);
-void ReciveMidDmg(int a);
-void ReciveLarDmg(int b);
+void ReciveLitDmg(int a);
+void ReciveMidDmg(int b);
+void ReciveLarDmg(int c);

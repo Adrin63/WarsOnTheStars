@@ -5,15 +5,15 @@
 
 int contadorDifficulty = 0;
 
+float CDDif = 0.5f;
 extern Game game;
 
 void Difficulty()
 {
-	bool Dif = false;
+	CDDif -= FASG::GetDeltaTime();
 
-	if (!Dif)
+	if (CDDif <= 0)
 	{
-
 		char DifChar = toupper(_getch());
 
 		switch (DifChar)
@@ -26,49 +26,52 @@ void Difficulty()
 			break;
 		}
 
-		if (DifChar == 'E' && contadorDifficulty == 0)
+		if (DifChar == 'R' && contadorDifficulty == 0)
 		{
-			game.executable = true;
 			game.gameplay = true;
-			game.difficulty = false;
 		}
 
-		if (DifChar == 'E' && contadorDifficulty == 1)
+		if (DifChar == 'R' && contadorDifficulty == 1)
 		{
-			game.executable = true;
 			game.gameplay = true;
-			game.difficulty = false;
 		}
 
-		if (DifChar == 'E' && contadorDifficulty == 2)
+		if (DifChar == 'R' && contadorDifficulty == 2)
 		{
-			game.executable = true;
 			game.gameplay = true;
+		}
+
+		if (DifChar == 'X')
+		{
 			game.difficulty = false;
 		}
 	}
 
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
-	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "FACIL", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "INMORTAL", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "NORMAL", FASG::EForeColor::LightWhite);
-	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "DIFICIL", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "1 VIDA", FASG::EForeColor::LightWhite);
+
+	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "R PARA SELECCIONAR", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "X PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 
 	switch (contadorDifficulty)
 	{
 	case 0:
-		BackgroundWords(146, 154, 20);
+		BackgroundWords(144, 155, 20);
 		break;
 	case 1:
-		BackgroundWords(146, 154, 25);
+		BackgroundWords(145, 154, 25);
 		break;
 	case 2:
-		BackgroundWords(146, 155, 30);
+		BackgroundWords(145, 154, 30);
 		break;
 	case 3:
-		BackgroundWords(146, 155, 30);
+		BackgroundWords(145, 154, 30);
+		contadorDifficulty = 2;
 		break;
 	case -1:
-		BackgroundWords(146, 154, 20);
+		BackgroundWords(144, 155, 20);
 		contadorDifficulty = 0;
 		break;
 	}

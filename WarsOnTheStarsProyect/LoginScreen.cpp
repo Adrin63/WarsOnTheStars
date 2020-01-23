@@ -40,6 +40,10 @@ void LogScreen()
 	if (FASG::IsKeyPressed(' '))
 	{
 		game.executable = true;
+		game.gameplay = false;
+		game.difficulty = false;
+		game.glossary = false;
+		game.howToPlay = false;
 		on = false;
 	}
 
@@ -47,13 +51,12 @@ void LogScreen()
 
 	if (on)
 	{
-		FASG::WriteStringBuffer(50, FASG::EAligned::CENTER, "Presione espacio para continuar", FASG::EForeColor::Yellow);
-		FASG::WriteStringBuffer(54, FASG::EAligned::CENTER, "X para cerrar", FASG::EForeColor::Yellow);
+		FASG::WriteStringBuffer(50, FASG::EAligned::CENTER, "PRESIONE ESPACIO PARA CONTINUAR", FASG::EForeColor::Yellow);
+		FASG::WriteStringBuffer(54, FASG::EAligned::CENTER, "X PARA SALIR", FASG::EForeColor::Yellow);
 	}
 
 	if (FASG::IsKeyPressed ('X'))
 	{
-		game.executable = false;
 		game.login = false;
 	}	
 }

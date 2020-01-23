@@ -25,4 +25,4 @@ void InitPlayer();
 void MovementPlayer();
 void ShootPlayer();
 
-bool envShoot();
+void ShootOff(bool a);

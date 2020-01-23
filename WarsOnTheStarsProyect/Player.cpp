@@ -118,18 +118,14 @@ void MovementPlayer()
 
 		if (a == 'O')
 		{
-			game.executable = false;
 			game.gameplay = false;
+			game.difficulty = false;
+			game.executable = false;
 		}
 	}
 }
 
-bool envShoot()
-{
-	return pShoot.ShootOn;
-}
-
-void ReciveLitDmg(bool a)
+void ShootOff(bool a)
 {
 	pShoot.ShootOn = a;
 }

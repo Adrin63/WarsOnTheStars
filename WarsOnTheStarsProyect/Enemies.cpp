@@ -21,6 +21,9 @@ bool RestartLarge[EnemiesLar];
 
 bool allAway = false;
 
+int DeadLit = 0, DeadMid = 0, DeadLar = 0;
+bool AllDeadLit = false, allDeadMid = false, allDeadLar = false;
+
 TypeEnemieLittle enemiesLittle[EnemiesLit];
 
 TypeEnemieMedium enemiesMedium[EnemiesMed];
@@ -29,7 +32,10 @@ TypeEnemieLarge enemiesLarge[EnemiesLar];
 
 void InitEnemies()
 {
-	
+	allAway = false;
+	DeadLit = 0, DeadMid = 0, DeadLar = 0;
+	AllDeadLit = false, allDeadMid = false, allDeadLar = false;
+
 	enemiesLittle[0].sprite.Location.y = 10;
 	enemiesLittle[1].sprite.Location.y = 22;
 	enemiesLittle[2].sprite.Location.y = 34;
@@ -75,24 +81,6 @@ void DrawEnemies()
 	MovementMiddle();
 
 	MovementLarge();
-
-	for (int draw = 0; draw < EnemiesLit; draw++)
-	{
-		if (enemiesLittle[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
-	}
-
-	for (int draw = 0; draw < EnemiesMed; draw++)
-	{
-		if (enemiesMedium[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesMedium[draw].sprite.Location.x, enemiesMedium[draw].sprite.Location.y, enemiesMedium[draw].sprite);
-	}
-
-	for (int draw = 0; draw < EnemiesLar; draw++)
-	{
-		if (enemiesLarge[draw].vida > 0)
-			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
-	}
 }
 
 void MovementLittle()
@@ -140,6 +128,24 @@ void MovementLittle()
 
 		CDLittle = MovementCDLittle;
 	}
+
+	for (int draw = 0; draw < EnemiesLit; draw++)
+	{
+		if (enemiesLittle[draw].vida > 0)
+		{
+			FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
+		}
+		else
+		{
+			DeadLit++;
+			enemiesLittle[draw].sprite.Location.x = -10;
+		}
+	}
+
+	if (DeadLit == EnemiesLit)
+	{
+		AllDeadLit = true;
+	}
 }
 
 void MovementMiddle()
@@ -186,6 +192,18 @@ void MovementMiddle()
 		}
 
 		CDMedium = MovementCDMedium;
+	}
+
+	for (int draw = 0; draw < EnemiesLit; draw++)
+	{
+		if (enemiesMedium[draw].vida > 0)
+		{
+			FASG::WriteSpriteBuffer(enemiesMedium[draw].sprite.Location.x, enemiesMedium[draw].sprite.Location.y, enemiesMedium[draw].sprite);
+		}
+		else
+		{
+			enemiesMedium[draw].sprite.Location.x = -10;
+		}
 	}
 }
 
@@ -235,6 +253,12 @@ void MovementLarge()
 			}
 		}
 	}
+
+	for (int draw = 0; draw < EnemiesLar; draw++)
+	{
+		if (enemiesLarge[draw].vida > 0)
+			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+	}
 }
 
 int envLitEnQuantity()
@@ -252,12 +276,17 @@ int envLarEnQuantity()
 	return EnemiesLar;
 }
 
-void ReciveLitDmg(int i)
+void ReciveLitDmg(int a)
 {
-	enemiesLittle[i].vida--;
+	enemiesLittle[a].vida--;
 }
 
-void ReciveMidDmg(int a)
+void ReciveMidDmg(int b)
 {
-	enemiesMedium[a].vida--;
+	enemiesMedium[b].vida--;
+}
+
+void ReciveLarDmg(int c)
+{
+	enemiesLarge[c].vida--;
 }

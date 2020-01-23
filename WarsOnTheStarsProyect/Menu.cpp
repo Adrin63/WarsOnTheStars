@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "Menu.h"7
 #include "FAriasSimpleGraphics.h"
 #include <conio.h>
 #include "Engine.h"
@@ -9,40 +9,41 @@ extern Game game;
 
 void Menu()
 {
-	bool Menu = true;
-
-	if (Menu)
-	{
-
-		char DifChar = toupper(_getch());
-
-		switch (DifChar)
+		if (FASG::IsKeyPressed('W'))
 		{
-		case 'W':
 			contadorMenu--;
-			break;
-		case 'S':
+		}
+
+		if (FASG::IsKeyPressed('S'))
+		{
 			contadorMenu++;
-			break;
 		}
 
-		if (DifChar == 'E' && contadorMenu == 0)
+		if (FASG::IsKeyPressed('E') && contadorMenu == 0)
 		{
-			game.executable = false;
-			game.gameplay = false;
 			game.difficulty = true;
+			game.gameplay = false;
+			contadorMenu = 0;
 		}
 
-		if (DifChar == 'E' && contadorMenu == 1)
+		if (FASG::IsKeyPressed('E') && contadorMenu == 1)
 		{
-			game.executable = false;
 			game.howToPlay = true;
 		}
-	}
+
+		if (FASG::IsKeyPressed('C'))
+		{
+			game.executable = false;
+			game.login = false;
+		}
+
 	FASG::WriteSpriteBuffer(113, 5, FASG::Sprite("Menu.txt"));
 
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "COMO JUGAR", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "E PARA SELECCIONAR", FASG::EForeColor::LightWhite);
+
+	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "C PARA SALIR", FASG::EForeColor::LightWhite);
 
 	switch (contadorMenu)
 	{

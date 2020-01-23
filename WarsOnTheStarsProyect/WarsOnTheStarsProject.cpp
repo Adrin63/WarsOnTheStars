@@ -23,7 +23,15 @@ extern Game game;
 
 int main()
 {
-	InitGame();
+	srand(time(NULL));
+	game.W = 300; game.H = 60;
+
+	FASG::InitConsole(game.W, game.H);
+	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
+
+	FASG::Sprite::SetCollisionCallback(Colisions);
+
+	InitLogScreen();	
 
 	while (game.login)
 	{
@@ -33,21 +41,21 @@ int main()
 		while (game.executable)
 		{
 			Menu();
+			InitGame();
+
 			FASG::RenderFrame();
-
-			while (game.gameplay)
-			{
-				
-				MovementPlayer();
-				DrawGame();
-				FASG::RenderFrame();
-
-			}
 
 			while (game.difficulty)
 			{
 				Difficulty();
-				FASG::RenderFrame();	
+				FASG::RenderFrame();
+
+				while (game.gameplay)
+				{
+					MovementPlayer();
+					DrawGame();
+					FASG::RenderFrame();
+				}
 			}
 
 			while (game.howToPlay)
@@ -63,18 +71,9 @@ int main()
 
 void InitGame()
 {
-	srand(time(NULL));
-	game.W = 300; game.H = 60;
-
-	FASG::InitConsole(game.W, game.H);
-	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
-
 	InitPlayer();
 	Init_Stars();
-	InitEnemies();
-	InitLogScreen();
-	FASG::Sprite::SetCollisionCallback(Colisions);
-	
+	InitEnemies();	
 }
 
 void DrawGame()
