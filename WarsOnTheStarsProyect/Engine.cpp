@@ -35,7 +35,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enMed" + i || tag2 == "ShootPlayer" && tag1 == "enMed" + i)
 		{
-
+			ReciveMidDmg(i);
 		}
 	}
 

@@ -37,3 +37,5 @@ int envMidEnQuantity();
 int envLarEnQuantity();
 
 void ReciveLitDmg(int i);
+void ReciveMidDmg(int a);
+void ReciveLarDmg(int b);

@@ -256,3 +256,8 @@ void ReciveLitDmg(int i)
 {
 	enemiesLittle[i].vida--;
 }
+
+void ReciveMidDmg(int a)
+{
+	enemiesMedium[a].vida--;
+}
