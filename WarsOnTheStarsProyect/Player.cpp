@@ -128,3 +128,8 @@ bool envShoot()
 {
 	return pShoot.ShootOn;
 }
+
+void ReciveLitDmg(bool a)
+{
+	pShoot.ShootOn = a;
+}

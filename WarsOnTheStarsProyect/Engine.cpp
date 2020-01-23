@@ -19,12 +19,14 @@ void MisColisiones(std::string tag1, std::string tag2)
 	int EnemiesLar = envLarEnQuantity();
 
 	bool Shoot = envShoot();
+
 	for (int i = 0; i < EnemiesLit; i++)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enLit" +i || tag2 == "ShootPlayer" && tag1 == "enLit" +i)
 		{
 			ReciveLitDmg(i);
-			Shoot = true;
+			Shoot = false;
+			ReciveLitDmg(!Shoot);
 
 		}
 	}
