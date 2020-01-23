@@ -38,6 +38,7 @@ void InitEnemies()
 	for (int i = 0; i < EnemiesLit; i++)
 	{
 		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
+		FASG::Sprite::AddToCollisionSystem(enemiesLittle[i].sprite, "enLit" + i);
 		enemiesLittle[i].sprite.Location.x = 200;
 	}
 
@@ -48,6 +49,7 @@ void InitEnemies()
 	for (int l = 0; l < EnemiesMed; l++)
 	{
 		enemiesMedium[l].sprite.LoadSprite("EnemieMedium.txt");
+		FASG::Sprite::AddToCollisionSystem(enemiesMedium[l].sprite, "enMed" + l);
 		enemiesMedium[l].sprite.Location.x = 225;
 	}
 
@@ -57,6 +59,7 @@ void InitEnemies()
 	for (int j = 0; j < EnemiesLar; j++)
 	{
 		enemiesLarge[j].sprite.LoadSprite("EnemieLarge.txt");
+		FASG::Sprite::AddToCollisionSystem(enemiesMedium[j].sprite, "enLar" + j);
 		enemiesLarge[j].sprite.Location.x = 260;
 	}
 }
@@ -232,4 +235,24 @@ void MovementLarge()
 			}
 		}
 	}
+}
+
+int envLitEnQuantity()
+{
+	return EnemiesLit;
+}
+
+int envMidEnQuantity()
+{
+	return EnemiesMed;
+}
+
+int envLarEnQuantity()
+{
+	return EnemiesLar;
+}
+
+void ReciveLitDmg(int i)
+{
+	enemiesLittle[i].vida--;
 }

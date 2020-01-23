@@ -37,6 +37,7 @@ int main()
 
 			while (game.gameplay)
 			{
+				
 				MovementPlayer();
 				DrawGame();
 				FASG::RenderFrame();
@@ -46,7 +47,8 @@ int main()
 			while (game.difficulty)
 			{
 				Difficulty();
-				FASG::RenderFrame();			}
+				FASG::RenderFrame();	
+			}
 
 			while (game.howToPlay)
 			{
@@ -71,6 +73,8 @@ void InitGame()
 	Init_Stars();
 	InitEnemies();
 	InitLogScreen();
+	FASG::Sprite::SetCollisionCallback(MisColisiones);
+	
 }
 
 void DrawGame()

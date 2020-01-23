@@ -22,6 +22,7 @@ void InitPlayer()
 	player.sprite.Location.y = game.H * 0.5f;
 
 	pShoot.shootPlayer.LoadSprite("Shoot.txt");
+	FASG::Sprite::AddToCollisionSystem(pShoot.shootPlayer, "ShootPlayer");
 	pShoot.speedSh = 300.f;
 	pShoot.ShootOn = false;
 }
@@ -122,4 +123,8 @@ void MovementPlayer()
 		}
 	}
 }
-	
+
+bool envShoot()
+{
+	return pShoot.ShootOn;
+}

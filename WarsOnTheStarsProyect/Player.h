@@ -15,7 +15,7 @@ enum PlayerMovement
 struct Player
 {
 	float speed= 90.f;
-
+	int life;
 	FASG::Sprite spriteInMove;
 	FASG::Sprite sprite;
 };
@@ -24,3 +24,5 @@ void DrawPlayer();
 void InitPlayer();
 void MovementPlayer();
 void ShootPlayer();
+
+bool envShoot();

@@ -71,9 +71,7 @@
     <Text Include="Dificultad.txt" />
     <Text Include="Menu.txt" />
     <Text Include="EnemieMedium.txt" />
-    <Text Include="EnemieLarge.txt">
-      <Filter>Archivos de recursos</Filter>
-    </Text>
+    <Text Include="EnemieLarge.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">

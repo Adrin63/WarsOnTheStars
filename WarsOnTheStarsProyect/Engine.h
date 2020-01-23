@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 struct Vector2D
 {
 	float X = 0;
@@ -32,3 +33,5 @@ void BackgroundWords(int initialX, int finalX, int Y);
 void InitGame();
 
 void DrawGame();
+
+void MisColisiones(std::string tag1, std::string tag2);
