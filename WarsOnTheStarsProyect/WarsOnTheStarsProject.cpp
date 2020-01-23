@@ -73,7 +73,7 @@ void InitGame()
 	Init_Stars();
 	InitEnemies();
 	InitLogScreen();
-	FASG::Sprite::SetCollisionCallback(MisColisiones);
+	FASG::Sprite::SetCollisionCallback(Colisions);
 	
 }
 

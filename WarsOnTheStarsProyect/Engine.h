@@ -34,4 +34,4 @@ void InitGame();
 
 void DrawGame();
 
-void MisColisiones(std::string tag1, std::string tag2);
+void Colisions(std::string tag1, std::string tag2);

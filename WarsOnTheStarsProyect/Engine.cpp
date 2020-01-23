@@ -12,7 +12,7 @@ void BackgroundWords(int initialX, int finalX, int Y)
 }
 
 
-void MisColisiones(std::string tag1, std::string tag2)
+void Colisions(std::string tag1, std::string tag2)
 {
 	int EnemiesLit = envLitEnQuantity();
 	int EnemiesMid = envMidEnQuantity();
