@@ -106,4 +106,9 @@
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="manantial.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

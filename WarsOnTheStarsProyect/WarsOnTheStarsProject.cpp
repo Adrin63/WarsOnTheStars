@@ -23,6 +23,9 @@ extern Game game;
 
 int main()
 {
+	FASG::WAVESound miSonidoDePrueba;
+	miSonidoDePrueba.LoadSound("manantial.wav");
+	
 	srand(time(NULL));
 	game.W = 300; game.H = 60;
 
@@ -32,9 +35,11 @@ int main()
 	FASG::Sprite::SetCollisionCallback(Colisions);
 
 	InitLogScreen();	
+	
 
 	while (game.login)
 	{
+		
 		LogScreen();
 		FASG::RenderFrame();
 
@@ -51,6 +56,7 @@ int main()
 
 				while (game.gameplay)
 				{
+					miSonidoDePrueba.Play();
 					MovementPlayer();
 					DrawGame();
 					FASG::RenderFrame();

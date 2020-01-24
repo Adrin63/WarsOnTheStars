@@ -190,6 +190,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stars.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="manantial.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
