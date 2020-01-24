@@ -32,6 +32,8 @@ void MovementLittle();
 void MovementMiddle();
 void MovementLarge();
 
+
+void FinalStateLars();
 void FinalState();
 
 int envLitEnQuantity();

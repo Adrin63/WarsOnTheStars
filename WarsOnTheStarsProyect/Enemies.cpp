@@ -89,10 +89,14 @@ void DrawEnemies()
 	MovementLittle();
 
 	MovementMiddle();
-
 	if (!FinalStateLar)
 	{
 		MovementLarge();
+	}
+	
+	if (FinalStateLar)
+	{
+		FinalStateLars();
 	}
 
 	if (allDeadLit && allDeadMid)
@@ -300,6 +304,10 @@ void MovementLarge()
 	{
 		allDeadLar = true;
 	}
+}
+
+void FinalStateLars()
+{
 }
 
 void FinalState()
