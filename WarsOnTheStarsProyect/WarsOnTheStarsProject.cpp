@@ -41,13 +41,12 @@ int main()
 		while (game.executable)
 		{
 			Menu();
-			InitGame();
-
 			FASG::RenderFrame();
 
 			while (game.difficulty)
 			{
 				Difficulty();
+				InitGame();
 				FASG::RenderFrame();
 
 				while (game.gameplay)

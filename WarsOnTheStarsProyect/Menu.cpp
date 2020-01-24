@@ -29,6 +29,7 @@ void Menu()
 		if (FASG::IsKeyPressed('E') && contadorMenu == 1)
 		{
 			game.howToPlay = true;
+			contadorMenu = 0;
 		}
 
 		if (FASG::IsKeyPressed('C'))

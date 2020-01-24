@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "Shoot.h"
 #include <conio.h>
+#include "Difficulty.h"
 
 Player player;
 
@@ -13,9 +14,9 @@ Shoot pShoot;
 
 extern float speed;
 
+Diff difficult;
 void InitPlayer()
 {
-	//vidas...
 	player.sprite.LoadSprite("Player.txt");
 	player.spriteInMove.LoadSprite("Player_Right.txt");
 	player.sprite.Location.x = 10.f;
@@ -25,29 +26,36 @@ void InitPlayer()
 	FASG::Sprite::AddToCollisionSystem(pShoot.shootPlayer, "ShootPlayer");
 	pShoot.speedSh = 300.f;
 	pShoot.ShootOn = false;
-}
 
-void ShootPlayer()
-{
-	FASG::WriteSpriteBuffer(pShoot.shootPlayer.Location.x, pShoot.shootPlayer.Location.y, pShoot.shootPlayer);
-	pShoot.shootPlayer.Location.x += pShoot.speedSh * FASG::GetDeltaTime();
+	difficult = envDifficulty();
 
-	if (pShoot.shootPlayer.Location.x >= 300)
+	switch (difficult)
 	{
-		pShoot.ShootOn = false;
+	case INMORTAL:
+		player.life = 99;
+		break;
+	case NORMAL:
+		player.life = 3;
+		break;
+	case ONE:
+		player.life = 1;
+		break;
 	}
-	
 }
 
 void DrawPlayer()
 {
-	switch (direction)
+	if (player.life <= 0)
 	{
+		switch (direction)
+		{
 		case PlayerMovement::RIGHT:
-		FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.spriteInMove);
-		break;
-		default: 
-		FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.sprite);
+			FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.spriteInMove);
+			break;
+
+		default:
+			FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.sprite);
+		}
 	}
 }
 
@@ -123,6 +131,18 @@ void MovementPlayer()
 			game.executable = false;
 		}
 	}
+}
+
+void ShootPlayer()
+{
+	FASG::WriteSpriteBuffer(pShoot.shootPlayer.Location.x, pShoot.shootPlayer.Location.y, pShoot.shootPlayer);
+	pShoot.shootPlayer.Location.x += pShoot.speedSh * FASG::GetDeltaTime();
+
+	if (pShoot.shootPlayer.Location.x >= 300)
+	{
+		pShoot.ShootOn = false;
+	}
+
 }
 
 void ShootOff(bool a)

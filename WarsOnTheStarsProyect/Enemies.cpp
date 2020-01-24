@@ -21,6 +21,8 @@ bool RestartLarge[EnemiesLar];
 
 bool allAway = false;
 
+bool FinalStateLar = false;
+
 int DeadLit = 0, DeadMid = 0, DeadLar = 0;
 bool AllDeadLit = false, allDeadMid = false, allDeadLar = false;
 
@@ -35,6 +37,12 @@ void InitEnemies()
 	allAway = false;
 	DeadLit = 0, DeadMid = 0, DeadLar = 0;
 	AllDeadLit = false, allDeadMid = false, allDeadLar = false;
+	FinalStateLar = false;
+
+	CDLittle = MovementCDLittle;
+	CDMedium = MovementCDMedium;
+	CDUntilAppear = timeUntilAppear;
+	CDLarge = MovementCDLarge;
 
 	enemiesLittle[0].sprite.Location.y = 10;
 	enemiesLittle[1].sprite.Location.y = 22;
@@ -43,6 +51,7 @@ void InitEnemies()
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{
+		enemiesLittle[i].vida = 1;
 		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesLittle[i].sprite, "enLit" + i);
 		enemiesLittle[i].sprite.Location.x = 200;
@@ -54,6 +63,7 @@ void InitEnemies()
 
 	for (int l = 0; l < EnemiesMed; l++)
 	{
+		enemiesMedium[l].vida = 5;
 		enemiesMedium[l].sprite.LoadSprite("EnemieMedium.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[l].sprite, "enMed" + l);
 		enemiesMedium[l].sprite.Location.x = 225;
@@ -77,10 +87,19 @@ void DrawEnemies()
 	CDLarge -= FASG::GetDeltaTime();
 
 	MovementLittle();
-	
+
 	MovementMiddle();
 
-	MovementLarge();
+	if (!FinalStateLar)
+	{
+		MovementLarge();
+	}
+
+	if (AllDeadLit && allDeadMid)
+	{
+		FinalStateLar = true;
+		FinalState();
+	}
 }
 
 void MovementLittle()
@@ -142,7 +161,7 @@ void MovementLittle()
 		}
 	}
 
-	if (DeadLit == EnemiesLit)
+	if (DeadLit >= EnemiesLit)
 	{
 		AllDeadLit = true;
 	}
@@ -194,7 +213,7 @@ void MovementMiddle()
 		CDMedium = MovementCDMedium;
 	}
 
-	for (int draw = 0; draw < EnemiesLit; draw++)
+	for (int draw = 0; draw < EnemiesMed; draw++)
 	{
 		if (enemiesMedium[draw].vida > 0)
 		{
@@ -202,8 +221,14 @@ void MovementMiddle()
 		}
 		else
 		{
+			DeadMid++;
 			enemiesMedium[draw].sprite.Location.x = -10;
 		}
+	}
+
+	if (DeadLit == EnemiesMed)
+	{
+		AllDeadLit = true;
 	}
 }
 
@@ -257,8 +282,25 @@ void MovementLarge()
 	for (int draw = 0; draw < EnemiesLar; draw++)
 	{
 		if (enemiesLarge[draw].vida > 0)
+		{
 			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+		}
+		else
+		{
+			DeadLar++;
+			enemiesLarge[draw].sprite.Location.x = -10;
+		}
 	}
+
+	if (DeadLar == EnemiesLar)
+	{
+		allDeadLar = true;
+	}
+}
+
+void FinalState()
+{
+
 }
 
 int envLitEnQuantity()

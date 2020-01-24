@@ -3,48 +3,48 @@
 #include <conio.h>
 #include "Engine.h"
 
-int contadorDifficulty = 0;
+int contadorDifficulty = 1;
 
-float CDDif = 0.5f;
 extern Game game;
+
+Diff difficulty;
 
 void Difficulty()
 {
-	CDDif -= FASG::GetDeltaTime();
+	char DifChar = toupper(_getch());
 
-	if (CDDif <= 0)
+	switch (DifChar)
 	{
-		char DifChar = toupper(_getch());
+	case 'W':
+		contadorDifficulty--;
+		break;
+	case 'S':
+		contadorDifficulty++;
+		break;
+	}
 
-		switch (DifChar)
-		{
-		case 'W':
-			contadorDifficulty--;
-			break;
-		case 'S':
-			contadorDifficulty++;
-			break;
-		}
+	if (DifChar == 'R' && contadorDifficulty == 0)
+	{
+		
+		game.gameplay = true;
+	}
 
-		if (DifChar == 'R' && contadorDifficulty == 0)
-		{
-			game.gameplay = true;
-		}
+	if (DifChar == 'R' && contadorDifficulty == 1)
+	{
+		difficulty = NORMAL;
+		game.gameplay = true;
+	}
+	
+	if (DifChar == 'R' && contadorDifficulty == 2)
+	{
+		difficulty = ONE;
+		game.gameplay = true;
+	}
 
-		if (DifChar == 'R' && contadorDifficulty == 1)
-		{
-			game.gameplay = true;
-		}
-
-		if (DifChar == 'R' && contadorDifficulty == 2)
-		{
-			game.gameplay = true;
-		}
-
-		if (DifChar == 'X')
-		{
-			game.difficulty = false;
-		}
+	if (DifChar == 'X')
+	{
+		contadorDifficulty = 1;
+		game.difficulty = false;
 	}
 
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
@@ -73,6 +73,21 @@ void Difficulty()
 	case -1:
 		BackgroundWords(144, 155, 20);
 		contadorDifficulty = 0;
+		break;
+	}
+}
+
+Diff envDifficulty()
+{
+	switch (contadorDifficulty)
+	{
+	case 0:
+		return INMORTAL;
+	case 1:
+		return NORMAL;
+		break;
+	case 2:
+		return ONE;
 		break;
 	}
 }
