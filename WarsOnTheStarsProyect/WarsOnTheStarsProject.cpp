@@ -13,6 +13,7 @@
 #include "Menu.h"
 #include "Difficulty.h"
 #include "HowToPlay.h"
+#include "GameOver.h"
 
 HANDLE hndl;
 
@@ -24,6 +25,10 @@ extern Game game;
 int main()
 {
 	FASG::WAVESound miSonidoDePrueba;
+	FASG::WAVESound Intro;
+	FASG::WAVESound Muerte;
+	Muerte.LoadSound("Muerte.wav");
+	Intro.LoadSound("trascendedSong.wav");
 	miSonidoDePrueba.LoadSound("manantial.wav");
 	
 	srand(time(NULL));
@@ -39,7 +44,9 @@ int main()
 
 	while (game.login)
 	{
-		
+		Muerte.Stop();
+		miSonidoDePrueba.Stop();
+		Intro.Play();
 		LogScreen();
 		FASG::RenderFrame();
 
@@ -56,10 +63,20 @@ int main()
 
 				while (game.gameplay)
 				{
+					Muerte.Stop();
+					Intro.Stop();
 					miSonidoDePrueba.Play();
 					MovementPlayer();
 					DrawGame();
 					FASG::RenderFrame();
+
+					while (game.gameOver)
+					{
+						Intro.Stop();
+						miSonidoDePrueba.Stop();
+						Muerte.Play();
+						GameOver();
+					}
 				}
 			}
 

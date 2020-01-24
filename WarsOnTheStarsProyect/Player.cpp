@@ -14,6 +14,8 @@ Shoot pShoot;
 
 extern float speed;
 
+FASG::WAVESound Disparo;
+
 Diff difficult;
 void InitPlayer()
 {
@@ -105,12 +107,14 @@ void MovementPlayer()
 
 	if (!pShoot.ShootOn)
 	{
+		Disparo.LoadSound("DisparoPlayer.wav");
 		pShoot.shootPlayer.Location.x = player.sprite.Location.x + 5;
 		pShoot.shootPlayer.Location.y = player.sprite.Location.y + 2;
 	}
 
 	if (FASG::IsKeyPressed('J'))
 	{
+		Disparo.Play();
 		pShoot.ShootOn = true;
 	}
 
@@ -153,7 +157,9 @@ void ShootOff(bool a)
 	pShoot.ShootOn = a;
 }
 
+extern FASG::WAVESound Golpe;
 void RecivePlayerDmg()
 {
+	Golpe.Play();
 	player.life--;
 }

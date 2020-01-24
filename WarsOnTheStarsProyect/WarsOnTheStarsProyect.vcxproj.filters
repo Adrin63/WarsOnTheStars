@@ -60,6 +60,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LS.txt" />
@@ -106,9 +109,30 @@
     <ClInclude Include="HowToPlay.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Media Include="manantial.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="DisparoEnemigo.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="DisparoPlayer.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="Laser.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="Golpe.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="trascendedSong.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="Muerte.wav">
       <Filter>Archivos de recursos</Filter>
     </Media>
   </ItemGroup>

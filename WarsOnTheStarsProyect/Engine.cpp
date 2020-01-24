@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Enemies.h"
 
+FASG::WAVESound Golpe;
+
 bool envGameplay()
 {
 	return false;
@@ -70,6 +72,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "Player" && tag2 == "enLit" + i || tag2 == "Player" && tag1 == "enLit" + i)
 		{
+			Golpe.LoadSound("Golpe.wav");
 			RecivePlayerDmg();
 		}
 	}

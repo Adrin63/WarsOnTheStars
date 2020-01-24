@@ -39,11 +39,12 @@ void LogScreen()
 
 	if (FASG::IsKeyPressed(' '))
 	{
-		game.executable = true;
+		game.executable = true; 
 		game.gameplay = false;
 		game.difficulty = false;
 		game.glossary = false;
 		game.howToPlay = false;
+		game.gameOver = false;
 		on = false;
 	}
 
