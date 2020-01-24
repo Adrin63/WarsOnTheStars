@@ -24,7 +24,7 @@ bool allAway = false;
 bool FinalStateLar = false;
 
 int DeadLit = 0, DeadMid = 0, DeadLar = 0;
-bool AllDeadLit = false, allDeadMid = false, allDeadLar = false;
+bool allDeadLit = false, allDeadMid = false, allDeadLar = false;
 
 TypeEnemieLittle enemiesLittle[EnemiesLit];
 
@@ -36,7 +36,7 @@ void InitEnemies()
 {
 	allAway = false;
 	DeadLit = 0, DeadMid = 0, DeadLar = 0;
-	AllDeadLit = false, allDeadMid = false, allDeadLar = false;
+	allDeadLit = false, allDeadMid = false, allDeadLar = false;
 	FinalStateLar = false;
 
 	CDLittle = MovementCDLittle;
@@ -95,7 +95,7 @@ void DrawEnemies()
 		MovementLarge();
 	}
 
-	if (AllDeadLit && allDeadMid)
+	if (allDeadLit && allDeadMid)
 	{
 		FinalStateLar = true;
 		FinalState();
@@ -156,14 +156,18 @@ void MovementLittle()
 		}
 		else
 		{
-			DeadLit++;
 			enemiesLittle[draw].sprite.Location.x = -10;
+			
+			if (enemiesLittle[draw].sprite.Location.x == -10)
+			DeadLit++;
 		}
+
+		
 	}
 
 	if (DeadLit >= EnemiesLit)
 	{
-		AllDeadLit = true;
+		allDeadLit = true;
 	}
 }
 
@@ -228,7 +232,7 @@ void MovementMiddle()
 
 	if (DeadLit == EnemiesMed)
 	{
-		AllDeadLit = true;
+		allDeadMid = true;
 	}
 }
 
