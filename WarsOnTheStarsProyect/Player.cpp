@@ -19,6 +19,9 @@ void InitPlayer()
 {
 	player.sprite.LoadSprite("Player.txt");
 	player.spriteInMove.LoadSprite("Player_Right.txt");
+	FASG::Sprite::AddToCollisionSystem(player.sprite, "Player");
+	FASG::Sprite::AddToCollisionSystem(player.spriteInMove, "PlayerInMove");
+
 	player.sprite.Location.x = 10.f;
 	player.sprite.Location.y = game.H * 0.5f;
 
@@ -45,7 +48,7 @@ void InitPlayer()
 
 void DrawPlayer()
 {
-	if (player.life <= 0)
+	if (player.life >= 0)
 	{
 		switch (direction)
 		{
@@ -148,4 +151,9 @@ void ShootPlayer()
 void ShootOff(bool a)
 {
 	pShoot.ShootOn = a;
+}
+
+void RecivePlayerDmg()
+{
+	player.life--;
 }

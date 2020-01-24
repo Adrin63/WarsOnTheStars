@@ -38,6 +38,7 @@ void Colisions(std::string tag1, std::string tag2)
 	int EnemiesMid = envMidEnQuantity();
 	int EnemiesLar = envLarEnQuantity();
 
+	//Disparos - Enemigos
 	for (int i = 0; i < EnemiesLit; i++)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enLit" + i || tag2 == "ShootPlayer" && tag1 == "enLit" + i)
@@ -61,6 +62,15 @@ void Colisions(std::string tag1, std::string tag2)
 		if (tag1 == "ShootPlayer" && tag2 == "enLar" + i || tag2 == "ShootPlayer" && tag1 == "enLar" + i)
 		{
 
+		}
+	}
+
+	//Player - Enemigos
+	for (int i = 0; i < EnemiesLit; i++)
+	{
+		if (tag1 == "Player" && tag2 == "enLit" + i || tag2 == "Player" && tag1 == "enLit" + i)
+		{
+			RecivePlayerDmg();
 		}
 	}
 }
