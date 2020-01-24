@@ -28,4 +28,3 @@ void ShootPlayer();
 void ShootOff(bool a);
 
 void RecivePlayerDmg();
-int EnvPlayerLife();

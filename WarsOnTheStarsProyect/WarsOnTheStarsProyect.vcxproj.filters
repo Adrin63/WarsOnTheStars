@@ -42,9 +42,6 @@
     <ClCompile Include="Stars.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de origen\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
@@ -59,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="HowToPlay.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
