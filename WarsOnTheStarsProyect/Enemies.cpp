@@ -148,6 +148,8 @@ void MovementLittle()
 		CDLittle = MovementCDLittle;
 	}
 
+	DeadLit = 0;
+
 	for (int draw = 0; draw < EnemiesLit; draw++)
 	{
 		if (enemiesLittle[draw].vida > 0)
@@ -156,13 +158,9 @@ void MovementLittle()
 		}
 		else
 		{
-			enemiesLittle[draw].sprite.Location.x = -10;
-			
-			if (enemiesLittle[draw].sprite.Location.x == -10)
 			DeadLit++;
+			enemiesLittle[draw].sprite.Location.x = -10;
 		}
-
-		
 	}
 
 	if (DeadLit >= EnemiesLit)
@@ -217,6 +215,8 @@ void MovementMiddle()
 		CDMedium = MovementCDMedium;
 	}
 
+	DeadMid = 0;
+
 	for (int draw = 0; draw < EnemiesMed; draw++)
 	{
 		if (enemiesMedium[draw].vida > 0)
@@ -230,7 +230,7 @@ void MovementMiddle()
 		}
 	}
 
-	if (DeadLit == EnemiesMed)
+	if (DeadMid == EnemiesMed)
 	{
 		allDeadMid = true;
 	}

@@ -72,6 +72,7 @@
     <Text Include="Menu.txt" />
     <Text Include="EnemieMedium.txt" />
     <Text Include="EnemieLarge.txt" />
+    <Text Include="EnemieLaser.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
