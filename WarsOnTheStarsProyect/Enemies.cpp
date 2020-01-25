@@ -14,9 +14,6 @@ enemiBoss currentAttack;
 
 Shoot shootEnemieLittle[EnemiesLit], shootEnemieMid[EnemiesMed];
 
-FASG::WAVESound FinalBattle;
-
-
 float const MovementCDLittle = 0.85f, MovementCDMedium = 1.25f, MovementCDLarge = 3.f;
 
 float CDLittle = MovementCDLittle, CDMedium = MovementCDMedium, CDLarge = MovementCDLarge;
@@ -42,6 +39,8 @@ bool allDeadLit = false, allDeadMid = false, allDeadLar = false;
 
 Enemie enemiesLittle[EnemiesLit], enemiesMedium[EnemiesMed], enemiesLarge[EnemiesLar], finalBoss;
 
+float const coolDownOnLastStage = 1.f;
+float CDLarOnLastStage = coolDownOnLastStage;
 
 int attack = 0;
 float const timeLaser = 2.5f;
@@ -50,9 +49,12 @@ int cont = 0;
 
 Laser laserBoss;
 
+FASG::WAVESound finalBossSong;
+
 void InitEnemies()
 {
-	//FinalBattle.LoadSound("BadTime.wav");
+	finalBossSong.LoadSound("BadTime.wav");
+
 	allAway = false;
 	DeadLit = 0, DeadMid = 0, DeadLar = 0;
 	allDeadLit = false, allDeadMid = false, allDeadLar = false;
@@ -85,7 +87,7 @@ void InitEnemies()
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{
-		enemiesLittle[i].vida = 3;
+		enemiesLittle[i].vida = 5;
 		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesLittle[i].sprite, "enLit" + i);
 		enemiesLittle[i].sprite.Location.x = 200;
@@ -94,7 +96,7 @@ void InitEnemies()
 		shootEnemieLittle[i].onOff = true;
 		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
 		shootEnemieLittle[i].shootEnemieSpeed = 60.f;
-		FASG::Sprite::AddToCollisionSystem(shootEnemieLittle[i].sprite, "ShootEnemieLit");
+		FASG::Sprite::AddToCollisionSystem(shootEnemieLittle[i].sprite, "ShootEnemieLit" + i);
 	}
 
 	enemiesMedium[0].sprite.Location.y = 7;
@@ -103,7 +105,7 @@ void InitEnemies()
 
 	for (int l = 0; l < EnemiesMed; l++)
 	{
-		enemiesMedium[l].vida = 10;
+		enemiesMedium[l].vida = 15;
 		enemiesMedium[l].sprite.LoadSprite("EnemieMedium.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[l].sprite, "enMed" + l);
 		enemiesMedium[l].sprite.Location.x = 225;
@@ -112,7 +114,7 @@ void InitEnemies()
 		shootEnemieMid[l].onOff = true;
 		shootEnemieMid[l].CDShoot = rand() % 5 + 3;
 		shootEnemieMid[l].shootEnemieSpeed = 20.f;
-		FASG::Sprite::AddToCollisionSystem(shootEnemieMid[l].sprite, "ShootEnemieMid");
+		FASG::Sprite::AddToCollisionSystem(shootEnemieMid[l].sprite, "ShootEnemieMid" + l);
 	}
 
 	enemiesLarge[0].sprite.Location.y = 3;
@@ -121,7 +123,7 @@ void InitEnemies()
 	for (int j = 0; j < EnemiesLar; j++)
 	{
 		enemiesLarge[j].sprite.LoadSprite("EnemieLarge.txt");
-		FASG::Sprite::AddToCollisionSystem(enemiesMedium[j].sprite, "enLar" + j);
+		FASG::Sprite::AddToCollisionSystem(enemiesLarge[j].sprite, "enLarge" + j);
 		enemiesLarge[j].sprite.Location.x = 260;
 	}
 
@@ -129,6 +131,7 @@ void InitEnemies()
 	FASG::Sprite::AddToCollisionSystem(finalBoss.sprite, "FinalBoss");
 	finalBoss.sprite.Location.y = 22;
 	finalBoss.sprite.Location.x = 305;
+
 }
 
 void DrawEnemies()
@@ -150,7 +153,7 @@ void DrawEnemies()
 
 	if (badTime)
 	{
-		FinalBattle.Play();
+		finalBossSong.Play();
 	}
 
 	if ((allDeadLit && allDeadMid) && (!finalStageStart))
@@ -165,13 +168,16 @@ void DrawEnemies()
 		if (CDStartFinalStage <= 0)
 		{
 			FinalBossMovements();
+			FinalBossMovementsLar();
 		}
 	}
 
 	for (int draw = 0; draw < EnemiesLar; draw++)
 	{
 		if (!game.end)
-		FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+		{
+			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+		}
 	}
 
 	if (!game.end)
@@ -189,7 +195,9 @@ void EnemiesShoots()
 			TimeMinus(shootEnemieLittle[i].CDShoot);
 
 			if (shootEnemieLittle[i].CDShoot <= 0)
+			{
 				shootEnemieLittle[i].onOff = false;
+			}
 		}
 		else
 		{
@@ -206,7 +214,9 @@ void EnemiesShoots()
 			TimeMinus(shootEnemieMid[a].CDShoot);
 
 			if (shootEnemieMid[a].CDShoot <= 0)
+			{
 				shootEnemieMid[a].onOff = false;
+			}
 		}
 		else
 		{
@@ -240,7 +250,6 @@ void ShootEnemieMid(int i)
 
 	FASG::WriteSpriteBuffer(shootEnemieMid[i].sprite.Location.x, shootEnemieMid[i].sprite.Location.y, shootEnemieMid[i].sprite);
 }
-
 
 void MovementLittle()
 {
@@ -517,6 +526,30 @@ void FinalBossMovements()
 	}
 }
 
+void FinalBossMovementsLar()
+{
+	if (CDLarOnLastStage <= 0)
+	{
+		CDLarOnLastStage = coolDownOnLastStage;
+		for (int a = 0; a < EnemiesLar; a++)
+		{
+			enemiesLarge[a].sprite.Location.x = 310;
+		}
+	}
+	if (CDLarOnLastStage > 0)
+	{
+		for (int i = 0; i < EnemiesLar; i++)
+		{
+			enemiesLarge[i].sprite.Location.x -= 2;
+
+			if (enemiesLarge[i].sprite.Location.x <= -22)
+			{
+				TimeMinus(CDLarOnLastStage);
+			}
+		}
+	}
+}
+
 void AllLeftLarg()
 {
 	int cont = 0;
@@ -577,6 +610,26 @@ void FromRightLarg(bool a)
 	}
 }
 
+void RestartShootEnLit(int b)
+{
+	for (int i = 0; i < EnemiesLit; i++)
+	{
+		shootEnemieLittle[b].onOff = true;
+		shootEnemieLittle[b].CDShoot = rand() % 5 + 1;
+	}
+}
+
+void RestartShootEnMid(int a)
+{
+	for (int i = 0; i < EnemiesMed; i++)
+	{
+		shootEnemieMid[a].onOff = true;
+		shootEnemieMid[a].CDShoot = rand() % 5 + 3;
+	}
+}
+
+
+//Getters - Setters
 int envLitEnQuantity()
 {
 	return EnemiesLit;

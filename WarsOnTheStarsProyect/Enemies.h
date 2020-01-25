@@ -55,3 +55,8 @@ void ReciveLarDmg(int c);
 void EnemiesShoots();
 void ShootEnemieLittle(int i);
 void ShootEnemieMid(int i);
+
+void FinalBossMovementsLar();
+
+void RestartShootEnLit(int b);
+void RestartShootEnMid(int a);

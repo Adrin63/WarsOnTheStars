@@ -80,6 +80,7 @@
     <Text Include="ShootEnemieLit.txt" />
     <Text Include="ShootEnemieMid.txt" />
     <Text Include="GameOver.txt" />
+    <Text Include="EnemieLargeShield.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -117,7 +118,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="manantial.wav">
+    <Media Include="BadTime.wav">
       <Filter>Archivos de recursos</Filter>
     </Media>
   </ItemGroup>

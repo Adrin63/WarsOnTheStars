@@ -43,18 +43,44 @@ void Colisions(std::string tag1, std::string tag2)
 
 	for (int i = 0; i < EnemiesLar; i++)
 	{
-		if (tag1 == "ShootPlayer" && tag2 == "enLar" + i || tag2 == "ShootPlayer" && tag1 == "enLar" + i)
+		if (tag1 == "ShootPlayer" && tag2 == "enLarFinal" + i || tag2 == "ShootPlayer" && tag1 == "enLarFinal" + i)
 		{
-
+			ReciveLarDmg(i);
+			ShootOff(false);
 		}
 	}
 
 	//Player - Enemigos
 	for (int i = 0; i < EnemiesLit; i++)
 	{
-		if (tag1 == "Player" && tag2 == "enLit" + i || tag2 == "Player" && tag1 == "enLit" + i)
+		if ((tag1 == "Player" && tag2 == "enLit" + i) || (tag2 == "Player" && tag1 == "enLit" + i))
 		{
-			RecivePlayerDmg();
+			RecivePlayerDmg(false);
+		}
+
+		if (tag1 == "Player" && tag2 == "ShootEnemieLit" + i || (tag2 == "Player" && tag1 == "ShootEnemieLit" + i) || (tag1 == "PlayerInMove" && tag2 == "ShootEnemieLit" + i) || (tag2 == "PlayerInMove" && tag1 == "ShootEnemieLit"))
+		{
+			RecivePlayerDmg(false);
+			RestartShootEnLit(i);
+		}
+	}
+
+	for (int a = 0; a < EnemiesMid; a++)
+	{
+		if ((tag1 == "Player" && tag2 == "ShootEnemieMid" + a) || (tag2 == "Player" && tag1 == "ShootEnemieMid" + a) || (tag1 == "PlayerInMove" && tag2 == "ShootEnemieMid" + a) || (tag2 == "PlayerInMove" && tag1 == "ShootEnemieMid" + a))
+		{
+			RecivePlayerDmg(false);
+			RestartShootEnMid(a);
+		}
+	}
+
+	for (int l = 0; l < EnemiesLar; l++)
+	{
+		if (((tag1 == "Player" && tag2 == "enLarge" + l) || (tag2 == "Player" && tag1 == "enLarge" + l)) || ((tag1 == "PlayerInMove" && tag2 == "enLarge" + l) || (tag2 == "PlayerInMove" && tag1 == "enLarge" + l)))
+		{
+			//Entra en este if cuando no deberia entrar
+			//RecivePlayerDmg(true);
+			//RestartShootEnMid(l);
 		}
 	}
 }

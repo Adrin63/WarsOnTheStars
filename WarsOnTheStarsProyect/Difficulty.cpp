@@ -7,8 +7,6 @@ int contadorDifficulty = 1;
 
 extern Game game;
 
-Diff difficulty;
-
 void Difficulty()
 {
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
@@ -55,19 +53,16 @@ void Difficulty()
 
 	if (DifChar == 'R' && contadorDifficulty == 0)
 	{
-
 		game.gameplay = true;
 	}
 
 	if (DifChar == 'R' && contadorDifficulty == 1)
 	{
-		difficulty = NORMAL;
 		game.gameplay = true;
 	}
 
 	if (DifChar == 'R' && contadorDifficulty == 2)
 	{
-		difficulty = ONE;
 		game.gameplay = true;
 	}
 
@@ -83,12 +78,12 @@ Diff envDifficulty()
 	switch (contadorDifficulty)
 	{
 	case 0:
-		return INMORTAL;
+		return Diff::INMORTAL;
 	case 1:
-		return NORMAL;
+		return Diff::NORMAL;
 		break;
 	case 2:
-		return ONE;
+		return Diff::ONE;
 		break;
 	}
 }

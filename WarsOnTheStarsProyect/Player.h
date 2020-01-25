@@ -2,11 +2,6 @@
 #include "Engine.h"
 #include "FAriasSimpleGraphics.h"
 
-/*enum PlayerState
-{
-	NORMAL - INVENCIBLE - POWERUPS EN GENERAL, INCLUSO EN PROPULSION SE PUEDE PONER EL HAZ
-};*/
-
 enum PlayerMovement
 {
 	UP, DOWN, LEFT, RIGHT, STILL
@@ -27,4 +22,4 @@ void ShootPlayer();
 
 void ShootOff(bool a);
 
-void RecivePlayerDmg();
+void RecivePlayerDmg(bool dmg);

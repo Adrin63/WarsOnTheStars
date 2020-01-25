@@ -17,14 +17,10 @@
 
 HANDLE hndl;
 
-//FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
-
 extern Game game;
 
 int main()
-{
-
-	
+{	
 	srand(time(NULL));
 	game.W = 300; game.H = 60;
 
@@ -32,40 +28,36 @@ int main()
 	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
 
 	FASG::Sprite::SetCollisionCallback(Colisions);
-
-	InitLogScreen();	
 	
+	InitLogScreen();	
 
 	while (game.login)
 	{
-		
 		LogScreen();
 		FASG::RenderFrame();
 
 		while (game.executable)
 		{
-
 			Menu();
 
 			while (game.difficulty)
 			{
 				Difficulty();
 				FASG::RenderFrame();
-				
 				InitGame();
-				
+
 				while (game.gameplay)
 				{
 					MovementPlayer();
 					DrawGame();
 					FASG::RenderFrame();
 				}
-
-				while (game.end)
-				{
-					GameOver();
-					FASG::RenderFrame();
-				}
+			}
+				
+			while (game.end)
+			{
+				GameOver();
+				FASG::RenderFrame();
 			}
 
 			while (game.howToPlay)

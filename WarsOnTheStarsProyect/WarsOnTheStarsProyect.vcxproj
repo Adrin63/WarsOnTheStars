@@ -170,6 +170,7 @@
     <Text Include="Controles.txt" />
     <Text Include="Dificultad.txt" />
     <Text Include="EnemieLarge.txt" />
+    <Text Include="EnemieLargeShield.txt" />
     <Text Include="EnemieLaser.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="EnemieMedium.txt" />
@@ -197,7 +198,7 @@
     <ClInclude Include="Stars.h" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="manantial.wav" />
+    <Media Include="BadTime.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

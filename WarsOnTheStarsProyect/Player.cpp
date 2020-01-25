@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
 #include "Shoot.h"
@@ -7,16 +7,22 @@
 
 Player player;
 
-PlayerMovement direction = PlayerMovement::STILL;
+PlayerMovement direction;
 Game game;
 
 Shoot pShoot;
 
-extern float speed;
-
 Diff difficult;
+
+float const coolDownLife = 1.f;
+float CDLife = coolDownLife;
+bool hitOn = true;
+
+
 void InitPlayer()
 {
+	direction = PlayerMovement::STILL;
+
 	player.sprite.LoadSprite("Player.txt");
 	player.spriteInMove.LoadSprite("Player_Right.txt");
 	FASG::Sprite::AddToCollisionSystem(player.sprite, "Player");
@@ -35,7 +41,7 @@ void InitPlayer()
 	switch (difficult)
 	{
 	case INMORTAL:
-		player.life = 99;
+		player.life = 9999999;
 		break;
 	case NORMAL:
 		player.life = 3;
@@ -48,7 +54,18 @@ void InitPlayer()
 
 void DrawPlayer()
 {
-	if (player.life >= 0)
+	switch (difficult)
+	{	case INMORTAL:
+		break;
+	default:
+		FASG::WriteStringBuffer(3, 2, "HP:", FASG::EForeColor::LightWhite);
+		for (int a = 0; a < player.life; a++)
+		{
+			FASG::WritePixelBuffer(7 + a + a, 2, FASG::EBackColor::LightWhite);
+		}
+	}
+
+	if (player.life > 0)
 	{
 		switch (direction)
 		{
@@ -64,6 +81,7 @@ void DrawPlayer()
 	{
 		game.gameplay = false;
 		game.end = true;
+		game.difficulty = false;
 	}
 }
 
@@ -71,6 +89,16 @@ void DrawPlayer()
 void MovementPlayer()
 {
 	direction = PlayerMovement::STILL;
+
+	if (!hitOn)
+		TimeMinus(CDLife);
+
+	if (CDLife <= 0)
+	{
+		CDLife = coolDownLife;
+		hitOn = true;
+	}
+
 
 	if (FASG::IsKeyPressed('W'))
 	{
@@ -86,8 +114,8 @@ void MovementPlayer()
 		direction = PlayerMovement::RIGHT;
 		player.sprite.Location.x += player.speed * FASG::GetDeltaTime();
 
-		if (player.sprite.Location.x >= 170)
-			player.sprite.Location.x = 170;
+		if (player.sprite.Location.x >= 220)
+			player.sprite.Location.x = 220;
 	}
 
 	if (FASG::IsKeyPressed('S'))
@@ -104,8 +132,8 @@ void MovementPlayer()
 		direction = PlayerMovement::LEFT;
 		player.sprite.Location.x -= player.speed * FASG::GetDeltaTime();
 
-		if (player.sprite.Location.x < 0)
-			player.sprite.Location.x = 0;
+		if (player.sprite.Location.x < -2)
+			player.sprite.Location.x = -2;
 	}
 
 	if (!pShoot.ShootOn)
@@ -157,7 +185,20 @@ void ShootOff(bool a)
 	pShoot.ShootOn = a;
 }
 
-void RecivePlayerDmg()
+void RecivePlayerDmg(bool dmg)
 {
-	player.life--;
+	if (hitOn)
+	{
+		switch (dmg)
+		{
+		case true:
+			player.life -= 2;
+			break;
+		case false:
+			player.life--;
+			break;
+		}
+
+		hitOn = false;
+	}
 }
