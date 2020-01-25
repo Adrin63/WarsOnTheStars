@@ -170,6 +170,7 @@
     <Text Include="Controles.txt" />
     <Text Include="Dificultad.txt" />
     <Text Include="EnemieLarge.txt" />
+    <Text Include="EnemieLargeShield.txt" />
     <Text Include="EnemieLaser.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="EnemieMedium.txt" />
