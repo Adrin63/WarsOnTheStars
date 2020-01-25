@@ -11,43 +11,6 @@ Diff difficulty;
 
 void Difficulty()
 {
-	char DifChar = toupper(_getch());
-
-	switch (DifChar)
-	{
-	case 'W':
-		contadorDifficulty--;
-		break;
-	case 'S':
-		contadorDifficulty++;
-		break;
-	}
-
-	if (DifChar == 'R' && contadorDifficulty == 0)
-	{
-		
-		game.gameplay = true;
-		game.end = false;
-	}
-
-	if (DifChar == 'R' && contadorDifficulty == 1)
-	{
-		difficulty = NORMAL;
-		game.gameplay = true;
-	}
-	
-	if (DifChar == 'R' && contadorDifficulty == 2)
-	{
-		difficulty = ONE;
-		game.gameplay = true;
-	}
-
-	if (DifChar == 'X')
-	{
-		contadorDifficulty = 1;
-		game.difficulty = false;
-	}
-
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "PRACTICA", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "NORMAL", FASG::EForeColor::LightWhite);
@@ -75,6 +38,43 @@ void Difficulty()
 		BackgroundWords(144, 155, 20);
 		contadorDifficulty = 0;
 		break;
+	}
+	FASG::RenderFrame();
+
+	char DifChar = toupper(_getch());
+
+	switch (DifChar)
+	{
+	case 'W':
+		contadorDifficulty--;
+		break;
+	case 'S':
+		contadorDifficulty++;
+		break;
+	}
+
+	if (DifChar == 'R' && contadorDifficulty == 0)
+	{
+
+		game.gameplay = true;
+	}
+
+	if (DifChar == 'R' && contadorDifficulty == 1)
+	{
+		difficulty = NORMAL;
+		game.gameplay = true;
+	}
+
+	if (DifChar == 'R' && contadorDifficulty == 2)
+	{
+		difficulty = ONE;
+		game.gameplay = true;
+	}
+
+	if (DifChar == 'X')
+	{
+		contadorDifficulty = 1;
+		game.difficulty = false;
 	}
 }
 

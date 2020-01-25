@@ -133,9 +133,9 @@ void InitEnemies()
 
 void DrawEnemies()
 {
-	CDLittle -= FASG::GetDeltaTime();
-	CDMedium -= FASG::GetDeltaTime();
-	CDLarge -= FASG::GetDeltaTime();
+	TimeMinus(CDLittle);
+	TimeMinus(CDMedium);
+	TimeMinus(CDLarge);
 
 	EnemiesShoots();
 
@@ -397,7 +397,7 @@ void MovementLarge()
 
 	if (allAway)
 	{
-		CDUntilAppear -= FASG::GetDeltaTime();
+		TimeMinus(CDUntilAppear);
 
 		if (CDUntilAppear <= 0)
 		{
@@ -534,11 +534,6 @@ void AllLeftLarg()
 		badTime = true;
 		TimeMinus(CDUntilFinalStage);
 	}
-}
-
-void TimeMinus(float &b)
-{
-	b -= FASG::GetDeltaTime();
 }
 
 void FromRightLarg(bool a)

@@ -21,7 +21,7 @@ void InitLogScreen()
 
 void LogScreen()
 {	
-	coolDown -= FASG::GetDeltaTime();
+	TimeMinus(coolDown);
 
 	if (coolDown <= 0)
 	{
@@ -40,10 +40,6 @@ void LogScreen()
 	if (FASG::IsKeyPressed(' '))
 	{
 		game.executable = true;
-		game.gameplay = false;
-		game.difficulty = false;
-		game.glossary = false;
-		game.howToPlay = false;
 		on = false;
 	}
 

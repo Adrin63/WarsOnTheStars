@@ -9,5 +9,5 @@ struct Star
 	char starSkins[3] = { '*','.','+' };
 };
 
-void Init_Stars();
+void InitStars();
 void DrawStars();

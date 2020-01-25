@@ -39,7 +39,6 @@ void MovementMiddle();
 void MovementLarge();
 
 void AllLeftLarg();
-void TimeMinus(float &b);
 void FromRightLarg(bool a);
 
 void FinalStagePreparation();

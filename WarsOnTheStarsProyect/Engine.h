@@ -13,7 +13,6 @@ struct Game
 	bool executable = false;
 	bool login = true;
 	bool difficulty = false;
-	bool glossary = false;
 	bool howToPlay = false;
 	bool end = false;
 };
@@ -27,3 +26,5 @@ void DrawGame();
 void Colisions(std::string tag1, std::string tag2);
 
 void AllLeftLarg();
+
+void TimeMinus(float &b);

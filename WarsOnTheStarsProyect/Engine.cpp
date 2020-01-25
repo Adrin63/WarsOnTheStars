@@ -11,6 +11,10 @@ void BackgroundWords(int initialX, int finalX, int Y)
 	}
 }
 
+void TimeMinus(float& b)
+{
+	b -= FASG::GetDeltaTime();
+}
 
 void Colisions(std::string tag1, std::string tag2)
 {

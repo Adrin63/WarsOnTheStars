@@ -127,16 +127,15 @@ void MovementPlayer()
 	if (FASG::IsKeyPressed('P'))
 	{
 		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::LightWhite);
-		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER A LA PANTALLA PRINCIPAL", FASG::EForeColor::LightWhite);
-		BackgroundWords(128, 172, 30);
-		BackgroundWords(130, 170, 35);
+		FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "O PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
+		BackgroundWords(129, 171, 30);
+		BackgroundWords(138, 162, 35);
 		int a = toupper(_getch());
 
 		if (a == 'O')
 		{
 			game.gameplay = false;
 			game.difficulty = false;
-			game.executable = false;
 		}
 	}
 }

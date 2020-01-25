@@ -46,27 +46,26 @@ int main()
 		{
 
 			Menu();
-			FASG::RenderFrame();
 
 			while (game.difficulty)
 			{
 				Difficulty();
-				InitGame();
 				FASG::RenderFrame();
-
 				
-					while (game.gameplay)
-					{
-						MovementPlayer();
-						DrawGame();
-						FASG::RenderFrame();
-					}
+				InitGame();
+				
+				while (game.gameplay)
+				{
+					MovementPlayer();
+					DrawGame();
+					FASG::RenderFrame();
+				}
 
-					while (game.end)
-					{
-						GameOver();
-						FASG::RenderFrame();
-					}
+				while (game.end)
+				{
+					GameOver();
+					FASG::RenderFrame();
+				}
 			}
 
 			while (game.howToPlay)
@@ -83,7 +82,7 @@ int main()
 void InitGame()
 {
 	InitPlayer();
-	Init_Stars();
+	InitStars();
 	InitEnemies();	
 }
 

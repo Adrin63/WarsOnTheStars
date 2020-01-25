@@ -9,7 +9,7 @@ const int MAX_INIT_STARS = 150;
 
 Star stars[MAX_INIT_STARS][MAX_INIT_STARS];
 
-void Init_Stars()
+void InitStars()
 {
 	for (int i = 0; i < MAX_INIT_STARS; i++)
 	{

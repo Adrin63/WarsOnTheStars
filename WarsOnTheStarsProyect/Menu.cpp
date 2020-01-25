@@ -9,43 +9,10 @@ extern Game game;
 
 void Menu()
 {
-		if (FASG::IsKeyPressed('W'))
-		{
-			contadorMenu--;
-		}
-
-		if (FASG::IsKeyPressed('S'))
-		{
-			contadorMenu++;
-		}
-
-		if (FASG::IsKeyPressed('E') && contadorMenu == 0)
-		{
-			game.difficulty = true;
-			game.end = false;
-			game.gameplay = false;
-			contadorMenu = 0;
-		}
-
-		if (FASG::IsKeyPressed('E') && contadorMenu == 1)
-		{
-			game.howToPlay = true;
-			contadorMenu = 0;
-		}
-
-		if (FASG::IsKeyPressed('C'))
-		{
-			game.executable = false;
-			game.login = false;
-		}
-
 	FASG::WriteSpriteBuffer(113, 5, FASG::Sprite("Menu.txt"));
-
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "COMO JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "E PARA SELECCIONAR", FASG::EForeColor::LightWhite);
-
-	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "C PARA SALIR", FASG::EForeColor::LightWhite);
 
 	switch (contadorMenu)
 	{
@@ -63,5 +30,31 @@ void Menu()
 		BackgroundWords(146, 154, 20);
 		contadorMenu = 0;
 		break;
+	}
+
+	FASG::RenderFrame();
+
+	if (FASG::IsKeyPressed('W'))
+	{
+		contadorMenu--;
+	}
+
+	if (FASG::IsKeyPressed('S'))
+	{
+		contadorMenu++;
+	}
+
+	if (FASG::IsKeyPressed('E') && contadorMenu == 0)
+	{
+		game.difficulty = true;
+		game.end = false;
+		game.gameplay = false;
+		contadorMenu = 0;
+	}
+
+	if (FASG::IsKeyPressed('E') && contadorMenu == 1)
+	{
+		game.howToPlay = true;
+		contadorMenu = 0;
 	}
 }
