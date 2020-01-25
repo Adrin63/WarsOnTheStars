@@ -60,6 +60,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
+    <ClCompile Include="End.cpp">
+      <Filter>Archivos de origen\OffGameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LS.txt" />
@@ -76,6 +79,7 @@
     <Text Include="FinalBoss.txt" />
     <Text Include="ShootEnemieLit.txt" />
     <Text Include="ShootEnemieMid.txt" />
+    <Text Include="GameOver.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -106,6 +110,9 @@
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
     <ClInclude Include="HowToPlay.h">
+      <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="End.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
   </ItemGroup>

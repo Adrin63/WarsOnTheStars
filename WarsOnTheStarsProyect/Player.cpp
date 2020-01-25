@@ -60,6 +60,11 @@ void DrawPlayer()
 			FASG::WriteSpriteBuffer(player.sprite.Location.x, player.sprite.Location.y, player.sprite);
 		}
 	}
+	else
+	{
+		game.gameplay = false;
+		game.end = true;
+	}
 }
 
 

@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Difficulty.cpp" />
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="HowToPlay.cpp" />
@@ -173,6 +174,7 @@
     <Text Include="EnemieLittle.txt" />
     <Text Include="EnemieMedium.txt" />
     <Text Include="FinalBoss.txt" />
+    <Text Include="GameOver.txt" />
     <Text Include="LS.txt" />
     <Text Include="Menu.txt" />
     <Text Include="Player_Right.txt" />
@@ -183,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Difficulty.h" />
+    <ClInclude Include="End.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="HowToPlay.h" />
     <ClInclude Include="Menu.h" />

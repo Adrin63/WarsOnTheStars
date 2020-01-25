@@ -8,6 +8,8 @@ int const EnemiesLar = 2;
 
 enemiMovement movEnemie = enemiMovement::enUP, movBoss;
 
+extern Game game;
+
 enemiBoss currentAttack;
 
 Shoot shootEnemieLittle[EnemiesLit], shootEnemieMid[EnemiesMed];
@@ -168,9 +170,11 @@ void DrawEnemies()
 
 	for (int draw = 0; draw < EnemiesLar; draw++)
 	{
+		if (!game.end)
 		FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
 	}
 
+	if (!game.end)
 	FASG::WriteSpriteBuffer(finalBoss.sprite.Location.x, finalBoss.sprite.Location.y,finalBoss.sprite);
 }
 
@@ -288,7 +292,7 @@ void MovementLittle()
 
 	for (int draw = 0; draw < EnemiesLit; draw++)
 	{
-		if (enemiesLittle[draw].vida > 0)
+		if (enemiesLittle[draw].vida > 0 && (!game.end))
 		{
 			FASG::WriteSpriteBuffer(enemiesLittle[draw].sprite.Location.x, enemiesLittle[draw].sprite.Location.y, enemiesLittle[draw].sprite);
 		}
@@ -355,7 +359,7 @@ void MovementMiddle()
 
 	for (int draw = 0; draw < EnemiesMed; draw++)
 	{
-		if (enemiesMedium[draw].vida > 0)
+		if (enemiesMedium[draw].vida > 0 && (!game.end))
 		{
 			FASG::WriteSpriteBuffer(enemiesMedium[draw].sprite.Location.x, enemiesMedium[draw].sprite.Location.y, enemiesMedium[draw].sprite);
 		}

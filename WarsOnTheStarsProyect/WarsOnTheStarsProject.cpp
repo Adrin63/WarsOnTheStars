@@ -13,6 +13,7 @@
 #include "Menu.h"
 #include "Difficulty.h"
 #include "HowToPlay.h"
+#include "End.h"
 
 HANDLE hndl;
 
@@ -53,12 +54,19 @@ int main()
 				InitGame();
 				FASG::RenderFrame();
 
-				while (game.gameplay)
-				{
-					MovementPlayer();
-					DrawGame();
-					FASG::RenderFrame();
-				}
+				
+					while (game.gameplay)
+					{
+						MovementPlayer();
+						DrawGame();
+						FASG::RenderFrame();
+					}
+
+					while (game.end)
+					{
+						GameOver();
+						FASG::RenderFrame();
+					}
 			}
 
 			while (game.howToPlay)

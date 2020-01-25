@@ -27,6 +27,7 @@ void Difficulty()
 	{
 		
 		game.gameplay = true;
+		game.end = false;
 	}
 
 	if (DifChar == 'R' && contadorDifficulty == 1)

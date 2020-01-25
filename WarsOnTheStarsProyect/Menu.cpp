@@ -22,6 +22,7 @@ void Menu()
 		if (FASG::IsKeyPressed('E') && contadorMenu == 0)
 		{
 			game.difficulty = true;
+			game.end = false;
 			game.gameplay = false;
 			contadorMenu = 0;
 		}
