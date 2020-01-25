@@ -14,6 +14,7 @@
 #include "Difficulty.h"
 #include "HowToPlay.h"
 #include "GameOver.h"
+#include "Victoria.h"
 
 HANDLE hndl;
 
@@ -47,7 +48,7 @@ int main()
 		Muerte.Stop();
 		miSonidoDePrueba.Stop();
 		Intro.Play();
-		LogScreen();
+		Victory();
 		FASG::RenderFrame();
 
 		while (game.executable)

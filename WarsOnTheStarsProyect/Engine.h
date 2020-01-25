@@ -16,6 +16,7 @@ struct Game
 	bool glossary = false;
 	bool howToPlay = false;
 	bool gameOver = false;
+	bool victoria = false;
 };
 
 void BackgroundWords(int initialX, int finalX, int Y);
