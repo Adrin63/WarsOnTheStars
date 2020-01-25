@@ -6,43 +6,75 @@ int const EnemiesLit = 4;
 int const EnemiesMed = 3;
 int const EnemiesLar = 2;
 
-enemiMovement movEnemie = enemiMovement::enUP;
+enemiMovement movEnemie = enemiMovement::enUP, movBoss;
+
+enemiBoss currentAttack;
+
+Shoot shootEnemieLittle[EnemiesLit], shootEnemieMid[EnemiesMed];
+
+FASG::WAVESound FinalBattle;
+
 
 float const MovementCDLittle = 0.85f, MovementCDMedium = 1.25f, MovementCDLarge = 3.f;
 
 float CDLittle = MovementCDLittle, CDMedium = MovementCDMedium, CDLarge = MovementCDLarge;
 
+float CDUntilFinalStage = 8.2f;
+float CDStartFinalStage = 8.f;
 float timeUntilAppear = 2.f;
 float CDUntilAppear = timeUntilAppear;
 
-int contador = 0;
+int contador = 0, contadorBoss = 0;
 
+float const cooldownAttacks = 2.f;
+float CDBoss = cooldownAttacks;
+
+bool badTime = false, laser = false;
 bool RestartLarge[EnemiesLar];
 
-bool allAway = false;
-
-bool FinalStateLar = false;
+bool finalStageStart = false, finalStageLar = false, allAway = false, start = true, startAttackFinalBoss = false;;
 
 int DeadLit = 0, DeadMid = 0, DeadLar = 0;
+
 bool allDeadLit = false, allDeadMid = false, allDeadLar = false;
 
-TypeEnemieLittle enemiesLittle[EnemiesLit];
+Enemie enemiesLittle[EnemiesLit], enemiesMedium[EnemiesMed], enemiesLarge[EnemiesLar], finalBoss;
 
-TypeEnemieMedium enemiesMedium[EnemiesMed];
 
-TypeEnemieLarge enemiesLarge[EnemiesLar];
+int attack = 0;
+float const timeLaser = 2.5f;
+float CDlaser = timeLaser;
+int cont = 0;
+
+Laser laserBoss;
 
 void InitEnemies()
 {
+	//FinalBattle.LoadSound("BadTime.wav");
 	allAway = false;
 	DeadLit = 0, DeadMid = 0, DeadLar = 0;
 	allDeadLit = false, allDeadMid = false, allDeadLar = false;
-	FinalStateLar = false;
+	finalStageStart = false;
+	finalStageLar = false;
+	start = true;
+	startAttackFinalBoss = false;
+	CDUntilFinalStage = 7.9f;
+	CDStartFinalStage = 5.0f;
 
+	badTime = false;
+	contadorBoss = 0;
 	CDLittle = MovementCDLittle;
 	CDMedium = MovementCDMedium;
 	CDUntilAppear = timeUntilAppear;
 	CDLarge = MovementCDLarge;
+
+
+	cont = 0;
+	laser = false;
+	laserBoss.sprite.LoadSprite("EnemieLaser.txt");
+	laserBoss.sprite.Location.x = -14;
+	laserBoss.sprite.Location.y = 27;
+
 
 	enemiesLittle[0].sprite.Location.y = 10;
 	enemiesLittle[1].sprite.Location.y = 22;
@@ -51,10 +83,16 @@ void InitEnemies()
 
 	for (int i = 0; i < EnemiesLit; i++)
 	{
-		enemiesLittle[i].vida = 1;
+		enemiesLittle[i].vida = 3;
 		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesLittle[i].sprite, "enLit" + i);
 		enemiesLittle[i].sprite.Location.x = 200;
+
+		shootEnemieLittle[i].sprite.LoadSprite("ShootEnemieLit.txt");
+		shootEnemieLittle[i].onOff = true;
+		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
+		shootEnemieLittle[i].shootEnemieSpeed = 60.f;
+		FASG::Sprite::AddToCollisionSystem(shootEnemieLittle[i].sprite, "ShootEnemieLit");
 	}
 
 	enemiesMedium[0].sprite.Location.y = 7;
@@ -63,10 +101,16 @@ void InitEnemies()
 
 	for (int l = 0; l < EnemiesMed; l++)
 	{
-		enemiesMedium[l].vida = 5;
+		enemiesMedium[l].vida = 10;
 		enemiesMedium[l].sprite.LoadSprite("EnemieMedium.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[l].sprite, "enMed" + l);
 		enemiesMedium[l].sprite.Location.x = 225;
+
+		shootEnemieMid[l].sprite.LoadSprite("ShootEnemieMid.txt");
+		shootEnemieMid[l].onOff = true;
+		shootEnemieMid[l].CDShoot = rand() % 5 + 3;
+		shootEnemieMid[l].shootEnemieSpeed = 20.f;
+		FASG::Sprite::AddToCollisionSystem(shootEnemieMid[l].sprite, "ShootEnemieMid");
 	}
 
 	enemiesLarge[0].sprite.Location.y = 3;
@@ -78,6 +122,11 @@ void InitEnemies()
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[j].sprite, "enLar" + j);
 		enemiesLarge[j].sprite.Location.x = 260;
 	}
+
+	finalBoss.sprite.LoadSprite("FinalBoss.txt");
+	FASG::Sprite::AddToCollisionSystem(finalBoss.sprite, "FinalBoss");
+	finalBoss.sprite.Location.y = 22;
+	finalBoss.sprite.Location.x = 305;
 }
 
 void DrawEnemies()
@@ -86,25 +135,108 @@ void DrawEnemies()
 	CDMedium -= FASG::GetDeltaTime();
 	CDLarge -= FASG::GetDeltaTime();
 
+	EnemiesShoots();
+
 	MovementLittle();
 
 	MovementMiddle();
-	if (!FinalStateLar)
+
+	if (!(allDeadLit && allDeadMid))
 	{
 		MovementLarge();
 	}
-	
-	if (FinalStateLar)
+
+	if (badTime)
 	{
-		FinalStateLars();
+		FinalBattle.Play();
 	}
 
-	if (allDeadLit && allDeadMid)
+	if ((allDeadLit && allDeadMid) && (!finalStageStart))
 	{
-		FinalStateLar = true;
-		FinalState();
+		FinalStagePreparation();
+	}
+
+	if (finalStageStart)
+	{
+		TimeMinus(CDStartFinalStage);
+
+		if (CDStartFinalStage <= 0)
+		{
+			FinalBossMovements();
+		}
+	}
+
+	for (int draw = 0; draw < EnemiesLar; draw++)
+	{
+		FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+	}
+
+	FASG::WriteSpriteBuffer(finalBoss.sprite.Location.x, finalBoss.sprite.Location.y,finalBoss.sprite);
+}
+
+void EnemiesShoots()
+{
+	for (int i = 0; i < EnemiesLit; i++)
+	{
+		if (shootEnemieLittle[i].onOff)
+		{
+			shootEnemieLittle[i].sprite.Location.x = enemiesLittle[i].sprite.Location.x - 3;
+			shootEnemieLittle[i].sprite.Location.y = enemiesLittle[i].sprite.Location.y + 1;
+			TimeMinus(shootEnemieLittle[i].CDShoot);
+
+			if (shootEnemieLittle[i].CDShoot <= 0)
+				shootEnemieLittle[i].onOff = false;
+		}
+		else
+		{
+			ShootEnemieLittle(i);
+		}
+	}
+
+	for (int a = 0; a < EnemiesMed; a++)
+	{
+		if (shootEnemieMid[a].onOff)
+		{
+			shootEnemieMid[a].sprite.Location.x = enemiesMedium[a].sprite.Location.x - 3;
+			shootEnemieMid[a].sprite.Location.y = enemiesMedium[a].sprite.Location.y + 1;
+			TimeMinus(shootEnemieMid[a].CDShoot);
+
+			if (shootEnemieMid[a].CDShoot <= 0)
+				shootEnemieMid[a].onOff = false;
+		}
+		else
+		{
+			ShootEnemieMid(a);
+		}
 	}
 }
+
+void ShootEnemieLittle(int i)
+{
+	shootEnemieLittle[i].sprite.Location.x -= shootEnemieLittle[i].shootEnemieSpeed * FASG::GetDeltaTime();
+
+	if (shootEnemieLittle[i].sprite.Location.x <= -1)
+	{
+		shootEnemieLittle[i].onOff = true;
+		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
+	}
+
+	FASG::WriteSpriteBuffer(shootEnemieLittle[i].sprite.Location.x, shootEnemieLittle[i].sprite.Location.y, shootEnemieLittle[i].sprite);
+}
+
+void ShootEnemieMid(int i)
+{
+	shootEnemieMid[i].sprite.Location.x -= shootEnemieMid[i].shootEnemieSpeed * FASG::GetDeltaTime();
+
+	if (shootEnemieMid[i].sprite.Location.x <= -1)
+	{
+		shootEnemieMid[i].onOff = true;
+		shootEnemieMid[i].CDShoot = rand() % 5 + 3;
+	}
+
+	FASG::WriteSpriteBuffer(shootEnemieMid[i].sprite.Location.x, shootEnemieMid[i].sprite.Location.y, shootEnemieMid[i].sprite);
+}
+
 
 void MovementLittle()
 {
@@ -255,7 +387,7 @@ void MovementLarge()
 					RestartLarge[i] = true;
 					allAway = true;
 				}
-			}
+			}			
 		}
 	}
 
@@ -265,54 +397,185 @@ void MovementLarge()
 
 		if (CDUntilAppear <= 0)
 		{
-			for (int i = 0; i < EnemiesLar; i++)
+			FromRightLarg(true);
+		}
+	}
+}
+
+void FinalStagePreparation()
+{
+	for (int j = 0; j < EnemiesLar; j++)
+	{
+		enemiesLarge[j].vida = 30;
+	}
+	
+	if (CDUntilFinalStage > 0)
+	{
+		AllLeftLarg();
+	}
+	
+	if (CDUntilFinalStage <= 0)
+	{
+		FromRightLarg(false);
+	}
+}
+
+void FinalBossMovements()
+{
+	if (!laser)
+	{
+		if (!startAttackFinalBoss)
+		{
+			//CAMBIAR A 4
+			attack = rand() % 1;
+			movBoss = enemiMovement::enUP;
+		}
+
+		if (start)
+		{
+			finalBoss.sprite.Location.x -= 0.4;
+			if (finalBoss.sprite.Location.x <= 240)
+				start = false;
+		}
+		else
+		{
+			TimeMinus(CDBoss);
+			startAttackFinalBoss = true;
+
+			if (CDBoss <= 0)
 			{
-				if (RestartLarge[i])
+				switch (attack)
 				{
-					enemiesLarge[i].sprite.Location.x = 308;
-					RestartLarge[i] = false;
+				case 0:
+					currentAttack = enemiBoss::LASER;
+					CDBoss += 0.25f;
+					break;
+				default:
+					currentAttack = enemiBoss::DISPARO;
 				}
 
-				enemiesLarge[i].sprite.Location.x--;
-
-				if (enemiesLarge[i].sprite.Location.x <= 260)
+				switch (currentAttack)
 				{
-					enemiesLarge[i].sprite.Location.x = 260;
-					CDUntilAppear = timeUntilAppear;
-					CDLarge = MovementCDLarge;
-					RestartLarge[i] = true;
-					allAway = false;
+				case LASER:
+
+					switch (movBoss)
+					{
+					case enUP:
+						contadorBoss++;
+						finalBoss.sprite.Location.y -= 3;
+						cont++;
+						break;
+					case enDOWN:
+						contadorBoss--;
+						cont++;
+						finalBoss.sprite.Location.y += 3;
+						break;
+					}
+
+					switch (contadorBoss)
+					{
+					case 1:
+						movBoss = enemiMovement::enDOWN;
+						
+						break;
+					case -1:
+						movBoss = enemiMovement::enUP;
+						
+						break;
+					}
+				case DISPARO:
+					break;
 				}
 			}
 		}
 	}
 
-	for (int draw = 0; draw < EnemiesLar; draw++)
+	if (cont == 4)
 	{
-		if (enemiesLarge[draw].vida > 0)
+		laser = true;
+		cont = 0;
+	}
+
+	if (laser)
+	{
+		TimeMinus(CDlaser);
+		if (CDlaser >= 0)
 		{
-			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
+			FASG::WriteSpriteBuffer(laserBoss.sprite.Location.x, laserBoss.sprite.Location.y, laserBoss.sprite);
 		}
 		else
 		{
-			DeadLar++;
-			enemiesLarge[draw].sprite.Location.x = -10;
+			CDBoss = cooldownAttacks;
+			CDlaser = timeLaser;
+			laser = false;
+			startAttackFinalBoss = false;
 		}
 	}
+}
 
-	if (DeadLar == EnemiesLar)
+void AllLeftLarg()
+{
+	int cont = 0;
+	for (int i = 0; i < EnemiesLar; i++)
 	{
-		allDeadLar = true;
+		enemiesLarge[i].sprite.Location.x -= 2;
+
+		if (enemiesLarge[i].sprite.Location.x <= -22)
+		{
+			cont++;
+		}
+	}
+	if (cont == 2)
+	{
+		badTime = true;
+		TimeMinus(CDUntilFinalStage);
 	}
 }
 
-void FinalStateLars()
+void TimeMinus(float &b)
 {
+	b -= FASG::GetDeltaTime();
 }
 
-void FinalState()
+void FromRightLarg(bool a)
 {
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (RestartLarge[i])
+		{
+			enemiesLarge[i].sprite.Location.x = 305;
+			RestartLarge[i] = false;
+		}
 
+		switch (a)
+		{
+		case true:
+			enemiesLarge[i].sprite.Location.x--;
+			break;
+		case false:
+			enemiesLarge[i].sprite.Location.x -= 0.4f;
+			break;
+		}
+		
+		if (enemiesLarge[i].sprite.Location.x <= 260)
+		{
+			enemiesLarge[i].sprite.Location.x = 260;
+			
+			switch (a)
+			{
+			case true:
+				RestartLarge[i] = true;
+				break;
+			case false:
+				finalStageStart = true;
+				break;
+			}
+
+			allAway = false;
+			CDUntilAppear = timeUntilAppear;
+			CDLarge = MovementCDLarge;
+		}
+	}
 }
 
 int envLitEnQuantity()

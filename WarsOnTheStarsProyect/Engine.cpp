@@ -3,26 +3,6 @@
 #include "Player.h"
 #include "Enemies.h"
 
-bool envGameplay()
-{
-	return false;
-}
-
-bool envExecutable()
-{
-	return false;
-}
-
-bool envHowToPlay()
-{
-	return false;
-}
-
-bool envDifficulty()
-{
-	return false;
-}
-
 void BackgroundWords(int initialX, int finalX, int Y)
 {
 	for (initialX; initialX <= finalX; initialX++)

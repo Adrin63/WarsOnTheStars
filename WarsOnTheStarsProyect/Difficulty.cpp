@@ -48,7 +48,7 @@ void Difficulty()
 	}
 
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
-	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "MARICA", FASG::EForeColor::LightWhite);
+	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "PRACTICA", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "NORMAL", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "1 VIDA", FASG::EForeColor::LightWhite);
 

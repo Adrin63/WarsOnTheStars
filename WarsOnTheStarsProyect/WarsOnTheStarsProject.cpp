@@ -18,13 +18,11 @@ HANDLE hndl;
 
 //FPS		FASG::WriteStringBuffer(0, 0, "FPS:" + std::to_string(1 / FASG::GetDeltaTime()),FASG::EForeColor::LightRed);
 
-//extern Player player;
 extern Game game;
 
 int main()
 {
-	FASG::WAVESound miSonidoDePrueba;
-	miSonidoDePrueba.LoadSound("manantial.wav");
+
 	
 	srand(time(NULL));
 	game.W = 300; game.H = 60;
@@ -45,6 +43,7 @@ int main()
 
 		while (game.executable)
 		{
+
 			Menu();
 			FASG::RenderFrame();
 
@@ -56,7 +55,6 @@ int main()
 
 				while (game.gameplay)
 				{
-					miSonidoDePrueba.Play();
 					MovementPlayer();
 					DrawGame();
 					FASG::RenderFrame();
@@ -83,7 +81,7 @@ void InitGame()
 
 void DrawGame()
 {
-	Draw_Stars();
+	DrawStars();
 	DrawPlayer();
 	DrawEnemies();
 }

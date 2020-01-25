@@ -10,4 +10,4 @@ struct Star
 };
 
 void Init_Stars();
-void Draw_Stars();
+void DrawStars();

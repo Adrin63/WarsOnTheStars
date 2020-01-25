@@ -172,11 +172,14 @@
     <Text Include="EnemieLaser.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="EnemieMedium.txt" />
+    <Text Include="FinalBoss.txt" />
     <Text Include="LS.txt" />
     <Text Include="Menu.txt" />
     <Text Include="Player_Right.txt" />
     <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
+    <Text Include="ShootEnemieLit.txt" />
+    <Text Include="ShootEnemieMid.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Difficulty.h" />

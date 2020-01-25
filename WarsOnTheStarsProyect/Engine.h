@@ -24,3 +24,5 @@ void InitGame();
 void DrawGame();
 
 void Colisions(std::string tag1, std::string tag2);
+
+void AllLeftLarg();

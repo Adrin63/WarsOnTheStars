@@ -21,7 +21,7 @@ void Init_Stars()
 	}
 }
 
-void Draw_Stars()
+void DrawStars()
 {
 	for (int i = 0; i < MAX_INIT_STARS; i++)
 	{

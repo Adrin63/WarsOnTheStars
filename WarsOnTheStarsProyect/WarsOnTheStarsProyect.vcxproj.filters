@@ -58,7 +58,7 @@
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +73,9 @@
     <Text Include="EnemieMedium.txt" />
     <Text Include="EnemieLarge.txt" />
     <Text Include="EnemieLaser.txt" />
+    <Text Include="FinalBoss.txt" />
+    <Text Include="ShootEnemieLit.txt" />
+    <Text Include="ShootEnemieMid.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
