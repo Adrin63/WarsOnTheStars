@@ -14,10 +14,12 @@
 #include "Difficulty.h"
 #include "HowToPlay.h"
 #include "End.h"
+#include "Victoria.h"
 
 HANDLE hndl;
 
 extern Game game;
+extern FASG::WAVESound finalBossSong;
 
 int main()
 {	
@@ -63,6 +65,13 @@ int main()
 			while (game.howToPlay)
 			{
 				HowToPlay();
+				FASG::RenderFrame();
+			}
+
+			while (game.win)
+			{
+				finalBossSong.Stop();
+				Win();
 				FASG::RenderFrame();
 			}
 		}

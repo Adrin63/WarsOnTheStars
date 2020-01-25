@@ -43,11 +43,26 @@ void Colisions(std::string tag1, std::string tag2)
 
 	for (int i = 0; i < EnemiesLar; i++)
 	{
-		if (tag1 == "ShootPlayer" && tag2 == "enLarFinal" + i || tag2 == "ShootPlayer" && tag1 == "enLarFinal" + i)
+		if (tag1 == "ShootPlayer" && tag2 == "enLarge" + i || tag2 == "ShootPlayer" && tag1 == "enLarge" + i)
 		{
 			ReciveLarDmg(i);
 			ShootOff(false);
 		}
+	}
+
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (tag1 == "ShootPlayer" && tag2 == "enLargeFinal" + i || tag2 == "ShootPlayer" && tag1 == "enLargeFinal" + i)
+		{
+			ReciveLarDmg(i);
+			ShootOff(false);
+		}
+	}
+
+	if ((tag1 == "ShootPlayer" && tag2 == "FinalBoss") || (tag2 == "ShootPlayer" && tag1 == "FinalBoss"))
+	{
+		ReciveBossDmg();
+		ShootOff(false);
 	}
 
 	//Player - Enemigos
@@ -81,6 +96,14 @@ void Colisions(std::string tag1, std::string tag2)
 			//Entra en este if cuando no deberia entrar
 			//RecivePlayerDmg(true);
 			//RestartShootEnMid(l);
+		}
+	}
+
+	for (int l = 0; l < EnemiesLar; l++)
+	{
+		if (((tag1 == "Player" && tag2 == "laser") || (tag2 == "Player" && tag1 == "laser")) || ((tag1 == "PlayerInMove" && tag2 == "laser") || (tag2 == "PlayerInMove" && tag1 == "laser")))
+		{
+			RecivePlayerDmg(false);
 		}
 	}
 }

@@ -51,6 +51,7 @@ int envLarEnQuantity();
 void ReciveLitDmg(int a);
 void ReciveMidDmg(int b);
 void ReciveLarDmg(int c);
+void ReciveBossDmg();
 
 void EnemiesShoots();
 void ShootEnemieLittle(int i);

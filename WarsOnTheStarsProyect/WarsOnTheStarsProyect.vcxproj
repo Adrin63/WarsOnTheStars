@@ -164,6 +164,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stars.cpp" />
+    <ClCompile Include="Victoria.cpp" />
     <ClCompile Include="WarsOnTheStarsProject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +184,7 @@
     <Text Include="Player.txt" />
     <Text Include="ShootEnemieLit.txt" />
     <Text Include="ShootEnemieMid.txt" />
+    <Text Include="Victoria.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Difficulty.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="LoginScreen.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stars.h" />
+    <ClInclude Include="Victoria.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="BadTime.wav" />

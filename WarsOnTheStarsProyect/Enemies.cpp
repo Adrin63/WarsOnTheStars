@@ -76,8 +76,9 @@ void InitEnemies()
 	cont = 0;
 	laser = false;
 	laserBoss.sprite.LoadSprite("EnemieLaser.txt");
-	laserBoss.sprite.Location.x = -14;
-	laserBoss.sprite.Location.y = 27;
+	FASG::Sprite::AddToCollisionSystem(laserBoss.sprite, "laser");
+	laserBoss.sprite.Location.x = -400;
+	laserBoss.sprite.Location.y = 28;
 
 
 	enemiesLittle[0].sprite.Location.y = 10;
@@ -119,10 +120,11 @@ void InitEnemies()
 
 	enemiesLarge[0].sprite.Location.y = 3;
 	enemiesLarge[1].sprite.Location.y = 41;
-
+	
 	for (int j = 0; j < EnemiesLar; j++)
 	{
-		enemiesLarge[j].sprite.LoadSprite("EnemieLarge.txt");
+		enemiesLarge[j].vida = 9999999;
+		enemiesLarge[j].sprite.LoadSprite("EnemieLargeShield.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesLarge[j].sprite, "enLarge" + j);
 		enemiesLarge[j].sprite.Location.x = 260;
 	}
@@ -131,7 +133,7 @@ void InitEnemies()
 	FASG::Sprite::AddToCollisionSystem(finalBoss.sprite, "FinalBoss");
 	finalBoss.sprite.Location.y = 22;
 	finalBoss.sprite.Location.x = 305;
-
+	finalBoss.vida = 80;
 }
 
 void DrawEnemies()
@@ -174,14 +176,37 @@ void DrawEnemies()
 
 	for (int draw = 0; draw < EnemiesLar; draw++)
 	{
-		if (!game.end)
+		if (!game.end && enemiesLarge[draw].vida > 0)
 		{
 			FASG::WriteSpriteBuffer(enemiesLarge[draw].sprite.Location.x, enemiesLarge[draw].sprite.Location.y, enemiesLarge[draw].sprite);
 		}
+		else
+		{
+			enemiesLarge[draw].sprite.Location.x = -20;
+		}
 	}
 
-	if (!game.end)
-	FASG::WriteSpriteBuffer(finalBoss.sprite.Location.x, finalBoss.sprite.Location.y,finalBoss.sprite);
+	if (CDStartFinalStage <= 0)
+	{
+		for (int draw = 120; draw < 120+finalBoss.vida; draw++)
+		{
+			FASG::WritePixelBuffer(draw, 4, FASG::EBackColor::LightYellow);
+			FASG::WritePixelBuffer(draw, 5, FASG::EBackColor::LightYellow);
+		}
+	}
+
+	if (!game.end && finalBoss.vida > 0)
+	{
+		FASG::WriteSpriteBuffer(finalBoss.sprite.Location.x, finalBoss.sprite.Location.y, finalBoss.sprite);
+	}
+	else
+	{
+		game.gameplay = false;
+		game.difficulty = false;
+		game.end = false;
+		game.howToPlay = false;
+		game.win = true;
+	}
 }
 
 void EnemiesShoots()
@@ -395,7 +420,7 @@ void MovementLarge()
 			{
 				enemiesLarge[i].sprite.Location.x -= 2;
 
-				if (enemiesLarge[i].sprite.Location.x <= -22)
+				if (enemiesLarge[i].sprite.Location.x <= -24)
 				{
 					RestartLarge[i] = true;
 					allAway = true;
@@ -419,7 +444,7 @@ void FinalStagePreparation()
 {
 	for (int j = 0; j < EnemiesLar; j++)
 	{
-		enemiesLarge[j].vida = 30;
+		enemiesLarge[j].vida = 80;
 	}
 	
 	if (CDUntilFinalStage > 0)
@@ -429,6 +454,12 @@ void FinalStagePreparation()
 	
 	if (CDUntilFinalStage <= 0)
 	{
+		for (int i = 0; i < EnemiesLar; i++)
+		{
+			enemiesLarge[i].sprite.LoadSprite("EnemieLarge.txt");
+			FASG::Sprite::AddToCollisionSystem(enemiesLarge[i].sprite, "enLargeFinal" + i);
+		}
+
 		FromRightLarg(false);
 	}
 }
@@ -514,11 +545,13 @@ void FinalBossMovements()
 		TimeMinus(CDlaser);
 		if (CDlaser >= 0)
 		{
+			laserBoss.sprite.Location.x = -14;
 			FASG::WriteSpriteBuffer(laserBoss.sprite.Location.x, laserBoss.sprite.Location.y, laserBoss.sprite);
 		}
 		else
 		{
 			CDBoss = cooldownAttacks;
+			laserBoss.sprite.Location.x = -400;
 			CDlaser = timeLaser;
 			laser = false;
 			startAttackFinalBoss = false;
@@ -527,27 +560,33 @@ void FinalBossMovements()
 }
 
 void FinalBossMovementsLar()
-{
-	if (CDLarOnLastStage <= 0)
-	{
-		CDLarOnLastStage = coolDownOnLastStage;
-		for (int a = 0; a < EnemiesLar; a++)
-		{
-			enemiesLarge[a].sprite.Location.x = 310;
-		}
-	}
+{	
 	if (CDLarOnLastStage > 0)
 	{
 		for (int i = 0; i < EnemiesLar; i++)
 		{
 			enemiesLarge[i].sprite.Location.x -= 2;
 
-			if (enemiesLarge[i].sprite.Location.x <= -22)
+			if ((enemiesLarge[i].sprite.Location.x <= -22) && enemiesLarge[i].vida > 0)
 			{
 				TimeMinus(CDLarOnLastStage);
 			}
 		}
 	}
+
+	if (CDLarOnLastStage <= 0)
+	{
+		CDLarOnLastStage = coolDownOnLastStage;
+
+		for (int a = 0; a < EnemiesLar; a++)
+		{
+			if (enemiesLarge[a].vida > 0)
+			{
+				enemiesLarge[a].sprite.Location.x = 310;
+			}
+		}
+	}
+
 }
 
 void AllLeftLarg()
@@ -557,7 +596,7 @@ void AllLeftLarg()
 	{
 		enemiesLarge[i].sprite.Location.x -= 2;
 
-		if (enemiesLarge[i].sprite.Location.x <= -22)
+		if (enemiesLarge[i].sprite.Location.x <= -24)
 		{
 			cont++;
 		}
@@ -658,4 +697,9 @@ void ReciveMidDmg(int b)
 void ReciveLarDmg(int c)
 {
 	enemiesLarge[c].vida--;
+}
+
+void ReciveBossDmg()
+{
+	finalBoss.vida--;
 }
