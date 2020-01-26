@@ -3,12 +3,15 @@
 #include <conio.h>
 #include "Engine.h"
 
+//Posición del selector de dificultad
 int contadorDifficulty = 1;
 
+//Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
 void Difficulty()
 {
+	//Mostrar graficamente dificultades
 	FASG::WriteSpriteBuffer(90, 5, FASG::Sprite("Dificultad.txt"));
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "PRACTICA", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "NORMAL", FASG::EForeColor::LightWhite);
@@ -17,6 +20,8 @@ void Difficulty()
 	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "R PARA SELECCIONAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "X PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 
+
+	//Subrayar la opción en la que estas
 	switch (contadorDifficulty)
 	{
 	case 0:
@@ -37,10 +42,13 @@ void Difficulty()
 		contadorDifficulty = 0;
 		break;
 	}
-	FASG::RenderFrame();
 
+	FASG::RenderFrame();
+	
+	//_getch() y no IsKeyPressed para ir mas lentro entre opciones
 	char DifChar = toupper(_getch());
 
+	//Moverte entre opciones
 	switch (DifChar)
 	{
 	case 'W':
@@ -51,6 +59,8 @@ void Difficulty()
 		break;
 	}
 
+
+	//Entrar al juego
 	if (DifChar == 'R' && contadorDifficulty == 0)
 	{
 		game.gameplay = true;
@@ -73,6 +83,7 @@ void Difficulty()
 	}
 }
 
+//enviar a Player que dificultad a sido elegida
 Diff envDifficulty()
 {
 	switch (contadorDifficulty)

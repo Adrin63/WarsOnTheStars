@@ -7,11 +7,6 @@ enum enemiMovement
 	enDOWN, enUP
 };
 
-enum enemiBoss
-{
-	LASER, DISPARO
-};
-
 struct Enemie
 {
 	FASG::Sprite sprite;
