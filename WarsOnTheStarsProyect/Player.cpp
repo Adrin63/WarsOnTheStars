@@ -27,7 +27,6 @@ float const coolDownLife = 1.f;
 float CDLife = coolDownLife;
 bool hitOn = true;
 
-
 void InitPlayer()
 {
 	//Inicialización de los sprites del jugador

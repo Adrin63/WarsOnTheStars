@@ -5,7 +5,7 @@
 //Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
-Logear logscreen;
+FASG::Sprite logscreen;
 
 //Hacer que aparezcan y desaparezcan las letras en pantalla
 bool on = true;
@@ -15,9 +15,9 @@ float coolDown = DissapearCD;
 //Inicializar la Pantalla de Inicio
 void InitLogScreen()
 {
-	logscreen.log.LoadSprite("LS.txt");
-	logscreen.log.Location.x = 97;
-	logscreen.log.Location.y = 5;
+	logscreen.LoadSprite("LS.txt");
+	logscreen.Location.x = 97;
+	logscreen.Location.y = 5;
 }
 
 void LogScreen()
@@ -47,7 +47,7 @@ void LogScreen()
 
 
 
-	FASG::WriteSpriteBuffer(logscreen.log.Location.x, logscreen.log.Location.y, logscreen.log);
+	FASG::WriteSpriteBuffer(logscreen.Location.x, logscreen.Location.y, logscreen);
 	FASG::RenderFrame();
 
 

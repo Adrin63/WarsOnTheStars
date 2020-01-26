@@ -109,23 +109,35 @@ void InitEnemies()
 	//Cargar la canción
 	finalBossSong.LoadSound("BadTime.wav");
 
-	//Reinicializar todas las variables
+	/*Reinicializar todas las variables*/
+
+	CDLittle = MovementCDLittle, CDMedium = MovementCDMedium, CDLarge = MovementCDLarge;
+	
+	contador = 0;
+
 	allAway = false;
+	CDUntilAppear = timeUntilAppear;
+
 	DeadLit = 0, DeadMid = 0, DeadLar = 0;
 	allDeadLit = false, allDeadMid = false;
-	finalStageStart = false;
-	start = true;
-	CDUntilFinalStage = 7.9f;
-	CDStartFinalStage = 5.0f;
-	badTime = false;
-	contadorBoss = 0;
-	CDLittle = MovementCDLittle;
-	CDMedium = MovementCDMedium;
-	CDUntilAppear = timeUntilAppear;
-	CDLarge = MovementCDLarge;
-	cont = 0;
-	laser = false;
 
+	badTime = false;
+
+	CDUntilFinalStage = 8.2f;
+	CDStartFinalStage = 8.f;
+
+	finalStageStart = false, start = true;
+	
+	laser = false;
+	CDlaser = timeLaser;
+	cont = 0;
+
+	contadorBoss = 0;
+
+	CDBoss = cooldownAttacks;
+	CDLarOnLastStage = coolDownOnLastStage;
+
+	/*                                */
 
 	//Inizialización del laser
 	laserBoss.sprite.LoadSprite("EnemieLaser.txt");
@@ -223,6 +235,7 @@ void InitEnemies()
 	finalBoss.sprite.Location.x = 305;
 }
 
+//Juego
 void DrawEnemies()
 {
 	//Tiempo entre acciones de los enemigos

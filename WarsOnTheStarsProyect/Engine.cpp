@@ -112,7 +112,6 @@ void Colisions(std::string tag1, std::string tag2)
 		{
 			//Entra en este if cuando no deberia entrar
 			//RecivePlayerDmg(true);
-			//RestartShootEnMid(l);
 		}
 	}
 
@@ -122,7 +121,6 @@ void Colisions(std::string tag1, std::string tag2)
 		{
 			//Entra en este if cuando no deberia entrar
 			//RecivePlayerDmg(true);
-			//RestartShootEnMid(l);
 		}
 	}
 
