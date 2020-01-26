@@ -134,6 +134,7 @@ void InitEnemies()
 	finalBoss.sprite.Location.y = 22;
 	finalBoss.sprite.Location.x = 305;
 	finalBoss.vida = 80;
+
 }
 
 void DrawEnemies()
@@ -199,7 +200,8 @@ void DrawEnemies()
 	{
 		FASG::WriteSpriteBuffer(finalBoss.sprite.Location.x, finalBoss.sprite.Location.y, finalBoss.sprite);
 	}
-	else
+
+	if(!game.end && finalBoss.vida <= 0)
 	{
 		game.gameplay = false;
 		game.difficulty = false;

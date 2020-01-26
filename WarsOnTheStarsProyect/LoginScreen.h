@@ -4,7 +4,6 @@
 
 struct Logear
 {
-	/*Vector2D pos;*/
 	FASG::Sprite log;
 };
 

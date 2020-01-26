@@ -3,17 +3,21 @@
 #include <conio.h>
 #include "Engine.h"
 
+//Posición del menu
 int contadorMenu = 0;
 
+//Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
 void Menu()
 {
+	//Mostrar Graficamente el menu
 	FASG::WriteSpriteBuffer(113, 5, FASG::Sprite("Menu.txt"));
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "COMO JUGAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "E PARA SELECCIONAR", FASG::EForeColor::LightWhite);
 
+	//Subrayar la opción en la que estas
 	switch (contadorMenu)
 	{
 	case 0:
@@ -34,6 +38,7 @@ void Menu()
 
 	FASG::RenderFrame();
 
+	//Moverte entre opciones
 	if (FASG::IsKeyPressed('W'))
 	{
 		contadorMenu--;
@@ -44,6 +49,7 @@ void Menu()
 		contadorMenu++;
 	}
 
+	//Entrar a la dificultad del juego y a posterior al juego
 	if (FASG::IsKeyPressed('E') && contadorMenu == 0)
 	{
 		game.difficulty = true;
@@ -52,6 +58,7 @@ void Menu()
 		contadorMenu = 0;
 	}
 
+	//Entrar a los controles
 	if (FASG::IsKeyPressed('E') && contadorMenu == 1)
 	{
 		game.howToPlay = true;

@@ -14,6 +14,14 @@ void GameOver()
 {
 	TimeMinus(coolDownDead);
 
+	if (onDead)
+	{
+		FASG::WriteSpriteBuffer(90, 10, FASG::Sprite("GameOver.txt"));
+		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PULSA C PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
+	}
+
+	FASG::RenderFrame();
+
 	if (coolDownDead <= 0)
 	{
 		switch (onDead)
@@ -32,11 +40,5 @@ void GameOver()
 	{
 		game.login = true;
 		game.end = false;
-	}
-
-	if (onDead)
-	{
-		FASG::WriteSpriteBuffer(90, 10, FASG::Sprite("GameOver.txt"));
-		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PULSA C PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 	}
 }

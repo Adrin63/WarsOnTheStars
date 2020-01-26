@@ -18,38 +18,44 @@
 
 HANDLE hndl;
 
+//Variables de game para determinar el punto donde estas del juego y la canción final para pararla
 extern Game game;
 extern FASG::WAVESound finalBossSong;
 
 int main()
 {	
+	//Inicialización del proyecto
 	srand(time(NULL));
 	game.W = 300; game.H = 60;
-
 	FASG::InitConsole(game.W, game.H);
 	FASG::SetFontSizeRatio(FASG::ConsoleFontRatios::_7x12);
 
+	//Activar sistema de colisiones
 	FASG::Sprite::SetCollisionCallback(Colisions);
 	
+	//Inicializar la Pantalla de Inicio
 	InitLogScreen();	
 
 	while (game.login)
 	{
+		//Imprimir Pantalla de Inicio
 		LogScreen();
-		FASG::RenderFrame();
 
 		while (game.executable)
 		{
+			//Imprimir Menu
 			Menu();
 
 			while (game.difficulty)
 			{
+				//Imprimir selector de dificultad e iniciar el juego
 				Difficulty();
 				FASG::RenderFrame();
 				InitGame();
 
 				while (game.gameplay)
 				{
+					//Bucle principal del juego
 					MovementPlayer();
 					DrawGame();
 					FASG::RenderFrame();
@@ -58,21 +64,21 @@ int main()
 				
 			while (game.end)
 			{
+				//Pantalla de muerte
 				GameOver();
-				FASG::RenderFrame();
 			}
 
 			while (game.howToPlay)
 			{
-				HowToPlay();
-				FASG::RenderFrame();
+				//Controles
+				HowToPlay();	
 			}
 
 			while (game.win)
 			{
+				//Parar canción del boss final y pantalla de victoria
 				finalBossSong.Stop();
 				Win();
-				FASG::RenderFrame();
 			}
 		}
 	}

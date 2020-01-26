@@ -5,15 +5,24 @@
 #include <conio.h>
 #include "Difficulty.h"
 
+//Struct del jugador (vidas, velocidad y sprite)
 Player player;
 
+//Enum para la dirección del jugador
 PlayerMovement direction;
+
+//Variables de game para determinar el punto donde estas del juego
 Game game;
 
+//Struct del disparo del jugador
 Shoot pShoot;
 
+//Enum para la dificultad del juego
 Diff difficult;
 
+
+
+//Tiempo entre hits al jugador
 float const coolDownLife = 1.f;
 float CDLife = coolDownLife;
 bool hitOn = true;
@@ -21,21 +30,25 @@ bool hitOn = true;
 
 void InitPlayer()
 {
-	direction = PlayerMovement::STILL;
-
+	//Inicialización de los sprites del jugador
 	player.sprite.LoadSprite("Player.txt");
 	player.spriteInMove.LoadSprite("Player_Right.txt");
 	FASG::Sprite::AddToCollisionSystem(player.sprite, "Player");
 	FASG::Sprite::AddToCollisionSystem(player.spriteInMove, "PlayerInMove");
 
+	//Inicialización de la posición
 	player.sprite.Location.x = 10.f;
 	player.sprite.Location.y = game.H * 0.5f;
 
+	//Inicialización del disparo
 	pShoot.shootPlayer.LoadSprite("Shoot.txt");
 	FASG::Sprite::AddToCollisionSystem(pShoot.shootPlayer, "ShootPlayer");
 	pShoot.speedSh = 300.f;
 	pShoot.ShootOn = false;
 
+
+
+	//en función de la dificultad, mas vidas o menos
 	difficult = envDifficulty();
 
 	switch (difficult)
@@ -44,7 +57,7 @@ void InitPlayer()
 		player.life = 9999999;
 		break;
 	case NORMAL:
-		player.life = 3;
+		player.life = 5;
 		break;
 	case ONE:
 		player.life = 1;
@@ -54,19 +67,29 @@ void InitPlayer()
 
 void DrawPlayer()
 {
+	//Switch para mostrar en pantalla las vidas que tienes
 	switch (difficult)
-	{	case INMORTAL:
+	{	
+	case INMORTAL:
+		//en caso de ser inmortal no sale que tiene vida
 		break;
 	default:
+
+		//en caso de elegir 1 vida o normal, muestra HP y pone los puntos correspondientes a la vida
 		FASG::WriteStringBuffer(3, 2, "HP:", FASG::EForeColor::LightWhite);
+
 		for (int a = 0; a < player.life; a++)
 		{
 			FASG::WritePixelBuffer(7 + a + a, 2, FASG::EBackColor::LightWhite);
 		}
 	}
 
+
+
+	//If que comprueba si esta vivo el jugador, en caso de no estarlo, salir del bucle y poner la pantalla de muerte
 	if (player.life > 0)
 	{
+		//En función de la dirección del jugador, se muestra un sprite u otro
 		switch (direction)
 		{
 		case PlayerMovement::RIGHT:
@@ -82,14 +105,17 @@ void DrawPlayer()
 		game.gameplay = false;
 		game.end = true;
 		game.difficulty = false;
+		game.win = false;
+		game.executable = true;
 	}
 }
 
-
 void MovementPlayer()
 {
+	//En caso de no moverse, el jugador se pone quieto
 	direction = PlayerMovement::STILL;
 
+	//Tiempo para poder recibir otro golpe
 	if (!hitOn)
 		TimeMinus(CDLife);
 
@@ -100,6 +126,8 @@ void MovementPlayer()
 	}
 
 
+
+	//Controles de movimiento y limitaciones para no salir del mapa
 	if (FASG::IsKeyPressed('W'))
 	{
 		direction = PlayerMovement::UP;
@@ -136,22 +164,30 @@ void MovementPlayer()
 			player.sprite.Location.x = -2;
 	}
 
+
+
+	//Inicializar cada iteración el disparo en la posición del jugador
 	if (!pShoot.ShootOn)
 	{
 		pShoot.shootPlayer.Location.x = player.sprite.Location.x + 5;
 		pShoot.shootPlayer.Location.y = player.sprite.Location.y + 2;
 	}
 
+	//El disparo sale del jugador en caso de pulsar la J
 	if (FASG::IsKeyPressed('J'))
 	{
 		pShoot.ShootOn = true;
 	}
 
+	//Se activa el disparo
 	if (pShoot.ShootOn)
 	{
 		ShootPlayer();
 	}
 
+
+
+	//Botón de pausa
 	if (FASG::IsKeyPressed('P'))
 	{
 		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PRESIONE CUALQUIER TECLA PARA CONTINUAR", FASG::EForeColor::LightWhite);
@@ -168,6 +204,8 @@ void MovementPlayer()
 	}
 }
 
+
+
 void ShootPlayer()
 {
 	FASG::WriteSpriteBuffer(pShoot.shootPlayer.Location.x, pShoot.shootPlayer.Location.y, pShoot.shootPlayer);
@@ -177,16 +215,20 @@ void ShootPlayer()
 	{
 		pShoot.ShootOn = false;
 	}
-
 }
 
+//Resetea disparo en caso de golpear a enemigo
 void ShootOff(bool a)
 {
 	pShoot.ShootOn = a;
 }
 
+
+
+//Recibe daño el jugador, y en función si te da el enemigo grande o no te hace 1 o 2 de daño
 void RecivePlayerDmg(bool dmg)
 {
+	//Si no ha pasado el tiempo entre golpes, no recibe daño el jugador
 	if (hitOn)
 	{
 		switch (dmg)
@@ -198,7 +240,6 @@ void RecivePlayerDmg(bool dmg)
 			player.life--;
 			break;
 		}
-
 		hitOn = false;
 	}
 }
