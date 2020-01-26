@@ -48,7 +48,7 @@ int main()
 		Muerte.Stop();
 		miSonidoDePrueba.Stop();
 		Intro.Play();
-		Victory();
+		LogScreen();
 		FASG::RenderFrame();
 
 		while (game.executable)
