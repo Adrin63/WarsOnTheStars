@@ -63,11 +63,11 @@ int main()
 					FASG::RenderFrame();
 				}
 			}
-				
+			finalBossSong.Stop();
+
 			while (game.end)
 			{
-				//Parar canción del boss final y pantalla de muerte
-				finalBossSong.Stop();
+				//Pantalla de muerte
 				GameOver();
 			}
 
@@ -79,8 +79,8 @@ int main()
 
 			while (game.win)
 			{
-				//Parar canción del boss final y pantalla de victoria
-				finalBossSong.Stop();
+				//Pantalla de victoria
+				
 				Win();
 			}
 		}

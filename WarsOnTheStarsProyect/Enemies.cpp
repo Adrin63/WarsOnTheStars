@@ -724,7 +724,7 @@ void FinalBossMovements()
 
 		if (CDlaser >= 0)
 		{
-			laserBoss.sprite.Location.x = -14;
+			laserBoss.sprite.Location.x = -4;
 			FASG::WriteSpriteBuffer(laserBoss.sprite.Location.x, laserBoss.sprite.Location.y, laserBoss.sprite);
 		}
 		else
