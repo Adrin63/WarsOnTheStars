@@ -175,6 +175,7 @@
     <Text Include="EnemieLaser.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="EnemieMedium.txt" />
+    <Text Include="FinalBoss.txt" />
     <Text Include="GameOver.txt" />
     <Text Include="LS.txt" />
     <Text Include="Menu.txt" />

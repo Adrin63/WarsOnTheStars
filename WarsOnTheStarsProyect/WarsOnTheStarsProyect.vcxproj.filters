@@ -83,6 +83,7 @@
     <Text Include="EnemieLargeShield.txt" />
     <Text Include="Victoria.txt" />
     <Text Include="Misil.txt" />
+    <Text Include="FinalBoss.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
