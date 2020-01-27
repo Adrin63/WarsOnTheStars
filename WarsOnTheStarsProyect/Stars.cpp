@@ -40,7 +40,7 @@ void DrawStars(bool a)
 			break;
 		case false:
 			FASG::WriteCharBuffer(stars[i][i].X, stars[i][i].Y, '-', FASG::EForeColor::LightWhite);
-			stars[i][i].X -= 1.5;
+			stars[i][i].X -= 4.5;
 			break;
 		}
 

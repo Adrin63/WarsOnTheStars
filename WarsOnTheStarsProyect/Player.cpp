@@ -31,8 +31,9 @@ void InitPlayer()
 {
 	//Inicialización de los sprites del jugador
 	player.sprite.LoadSprite("Player.txt");
-	player.spriteInMove.LoadSprite("Player_Right.txt");
 	FASG::Sprite::AddToCollisionSystem(player.sprite, "Player");
+
+	player.spriteInMove.LoadSprite("Player_Right.txt");
 	FASG::Sprite::AddToCollisionSystem(player.spriteInMove, "PlayerInMove");
 
 	//Inicialización de la posición

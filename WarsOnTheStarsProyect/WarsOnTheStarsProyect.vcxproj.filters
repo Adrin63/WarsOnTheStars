@@ -66,6 +66,9 @@
     <ClCompile Include="Win.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
+    <ClCompile Include="SecondPlayer.cpp">
+      <Filter>Archivos de origen\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LS.txt" />
@@ -86,6 +89,9 @@
     <Text Include="EnemieLargeShield.txt" />
     <Text Include="Victoria.txt" />
     <Text Include="Misil.txt" />
+    <Text Include="secShoot.txt" />
+    <Text Include="secPlayer.txt" />
+    <Text Include="secPlayer_Right.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -120,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="Win.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondPlayer.h">
+      <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
