@@ -74,7 +74,7 @@ void InitEnemies()
 
 	for (int j = 0; j < EnemiesLar; j++)
 	{
-		enemiesLarge[j].sprite.LoadSprite("EnemieLarge.txt");
+		enemiesLarge[j].sprite.LoadSprite("EnemieLargeShield.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[j].sprite, "enLar" + j);
 		enemiesLarge[j].sprite.Location.x = 260;
 	}
