@@ -19,7 +19,7 @@ ShootP pShoot, pMisilUp, pMisilDown;
 //Enum para la dificultad del juego
 Diff difficult;
 
-
+QuantityPlayers quantPlayers;
 
 //Tiempo entre hits al jugador
 float const coolDownLife = 1.f;
@@ -33,15 +33,28 @@ void InitPlayer()
 	player.sprite.LoadSprite("Player.txt");
 	FASG::Sprite::AddToCollisionSystem(player.sprite, "Player");
 
-	player.spriteInMove.LoadSprite("Player_Right.txt");
+	player.spriteInMove.LoadSprite("PlayerRight.txt");
 	FASG::Sprite::AddToCollisionSystem(player.spriteInMove, "PlayerInMove");
 
 	//Inicialización de la posición
 	player.spriteInMove.Location.x = -40;
 	player.spriteInMove.Location.y = -40;
 
-	player.sprite.Location.x = 10.f;
-	player.sprite.Location.y = game.H * 0.5f;
+	quantPlayers = envQuantityPlayers();
+
+	switch (quantPlayers)
+	{
+	case ONEPLAYER:
+		player.sprite.Location.x = 30.f;
+		player.sprite.Location.y = game.H * 0.5f;
+		break;
+	case TWOPLAYERS:
+		player.sprite.Location.x = 30.f;
+		player.sprite.Location.y = game.H * 0.33f;
+		break;
+	}
+
+	
 
 	//Inicialización del disparo
 	pShoot.shootPlayer.LoadSprite("Shoot.txt");
@@ -66,17 +79,38 @@ void InitPlayer()
 	//en función de la dificultad, mas vidas o menos
 	difficult = envDifficulty();
 
-	switch (difficult)
+	
+	switch (quantPlayers)
 	{
-	case INMORTAL:
-		player.life = 9999999;
+	case ONEPLAYER:
+
+		switch (difficult)
+		{
+		case INMORTAL:
+			player.life = 9999999;
+			break;
+		case NORMAL:
+			player.life = 5;
+			break;
+		case ONE:
+			player.life = 1;
+			break;
+		}
 		break;
-	case NORMAL:
-		player.life = 5;
-		break;
-	case ONE:
-		player.life = 1;
-		break;
+	case TWOPLAYERS:
+
+		switch (difficult)
+		{
+		case INMORTAL:
+			player.life = 9999999;
+			break;
+		case NORMAL:
+			player.life = 4;
+			break;
+		case ONE:
+			player.life = 1;
+			break;
+		}
 	}
 }
 
@@ -90,13 +124,27 @@ void DrawPlayer()
 		//en caso de ser inmortal no sale que tiene vida
 		break;
 	default:
-
+		
 		//en caso de elegir 1 vida o normal, muestra HP y pone los puntos correspondientes a la vida
-		FASG::WriteStringBuffer(3, 2, "HP:", FASG::EForeColor::LightWhite);
-
-		for (int a = 0; a < player.life; a++)
+		switch (quantPlayers)
 		{
-			FASG::WritePixelBuffer(7 + a + a, 2, FASG::EBackColor::LightWhite);
+		case TWOPLAYERS:
+
+			FASG::WriteStringBuffer(3, 2, "HP J1:", FASG::EForeColor::LightWhite);
+
+			for (int a = 0; a < player.life; a++)
+			{
+				FASG::WritePixelBuffer(10 + a + a, 2, FASG::EBackColor::LightWhite);
+			}
+			break;
+		case ONEPLAYER:
+			FASG::WriteStringBuffer(3, 2, "HP:", FASG::EForeColor::LightWhite);
+
+			for (int a = 0; a < player.life; a++)
+			{
+				FASG::WritePixelBuffer(7 + a + a, 2, FASG::EBackColor::LightWhite);
+			}
+			break;
 		}
 	}
 
@@ -130,6 +178,7 @@ void DrawPlayer()
 void MovementPlayer()
 {
 	//En caso de no moverse, el jugador se pone quieto
+
 	direction = PlayerMovement::STILL;
 
 	//Tiempo para poder recibir otro golpe
@@ -142,12 +191,10 @@ void MovementPlayer()
 		hitOn = true;
 	}
 
-
-
 	//Controles de movimiento y limitaciones para no salir del mapa
+	
 	if (FASG::IsKeyPressed('W'))
 	{
-		direction = PlayerMovement::UP;
 		player.sprite.Location.y -= player.speed * FASG::GetDeltaTime();
 
 		if (player.sprite.Location.y < 0)
@@ -165,7 +212,6 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('S'))
 	{
-		direction = PlayerMovement::DOWN;
 		player.sprite.Location.y += player.speed * FASG::GetDeltaTime();
 
 		if (player.sprite.Location.y >= 54)
@@ -174,16 +220,11 @@ void MovementPlayer()
 
 	if (FASG::IsKeyPressed('A'))
 	{
-		direction = PlayerMovement::LEFT;
 		player.sprite.Location.x -= player.speed * FASG::GetDeltaTime();
 
 		if (player.sprite.Location.x < -2)
 			player.sprite.Location.x = -2;
 	}
-
-	/*DISPARO NORMAL*/
-
-
 
 	//Inicializar cada iteración el disparo en la posición del jugador
 	if (!pShoot.ShootOn)
@@ -192,51 +233,73 @@ void MovementPlayer()
 		pShoot.shootPlayer.Location.y = player.sprite.Location.y + 2;
 	}
 
-	//El disparo sale del jugador en caso de pulsar la J
-	if (FASG::IsKeyPressed('J'))
-	{
-		pShoot.ShootOn = true;
-	}
-
-	//Se activa el disparo
-	if (pShoot.ShootOn)
-	{
-		ShootPlayer(SHOOT, NULL);
-	}
-
-
-	/*MISIL*/
-
-
-
+	//Inicializar cada iteración el misil de arriba en la posición del jugador
 	if (!pMisilUp.ShootOn)
 	{
 		pMisilUp.shootPlayer.Location.x = player.sprite.Location.x + 12;
 		pMisilUp.shootPlayer.Location.y = player.sprite.Location.y + 1;
 	}
 
+	//Inicializar cada iteración el misil de abajo en la posición del jugador
 	if (!pMisilDown.ShootOn)
 	{
 		pMisilDown.shootPlayer.Location.x = player.sprite.Location.x + 12;
 		pMisilDown.shootPlayer.Location.y = player.sprite.Location.y + 3;
 	}
 
-	//El MISIL sale del jugador en caso de pulsar la k
-	if (FASG::IsKeyPressed('K'))
+	switch (quantPlayers)
 	{
-		pMisilUp.ShootOn = true;
-		pMisilDown.ShootOn = true;
+	case ONEPLAYER:
+		//El disparo sale del jugador en caso de pulsar la J
+		if (FASG::IsKeyPressed('J'))
+		{
+			pShoot.ShootOn = true;
+		}
+
+		//El MISIL sale del jugador en caso de pulsar la k
+		if (FASG::IsKeyPressed('K'))
+		{
+			pMisilUp.ShootOn = true;
+			pMisilDown.ShootOn = true;
+		}
+		break;
+		
+	case TWOPLAYERS:
+		//El disparo sale del jugador en caso de pulsar la J
+		if (FASG::IsKeyPressed('C'))
+		{
+			pShoot.ShootOn = true;
+		}
+
+		/*MISIL*/
+
+		//El MISIL sale del jugador en caso de pulsar la k
+		if (FASG::IsKeyPressed('V'))
+		{
+			pMisilUp.ShootOn = true;
+			pMisilDown.ShootOn = true;
+		}
+		break;
 	}
 
+	//Se lanza el disparo
+	if (pShoot.ShootOn)
+	{
+		ShootPlayer(SHOOT, NULL);
+	}
+
+	//Se lanza el misil de arriba
 	if (pMisilUp.ShootOn)
 	{
 		ShootPlayer(MISIL, true);
 	}
 
+	//Se lanza el misil de abajo
 	if (pMisilDown.ShootOn)
 	{
 		ShootPlayer(MISIL, false);
 	}
+
 	//Botón de pausa
 	if (FASG::IsKeyPressed('P'))
 	{

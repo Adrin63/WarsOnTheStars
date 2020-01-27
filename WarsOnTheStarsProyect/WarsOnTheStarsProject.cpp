@@ -15,7 +15,7 @@
 #include "HowToPlay.h"
 #include "End.h"
 #include "Win.h"
-
+#include "SecondPlayer.h"
 HANDLE hndl;
 
 //Variables de game para determinar el punto donde estas del juego y la canción final para pararla
@@ -49,14 +49,16 @@ int main()
 			while (game.difficulty)
 			{
 				//Imprimir selector de dificultad e iniciar el juego
+				InitGame();
 				Difficulty();
 				FASG::RenderFrame();
-				InitGame();
+				
 
 				while (game.gameplay)
 				{
 					//Bucle principal del juego
 					MovementPlayer();
+					MovementSecPlayer();
 					DrawGame();
 					FASG::RenderFrame();
 				}
@@ -90,6 +92,7 @@ int main()
 void InitGame()
 {
 	InitPlayer();
+	InitSecPlayer();
 	InitStars();
 	InitEnemies();	
 }
@@ -98,5 +101,6 @@ void DrawGame()
 {
 	DrawStars(true);
 	DrawPlayer();
+	DrawSecPlayer();
 	DrawEnemies();
 }

@@ -2,7 +2,7 @@
 #include "FAriasSimpleGraphics.h"
 enum SecPlayerMovement
 {
-	secUP, secDOWN, secLEFT, secRIGHT, secSTILL
+	secRIGHT, secSTILL
 };
 
 struct SecPlayer
@@ -25,3 +25,9 @@ void InitSecPlayer();
 void DrawSecPlayer();
 
 void MovementSecPlayer();
+
+void ShootSecondPlayer();
+
+void ShootSecOff();
+
+void ReciveSecPlayerDmg();

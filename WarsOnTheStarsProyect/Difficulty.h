@@ -9,5 +9,12 @@ enum Diff
 	INMORTAL, NORMAL, ONE
 };
 
+enum QuantityPlayers
+{
+	ONEPLAYER, TWOPLAYERS
+};
+
 //Setter para enviar la dificultad del juego
 Diff envDifficulty();
+
+QuantityPlayers envQuantityPlayers();

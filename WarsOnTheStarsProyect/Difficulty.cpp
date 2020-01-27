@@ -6,6 +6,7 @@
 //Posición del selector de dificultad
 int contadorDifficulty = 1;
 
+bool twoPlayers = false;
 //Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
@@ -16,7 +17,18 @@ void Difficulty()
 	FASG::WriteStringBuffer(20, FASG::EAligned::CENTER, "PRACTICA", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(25, FASG::EAligned::CENTER, "NORMAL", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "1 VIDA", FASG::EForeColor::LightWhite);
-
+	FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "MODO 2 JUGADORES", FASG::EForeColor::LightWhite);
+	
+	switch (twoPlayers)
+	{
+	case true:
+		FASG::WritePixelBuffer(161, 35, FASG::EBackColor::LightGreen);
+			break;
+	case false:
+		FASG::WritePixelBuffer(161, 35, FASG::EBackColor::LightRed);
+		break;
+	}
+	
 	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "R PARA SELECCIONAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "X PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 
@@ -34,8 +46,11 @@ void Difficulty()
 		BackgroundWords(145, 154, 30);
 		break;
 	case 3:
-		BackgroundWords(145, 154, 30);
-		contadorDifficulty = 2;
+		BackgroundWords(140, 159, 35);
+		break;
+	case 4:
+		BackgroundWords(140, 159, 35);
+		contadorDifficulty = 3;
 		break;
 	case -1:
 		BackgroundWords(144, 155, 20);
@@ -44,7 +59,7 @@ void Difficulty()
 	}
 
 	FASG::RenderFrame();
-	
+
 	//_getch() y no IsKeyPressed para ir mas lentro entre opciones
 	char DifChar = toupper(_getch());
 
@@ -76,6 +91,18 @@ void Difficulty()
 		game.gameplay = true;
 	}
 
+	if (DifChar == 'R' && contadorDifficulty == 3)
+	{
+		switch (twoPlayers)
+		{
+		case false:
+			twoPlayers =true;
+			break;
+		case true:
+			twoPlayers = false;
+			break;
+		}
+	}
 	if (DifChar == 'X')
 	{
 		contadorDifficulty = 1;
@@ -96,5 +123,17 @@ Diff envDifficulty()
 	case 2:
 		return Diff::ONE;
 		break;
+	}
+}
+
+QuantityPlayers envQuantityPlayers()
+{
+	if (twoPlayers)
+	{
+		return TWOPLAYERS;
+	}
+	else
+	{
+		return ONEPLAYER;
 	}
 }

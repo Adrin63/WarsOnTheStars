@@ -2,6 +2,8 @@
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
 #include "Stars.h"
+#include "Difficulty.h"
+
 //Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
@@ -10,6 +12,9 @@ int const EnemiesLit = 4, EnemiesMed = 3, EnemiesLar = 2;
 
 //Determina si va hacia arriba o hacia abajo en los pequeños y el boss
 enemiMovement movEnemie = enemiMovement::enUP, movBoss;
+
+//Cantidad de jugadores
+QuantityPlayers playersInScreen;
 
 //Enemigos y Disparos de enemigos
 Enemie enemiesLittle[EnemiesLit], enemiesMedium[EnemiesMed], enemiesLarge[EnemiesLar], finalBoss;
@@ -106,10 +111,15 @@ float CDLarOnLastStage = coolDownOnLastStage;
 //Inicialización de los Enemigos
 void InitEnemies()
 {
+	//cantidad jugadores
+	playersInScreen = envQuantityPlayers();
+
 	//Cargar la canción
 	finalBossSong.LoadSound("BadTime.wav");
 
 	/*Reinicializar todas las variables*/
+
+	movEnemie = enemiMovement::enUP;
 
 	CDLittle = MovementCDLittle, CDMedium = MovementCDMedium, CDLarge = MovementCDLarge;
 	
@@ -128,6 +138,7 @@ void InitEnemies()
 
 	finalStageStart = false, start = true;
 	
+	movBoss = enemiMovement::enUP;
 	laser = false;
 	CDlaser = timeLaser;
 	cont = 0;
@@ -158,7 +169,15 @@ void InitEnemies()
 	for (int i = 0; i < EnemiesLit; i++)
 	{
 		//La vida y el sprite
-		enemiesLittle[i].vida = 5;
+		switch (playersInScreen)
+		{
+		case TWOPLAYERS:
+			enemiesLittle[i].vida = 7;
+			break;
+		case ONEPLAYER:
+			enemiesLittle[i].vida = 3;
+			break;
+		}
 		enemiesLittle[i].sprite.LoadSprite("EnemieLittle.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesLittle[i].sprite, "enLit" + i);
 
@@ -186,7 +205,16 @@ void InitEnemies()
 	for (int l = 0; l < EnemiesMed; l++)
 	{
 		//La vida y el sprite
-		enemiesMedium[l].vida = 15;
+		switch (playersInScreen)
+		{
+		case TWOPLAYERS:
+			enemiesMedium[l].vida = 15;
+			break;
+		case ONEPLAYER:
+			enemiesMedium[l].vida = 10;
+			break;
+		}
+		
 		enemiesMedium[l].sprite.LoadSprite("EnemieMedium.txt");
 		FASG::Sprite::AddToCollisionSystem(enemiesMedium[l].sprite, "enMed" + l);
 
@@ -568,7 +596,15 @@ void FinalStagePreparation()
 	//Asigna una vida mas alcanzable a los enemigos grandes
 	for (int j = 0; j < EnemiesLar; j++)
 	{
-		enemiesLarge[j].vida = 80;
+		switch (playersInScreen)
+		{
+		case TWOPLAYERS:
+			enemiesLarge[j].vida = 120;
+			break;
+		case ONEPLAYER:
+			enemiesLarge[j].vida = 80;
+			break;
+		}	
 	}
 	
 	//Para que no desaparezcan espontaneamente, mueve los enemigos grandes fuera de pantalla

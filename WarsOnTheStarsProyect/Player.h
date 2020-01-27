@@ -4,7 +4,7 @@
 //Posiciones de movimiento del jugador
 enum PlayerMovement
 {
-	UP, DOWN, LEFT, RIGHT, STILL
+	RIGHT, STILL
 };
 
 enum ShootType

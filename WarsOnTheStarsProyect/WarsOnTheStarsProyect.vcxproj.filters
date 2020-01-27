@@ -74,7 +74,6 @@
     <Text Include="LS.txt" />
     <Text Include="Shoot.txt" />
     <Text Include="Player.txt" />
-    <Text Include="Player_Right.txt" />
     <Text Include="EnemieLittle.txt" />
     <Text Include="Controles.txt" />
     <Text Include="Dificultad.txt" />
@@ -91,7 +90,8 @@
     <Text Include="Misil.txt" />
     <Text Include="secShoot.txt" />
     <Text Include="secPlayer.txt" />
-    <Text Include="secPlayer_Right.txt" />
+    <Text Include="PlayerRight.txt" />
+    <Text Include="secPlayerRight.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
