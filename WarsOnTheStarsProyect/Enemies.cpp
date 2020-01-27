@@ -902,25 +902,25 @@ int envLarEnQuantity()
 
 
 //Enemigo pequeño golpeado recibe daño
-void ReciveLitDmg(int a)
+void ReciveLitDmg(int a, int dmg)
 {
-	enemiesLittle[a].vida--;
+	enemiesLittle[a].vida -= dmg;
 }
 
 //Enemigo mediano golpeado recibe daño
-void ReciveMidDmg(int b)
+void ReciveMidDmg(int b, int dmg)
 {
-	enemiesMedium[b].vida--;
+	enemiesMedium[b].vida -= dmg;
 }
 
 //Enemigo grande golpeado recibe daño
-void ReciveLarDmg(int c)
+void ReciveLarDmg(int c, int dmg)
 {
 	enemiesLarge[c].vida--;
 }
 
 //Boss recibe daño
-void ReciveBossDmg()
+void ReciveBossDmg(int dmg)
 {
-	finalBoss.vida--;
+	finalBoss.vida-= dmg;
 }

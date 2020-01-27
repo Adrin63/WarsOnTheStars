@@ -103,13 +103,13 @@ int envLarEnQuantity();
 
 
 //Enemigo pequeño golpeado recibe daño
-void ReciveLitDmg(int a);
+void ReciveLitDmg(int a, int dmg);
 
 //Enemigo mediano golpeado recibe daño
-void ReciveMidDmg(int b);
+void ReciveMidDmg(int b, int dmg);
 
 //Enemigo grande golpeado recibe daño
-void ReciveLarDmg(int c);
+void ReciveLarDmg(int c, int dmg);
 
 //Boss recibe daño
-void ReciveBossDmg();
+void ReciveBossDmg(int dmg);

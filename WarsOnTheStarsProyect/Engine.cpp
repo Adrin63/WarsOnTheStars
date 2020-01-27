@@ -18,6 +18,7 @@ void TimeMinus(float& b)
 	b -= FASG::GetDeltaTime();
 }
 
+
 //Sistema de Colisiones
 void Colisions(std::string tag1, std::string tag2)
 {
@@ -35,7 +36,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enLit" + i || tag2 == "ShootPlayer" && tag1 == "enLit" + i)
 		{
-			ReciveLitDmg(i);
+			ReciveLitDmg(i, 1);
 			ShootOff(NULL, SHOOT);
 		}
 	}
@@ -45,7 +46,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enMed" + i || tag2 == "ShootPlayer" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i);
+			ReciveMidDmg(i, 1);
 			ShootOff(NULL, SHOOT);
 		}
 	}
@@ -64,7 +65,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enLargeFinal" + i || tag2 == "ShootPlayer" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i);
+			ReciveLarDmg(i, 1);
 			ShootOff(NULL, SHOOT);
 		}
 	}
@@ -72,7 +73,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Disparo golpea al jefe final, se resetea el disparo
 	if ((tag1 == "ShootPlayer" && tag2 == "FinalBoss") || (tag2 == "ShootPlayer" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg();
+		ReciveBossDmg(1);
 		ShootOff(NULL, SHOOT);
 	}
 
@@ -89,9 +90,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enLit" + i || tag2 == "MisilPlayerUp" && tag1 == "enLit" + i)
 		{
-			ReciveLitDmg(i);
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
+			ReciveMidDmg(i, 3);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -101,9 +100,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enMed" + i || tag2 == "MisilPlayerUp" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
+			ReciveMidDmg(i, 3);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -122,7 +119,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerUp" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i);
+			ReciveLarDmg(i, 3);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -130,7 +127,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Misil de arriba golpea al jefe final, se resetea el disparo
 	if ((tag1 == "MisilPlayerUp" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerUp" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg();
+		ReciveBossDmg(3);
 		ShootOff(true, MISIL);
 	}
 
@@ -144,9 +141,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enLit" + i || tag2 == "MisilPlayerDown" && tag1 == "enLit" + i)
 		{
-			ReciveLitDmg(i);
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
+			ReciveLitDmg(i, 3);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -156,9 +151,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enMed" + i || tag2 == "MisilPlayerDown" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
-			ReciveMidDmg(i);
+			ReciveMidDmg(i, 3);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -177,9 +170,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerDown" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i);
-			ReciveLarDmg(i);
-			ReciveLarDmg(i);
+			ReciveLarDmg(i, 3);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -187,9 +178,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Misil de abajo golpea al jefe final, se resetea el disparo
 	if ((tag1 == "MisilPlayerDown" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerDown" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg();
-		ReciveBossDmg();
-		ReciveBossDmg();
+		ReciveBossDmg(3);
 		ShootOff(false, MISIL);
 	}
 
@@ -203,7 +192,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootSecPlayer" && tag2 == "enLit" + i || tag2 == "ShootSecPlayer" && tag1 == "enLit" + i)
 		{
-			ReciveLitDmg(i);
+			ReciveLitDmg(i, 2);
 			ShootSecOff();
 		}
 	}
@@ -213,7 +202,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootSecPlayer" && tag2 == "enMed" + i || tag2 == "ShootSecPlayer" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i);
+			ReciveMidDmg(i, 2);
 			ShootSecOff();
 		}
 	}
@@ -232,7 +221,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootSecPlayer" && tag2 == "enLargeFinal" + i || tag2 == "ShootSecPlayer" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i);
+			ReciveLarDmg(i, 2);
 			ShootSecOff();
 		}
 	}
@@ -240,7 +229,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Disparo del jugador 2 golpea al jefe final, se resetea el disparo
 	if ((tag1 == "ShootSecPlayer" && tag2 == "FinalBoss") || (tag2 == "ShootSecPlayer" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg();
+		ReciveBossDmg(2);
 		ShootSecOff();
 	}
 
