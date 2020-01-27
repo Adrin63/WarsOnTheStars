@@ -19,23 +19,34 @@ void InitStars()
 	{
 		for (int l = 0; l < MAX_INIT_STARS; l++)
 		{
-			stars[i][l].starPos.X = rand() % game.W;
-			stars[i][l].starPos.Y = rand() % game.H;
+			stars[i][l].X = rand() % game.W;
+			stars[i][l].Y = rand() % game.H;
 		}
 	}
 }
 
 //Mostrar las estrellas en pantalla y en caso de que se vayan de esta reiniciarlas
-void DrawStars()
+void DrawStars(bool a)
 {
 	for (int i = 0; i < MAX_INIT_STARS; i++)
 	{
-		FASG::WriteCharBuffer(stars[i][i].starPos.X, stars[i][i].starPos.Y, '*', FASG::EForeColor::LightWhite);
-		stars[i][i].starPos.X-=1.5;
+		
 
-		if (stars[i][i].starPos.X <= 0)
+		switch (a)
 		{
-			stars[i][i].starPos.X = 300;
+		case true:
+			stars[i][i].X -= 1.5;
+			FASG::WriteCharBuffer(stars[i][i].X, stars[i][i].Y, '*', FASG::EForeColor::LightWhite);
+			break;
+		case false:
+			FASG::WriteCharBuffer(stars[i][i].X, stars[i][i].Y, '-', FASG::EForeColor::LightWhite);
+			stars[i][i].X -= 1.5;
+			break;
+		}
+
+		if (stars[i][i].X <= 0)
+		{
+			stars[i][i].X = 300;
 		}
 	}
 }

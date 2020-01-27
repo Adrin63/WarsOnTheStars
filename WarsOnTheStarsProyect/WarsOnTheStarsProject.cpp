@@ -14,7 +14,7 @@
 #include "Difficulty.h"
 #include "HowToPlay.h"
 #include "End.h"
-#include "Victoria.h"
+#include "Win.h"
 
 HANDLE hndl;
 
@@ -64,7 +64,8 @@ int main()
 				
 			while (game.end)
 			{
-				//Pantalla de muerte
+				//Parar canción del boss final y pantalla de muerte
+				finalBossSong.Stop();
 				GameOver();
 			}
 
@@ -95,7 +96,7 @@ void InitGame()
 
 void DrawGame()
 {
-	DrawStars();
+	DrawStars(true);
 	DrawPlayer();
 	DrawEnemies();
 }

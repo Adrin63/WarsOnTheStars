@@ -1,13 +1,19 @@
 #pragma once
 #include "Engine.h"
 
+//Struct para cada estrella
 struct Star
 {
-	Vector2D starPos;
+	float X = 0;
+	float Y = 0;
+
 	float starSpeed = 0;
 	char starSkin;
 	char starSkins[3] = { '*','.','+' };
 };
 
+//Iniciar Estrellas
 void InitStars();
-void DrawStars();
+
+//Dibujar Estrellas
+void DrawStars(bool a);

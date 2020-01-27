@@ -63,7 +63,7 @@
     <ClCompile Include="End.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
-    <ClCompile Include="Victoria.cpp">
+    <ClCompile Include="Win.cpp">
       <Filter>Archivos de origen\OffGameplay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,6 +85,7 @@
     <Text Include="GameOver.txt" />
     <Text Include="EnemieLargeShield.txt" />
     <Text Include="Victoria.txt" />
+    <Text Include="Misil.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FAriasSimpleGraphics.h">
@@ -102,9 +103,6 @@
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Shoot.h">
-      <Filter>Archivos de encabezado\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Enemies.h">
       <Filter>Archivos de encabezado\Enemies</Filter>
     </ClInclude>
@@ -120,7 +118,7 @@
     <ClInclude Include="End.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
-    <ClInclude Include="Victoria.h">
+    <ClInclude Include="Win.h">
       <Filter>Archivos de encabezado\OffGameplay</Filter>
     </ClInclude>
   </ItemGroup>

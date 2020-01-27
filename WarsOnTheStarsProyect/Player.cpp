@@ -1,7 +1,6 @@
 ﻿#include "Player.h"
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
-#include "Shoot.h"
 #include <conio.h>
 #include "Difficulty.h"
 
@@ -14,8 +13,8 @@ PlayerMovement direction;
 //Variables de game para determinar el punto donde estas del juego
 Game game;
 
-//Struct del disparo del jugador
-Shoot pShoot;
+//Struct de lOS disparoS del jugador
+ShootP pShoot, pMisilUp, pMisilDown;
 
 //Enum para la dificultad del juego
 Diff difficult;
@@ -27,6 +26,7 @@ float const coolDownLife = 1.f;
 float CDLife = coolDownLife;
 bool hitOn = true;
 
+//Inicia el jugador
 void InitPlayer()
 {
 	//Inicialización de los sprites del jugador
@@ -36,6 +36,9 @@ void InitPlayer()
 	FASG::Sprite::AddToCollisionSystem(player.spriteInMove, "PlayerInMove");
 
 	//Inicialización de la posición
+	player.spriteInMove.Location.x = -40;
+	player.spriteInMove.Location.y = -40;
+
 	player.sprite.Location.x = 10.f;
 	player.sprite.Location.y = game.H * 0.5f;
 
@@ -44,8 +47,20 @@ void InitPlayer()
 	FASG::Sprite::AddToCollisionSystem(pShoot.shootPlayer, "ShootPlayer");
 	pShoot.speedSh = 300.f;
 	pShoot.ShootOn = false;
+	pShoot.type = ShootType::SHOOT;
 
+	//Inicialización de los misiles
+	pMisilUp.shootPlayer.LoadSprite("Misil.txt");
+	FASG::Sprite::AddToCollisionSystem(pMisilUp.shootPlayer, "MisilPlayerUp");
+	pMisilUp.speedSh = 75.f;
+	pMisilUp.ShootOn = false;
+	pMisilUp.type = ShootType::MISIL;
 
+	pMisilDown.shootPlayer.LoadSprite("Misil.txt");
+	FASG::Sprite::AddToCollisionSystem(pMisilDown.shootPlayer, "MisilPlayerDown");
+	pMisilDown.speedSh = pMisilUp.speedSh;
+	pMisilDown.ShootOn = false;
+	pMisilDown.type = ShootType::MISIL;
 
 	//en función de la dificultad, mas vidas o menos
 	difficult = envDifficulty();
@@ -64,6 +79,7 @@ void InitPlayer()
 	}
 }
 
+//Dibuja el jugador
 void DrawPlayer()
 {
 	//Switch para mostrar en pantalla las vidas que tienes
@@ -109,6 +125,7 @@ void DrawPlayer()
 	}
 }
 
+//Movimiento del jugador
 void MovementPlayer()
 {
 	//En caso de no moverse, el jugador se pone quieto
@@ -163,6 +180,8 @@ void MovementPlayer()
 			player.sprite.Location.x = -2;
 	}
 
+	/*DISPARO NORMAL*/
+
 
 
 	//Inicializar cada iteración el disparo en la posición del jugador
@@ -181,11 +200,42 @@ void MovementPlayer()
 	//Se activa el disparo
 	if (pShoot.ShootOn)
 	{
-		ShootPlayer();
+		ShootPlayer(SHOOT, NULL);
 	}
 
 
+	/*MISIL*/
 
+
+
+	if (!pMisilUp.ShootOn)
+	{
+		pMisilUp.shootPlayer.Location.x = player.sprite.Location.x + 12;
+		pMisilUp.shootPlayer.Location.y = player.sprite.Location.y + 1;
+	}
+
+	if (!pMisilDown.ShootOn)
+	{
+		pMisilDown.shootPlayer.Location.x = player.sprite.Location.x + 12;
+		pMisilDown.shootPlayer.Location.y = player.sprite.Location.y + 3;
+	}
+
+	//El MISIL sale del jugador en caso de pulsar la k
+	if (FASG::IsKeyPressed('K'))
+	{
+		pMisilUp.ShootOn = true;
+		pMisilDown.ShootOn = true;
+	}
+
+	if (pMisilUp.ShootOn)
+	{
+		ShootPlayer(MISIL, true);
+	}
+
+	if (pMisilDown.ShootOn)
+	{
+		ShootPlayer(MISIL, false);
+	}
 	//Botón de pausa
 	if (FASG::IsKeyPressed('P'))
 	{
@@ -203,23 +253,67 @@ void MovementPlayer()
 	}
 }
 
-
-
-void ShootPlayer()
+//Disparo del jugador
+void ShootPlayer(ShootType a, bool b)
 {
-	FASG::WriteSpriteBuffer(pShoot.shootPlayer.Location.x, pShoot.shootPlayer.Location.y, pShoot.shootPlayer);
-	pShoot.shootPlayer.Location.x += pShoot.speedSh * FASG::GetDeltaTime();
-
-	if (pShoot.shootPlayer.Location.x >= 300)
+	switch (a)
 	{
-		pShoot.ShootOn = false;
+	case MISIL:
+		if (b)
+		{
+			FASG::WriteSpriteBuffer(pMisilUp.shootPlayer.Location.x, pMisilUp.shootPlayer.Location.y, pMisilUp.shootPlayer);
+			pMisilUp.shootPlayer.Location.x += pMisilUp.speedSh * FASG::GetDeltaTime();
+			
+			if (pMisilUp.shootPlayer.Location.x >= 300)
+			{
+				pMisilUp.ShootOn = false;
+			}
+		}
+		else
+		{
+			FASG::WriteSpriteBuffer(pMisilDown.shootPlayer.Location.x, pMisilDown.shootPlayer.Location.y, pMisilDown.shootPlayer);
+			pMisilDown.shootPlayer.Location.x += pMisilDown.speedSh * FASG::GetDeltaTime();
+
+
+
+			if (pMisilDown.shootPlayer.Location.x >= 300)
+			{
+				pMisilDown.ShootOn = false;
+			}
+		}
+		break;
+
+	case SHOOT:
+		FASG::WriteSpriteBuffer(pShoot.shootPlayer.Location.x, pShoot.shootPlayer.Location.y, pShoot.shootPlayer);
+		pShoot.shootPlayer.Location.x += pShoot.speedSh * FASG::GetDeltaTime();
+
+		if (pShoot.shootPlayer.Location.x >= 300)
+		{
+			pShoot.ShootOn = false;
+		}
+		break;
 	}
 }
 
 //Resetea disparo en caso de golpear a enemigo
-void ShootOff(bool a)
+void ShootOff(bool a, ShootType b)
 {
-	pShoot.ShootOn = a;
+	switch (b)
+	{
+	case MISIL:
+		if (a)
+		{
+			pMisilUp.ShootOn = false;
+		}
+		else
+		{
+			pMisilDown.ShootOn = false;
+		}
+	case SHOOT:
+		pShoot.ShootOn = false;
+	}
+
+	
 }
 
 

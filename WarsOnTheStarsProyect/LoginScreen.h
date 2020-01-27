@@ -2,5 +2,8 @@
 #include "Engine.h"
 #include "FAriasSimpleGraphics.h"
 
-void LogScreen();
+//Iniciar la Pantalla de Inicio
 void InitLogScreen();
+
+//Pantalla de Inicio
+void LogScreen();

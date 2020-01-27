@@ -1,5 +1,5 @@
 #include "FAriasSimpleGraphics.h"
-#include "Victoria.h"
+#include "Win.h"
 #include "Engine.h"
 
 //Variables de game para determinar el punto donde estas del juego

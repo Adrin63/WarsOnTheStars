@@ -1,7 +1,7 @@
 #include "Enemies.h"
 #include "FAriasSimpleGraphics.h"
 #include "Engine.h"
-
+#include "Stars.h"
 //Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
@@ -13,7 +13,7 @@ enemiMovement movEnemie = enemiMovement::enUP, movBoss;
 
 //Enemigos y Disparos de enemigos
 Enemie enemiesLittle[EnemiesLit], enemiesMedium[EnemiesMed], enemiesLarge[EnemiesLar], finalBoss;
-Shoot shootEnemieLittle[EnemiesLit], shootEnemieMid[EnemiesMed];
+ShootE shootEnemieLittle[EnemiesLit], shootEnemieMid[EnemiesMed];
 
 
 /*COMBATE*/
@@ -58,8 +58,8 @@ FASG::WAVESound finalBossSong;
 bool badTime = false;
 
 //Tiempos de espera de los enemigos grandes y el jefe para la fase final
-float CDUntilFinalStage = 8.2f;
-float CDStartFinalStage = 8.f;
+float CDUntilFinalStage = 7.8f;
+float CDStartFinalStage = 5.f;
 
 //Determinan el principio de la batalla final
 bool finalStageStart = false, start = true;
@@ -123,8 +123,8 @@ void InitEnemies()
 
 	badTime = false;
 
-	CDUntilFinalStage = 8.2f;
-	CDStartFinalStage = 8.f;
+	CDUntilFinalStage = 7.8f;
+	CDStartFinalStage = 5.f;
 
 	finalStageStart = false, start = true;
 	
@@ -170,7 +170,7 @@ void InitEnemies()
 		shootEnemieLittle[i].sprite.LoadSprite("ShootEnemieLit.txt");
 		shootEnemieLittle[i].onOff = true;
 		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
-		shootEnemieLittle[i].shootEnemieSpeed = 60.f;
+		shootEnemieLittle[i].shootEnemieSpeed = 80.f;
 		FASG::Sprite::AddToCollisionSystem(shootEnemieLittle[i].sprite, "ShootEnemieLit" + i);
 	}
 
@@ -198,7 +198,7 @@ void InitEnemies()
 		shootEnemieMid[l].sprite.LoadSprite("ShootEnemieMid.txt");
 		shootEnemieMid[l].onOff = true;
 		shootEnemieMid[l].CDShoot = rand() % 5 + 3;
-		shootEnemieMid[l].shootEnemieSpeed = 20.f;
+		shootEnemieMid[l].shootEnemieSpeed = 40.f;
 		FASG::Sprite::AddToCollisionSystem(shootEnemieMid[l].sprite, "ShootEnemieMid" + l);
 	}
 
@@ -267,6 +267,7 @@ void DrawEnemies()
 	//Preparación para el combate final
 	if ((allDeadLit && allDeadMid) && (!finalStageStart))
 	{
+		DrawStars(false);
 		FinalStagePreparation();
 	}
 
@@ -296,7 +297,7 @@ void DrawEnemies()
 		}
 	}
 
-	//Barra de vida del jefe final
+	//Barra de vida del jefe final y Nombre
 	if (CDStartFinalStage <= 0)
 	{
 		for (int draw = 120; draw < 120+finalBoss.vida; draw++)
@@ -323,83 +324,11 @@ void DrawEnemies()
 	}
 }
 
-//Disparos de los enemigos pequeños y medianos
-void EnemiesShoots()
-{
-	for (int i = 0; i < EnemiesLit; i++)
-	{
-		//Inicializa el disparo en la posicion del enemigo, en caso de que pase el CD, pone la booleana en off para dejar que salga disparado
-		if (shootEnemieLittle[i].onOff)
-		{
-			shootEnemieLittle[i].sprite.Location.x = enemiesLittle[i].sprite.Location.x - 3;
-			shootEnemieLittle[i].sprite.Location.y = enemiesLittle[i].sprite.Location.y + 1;
-			TimeMinus(shootEnemieLittle[i].CDShoot);
 
-			if (shootEnemieLittle[i].CDShoot <= 0)
-			{
-				shootEnemieLittle[i].onOff = false;
-			}
-		}
-		else
-		{
-			ShootEnemieLittle(i);
-		}
-	}
 
-	for (int a = 0; a < EnemiesMed; a++)
-	{
-		//Inicializa el disparo en la posicion del enemigo, en caso de que pase el CD, pone la booleana en off para dejar que salga disparado
-		if (shootEnemieMid[a].onOff)
-		{
-			shootEnemieMid[a].sprite.Location.x = enemiesMedium[a].sprite.Location.x - 3;
-			shootEnemieMid[a].sprite.Location.y = enemiesMedium[a].sprite.Location.y + 1;
-			TimeMinus(shootEnemieMid[a].CDShoot);
+/*MOVIMIENTO DE LOS ENEMIGOS*/
 
-			if (shootEnemieMid[a].CDShoot <= 0)
-			{
-				shootEnemieMid[a].onOff = false;
-			}
-		}
-		else
-		{
-			ShootEnemieMid(a);
-		}
-	}
-}
 
-//Disparos de los enemigos pequeños
-void ShootEnemieLittle(int i)
-{
-	//Se mueven las balas independientemente la posición del enemigo
-	shootEnemieLittle[i].sprite.Location.x -= shootEnemieLittle[i].shootEnemieSpeed * FASG::GetDeltaTime();
-
-	if (shootEnemieLittle[i].sprite.Location.x <= -1)
-	{
-		//Se reinicializan en caso de salir de pantalla
-		shootEnemieLittle[i].onOff = true;
-		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
-	}
-
-	//Se dibujan los disparos
-	FASG::WriteSpriteBuffer(shootEnemieLittle[i].sprite.Location.x, shootEnemieLittle[i].sprite.Location.y, shootEnemieLittle[i].sprite);
-}
-
-//Disparos de los enemigos medianos
-void ShootEnemieMid(int i)
-{
-	//Se mueven las balas independientemente la posición del enemigo
-	shootEnemieMid[i].sprite.Location.x -= shootEnemieMid[i].shootEnemieSpeed * FASG::GetDeltaTime();
-
-	if (shootEnemieMid[i].sprite.Location.x <= -1)
-	{
-		//Se reinicializan en caso de salir de pantalla
-		shootEnemieMid[i].onOff = true;
-		shootEnemieMid[i].CDShoot = rand() % 5 + 3;
-	}
-
-	//Se dibujan los disparos
-	FASG::WriteSpriteBuffer(shootEnemieMid[i].sprite.Location.x, shootEnemieMid[i].sprite.Location.y, shootEnemieMid[i].sprite);
-}
 
 //Movimiento de los enemigos pequeños
 void MovementLittle()
@@ -581,6 +510,58 @@ void MovementLarge()
 	}
 }
 
+/*Coloca a los enemigos grandes a la derecha, fuera de la pantalla, los pone en 260
+y en función si es el combate normal o la preparación del combate final, va mas rapido o mas lento*/
+void FromRightLarg(bool a)
+{
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		//Los pone en 305 y se pone en false para que no lo vuelva a hacer
+		if (RestartLarge[i])
+		{
+			enemiesLarge[i].sprite.Location.x = 305;
+			RestartLarge[i] = false;
+		}
+
+		//En función del momento de la partida va a diferente velocidad
+		switch (a)
+		{
+		case true:
+			enemiesLarge[i].sprite.Location.x--;
+			break;
+		case false:
+			enemiesLarge[i].sprite.Location.x -= 0.4f;
+			break;
+		}
+
+		//Cuando llega a 260 desactiva la función
+		if (enemiesLarge[i].sprite.Location.x <= 260)
+		{
+			enemiesLarge[i].sprite.Location.x = 260;
+
+			switch (a)
+			{
+			case true:
+				RestartLarge[i] = true;
+				break;
+			case false:
+				finalStageStart = true;
+				break;
+			}
+
+			allAway = false;
+			CDUntilAppear = timeUntilAppear;
+			CDLarge = MovementCDLarge;
+		}
+	}
+}
+
+
+
+/*PREPARACIÓN DEL COMBATE FINAL*/
+
+
+
 //Preparación del combate final
 void FinalStagePreparation()
 {
@@ -609,6 +590,34 @@ void FinalStagePreparation()
 		FromRightLarg(false);
 	}
 }
+
+//Movimiento de los enemigos grandes para iniciar la preparación de la fase final
+void AllLeftLarg()
+{
+	//se ejecuta un ultimo movimiento para salir de pantalla para que quede organica su desaparición
+	int aux = 0;
+
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		enemiesLarge[i].sprite.Location.x -= 2;
+
+		if (enemiesLarge[i].sprite.Location.x <= -24)
+		{
+			aux++;
+		}
+	}
+	if (aux == 2)
+	{
+		badTime = true;
+		TimeMinus(CDUntilFinalStage);
+	}
+}
+
+
+
+/*COMBATE FINAL*/
+
+
 
 //Movimientos del enemigo final
 void FinalBossMovements()
@@ -726,72 +735,88 @@ void FinalBossMovementsLar()
 	}
 }
 
-//Movimiento de los enemigos grandes para iniciar la preparación de la fase final
-void AllLeftLarg()
+
+
+/*DISPAROS*/
+
+
+
+//Disparos de los enemigos pequeños y medianos
+void EnemiesShoots()
 {
-	//se ejecuta un ultimo movimiento para salir de pantalla para que quede organica su desaparición
-	int aux = 0;
-
-	for (int i = 0; i < EnemiesLar; i++)
+	for (int i = 0; i < EnemiesLit; i++)
 	{
-		enemiesLarge[i].sprite.Location.x -= 2;
-
-		if (enemiesLarge[i].sprite.Location.x <= -24)
+		//Inicializa el disparo en la posicion del enemigo, en caso de que pase el CD, pone la booleana en off para dejar que salga disparado
+		if (shootEnemieLittle[i].onOff)
 		{
-			aux++;
+			shootEnemieLittle[i].sprite.Location.x = enemiesLittle[i].sprite.Location.x - 3;
+			shootEnemieLittle[i].sprite.Location.y = enemiesLittle[i].sprite.Location.y + 1;
+			TimeMinus(shootEnemieLittle[i].CDShoot);
+
+			if (shootEnemieLittle[i].CDShoot <= 0)
+			{
+				shootEnemieLittle[i].onOff = false;
+			}
+		}
+		else
+		{
+			ShootEnemieLittle(i);
 		}
 	}
-	if (aux == 2)
+
+	for (int a = 0; a < EnemiesMed; a++)
 	{
-		badTime = true;
-		TimeMinus(CDUntilFinalStage);
+		//Inicializa el disparo en la posicion del enemigo, en caso de que pase el CD, pone la booleana en off para dejar que salga disparado
+		if (shootEnemieMid[a].onOff)
+		{
+			shootEnemieMid[a].sprite.Location.x = enemiesMedium[a].sprite.Location.x - 3;
+			shootEnemieMid[a].sprite.Location.y = enemiesMedium[a].sprite.Location.y + 1;
+			TimeMinus(shootEnemieMid[a].CDShoot);
+
+			if (shootEnemieMid[a].CDShoot <= 0)
+			{
+				shootEnemieMid[a].onOff = false;
+			}
+		}
+		else
+		{
+			ShootEnemieMid(a);
+		}
 	}
 }
 
-/*Esta función coloca a los enemigos grandes a la derecha, fuera de la pantalla, 
-los pone en 260 y en función si es el combate normal o la preparación del combate final, va mas rapido o mas lento*/
-void FromRightLarg(bool a)
+//Disparos de los enemigos pequeños
+void ShootEnemieLittle(int i)
 {
-	for (int i = 0; i < EnemiesLar; i++)
+	//Se mueven las balas independientemente la posición del enemigo
+	shootEnemieLittle[i].sprite.Location.x -= shootEnemieLittle[i].shootEnemieSpeed * FASG::GetDeltaTime();
+
+	if (shootEnemieLittle[i].sprite.Location.x <= -1)
 	{
-		//Los pone en 305 y se pone en false para que no lo vuelva a hacer
-		if (RestartLarge[i])
-		{
-			enemiesLarge[i].sprite.Location.x = 305;
-			RestartLarge[i] = false;
-		}
-
-		//En función del momento de la partida va a diferente velocidad
-		switch (a)
-		{
-		case true:
-			enemiesLarge[i].sprite.Location.x--;
-			break;
-		case false:
-			enemiesLarge[i].sprite.Location.x -= 0.4f;
-			break;
-		}
-		
-		//Cuando llega a 260 desactiva la función
-		if (enemiesLarge[i].sprite.Location.x <= 260)
-		{
-			enemiesLarge[i].sprite.Location.x = 260;
-			
-			switch (a)
-			{
-			case true:
-				RestartLarge[i] = true;
-				break;
-			case false:
-				finalStageStart = true;
-				break;
-			}
-
-			allAway = false;
-			CDUntilAppear = timeUntilAppear;
-			CDLarge = MovementCDLarge;
-		}
+		//Se reinicializan en caso de salir de pantalla
+		shootEnemieLittle[i].onOff = true;
+		shootEnemieLittle[i].CDShoot = rand() % 5 + 1;
 	}
+
+	//Se dibujan los disparos
+	FASG::WriteSpriteBuffer(shootEnemieLittle[i].sprite.Location.x, shootEnemieLittle[i].sprite.Location.y, shootEnemieLittle[i].sprite);
+}
+
+//Disparos de los enemigos medianos
+void ShootEnemieMid(int i)
+{
+	//Se mueven las balas independientemente la posición del enemigo
+	shootEnemieMid[i].sprite.Location.x -= shootEnemieMid[i].shootEnemieSpeed * FASG::GetDeltaTime();
+
+	if (shootEnemieMid[i].sprite.Location.x <= -1)
+	{
+		//Se reinicializan en caso de salir de pantalla
+		shootEnemieMid[i].onOff = true;
+		shootEnemieMid[i].CDShoot = rand() % 5 + 3;
+	}
+
+	//Se dibujan los disparos
+	FASG::WriteSpriteBuffer(shootEnemieMid[i].sprite.Location.x, shootEnemieMid[i].sprite.Location.y, shootEnemieMid[i].sprite);
 }
 
 //Reinicia el disparo del enemigo pequeño concreto
@@ -815,7 +840,9 @@ void RestartShootEnMid(int a)
 }
 
 
-/*Getters - Setters*/
+
+/*GETTERS - SETTERS*/
+
 
 
 //Envia la cantidad de enemigos pequeños
@@ -836,6 +863,7 @@ int envLarEnQuantity()
 {
 	return EnemiesLar;
 }
+
 
 //Enemigo pequeño golpeado recibe daño
 void ReciveLitDmg(int a)

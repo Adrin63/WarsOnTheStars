@@ -36,7 +36,7 @@ void Colisions(std::string tag1, std::string tag2)
 		if (tag1 == "ShootPlayer" && tag2 == "enLit" + i || tag2 == "ShootPlayer" && tag1 == "enLit" + i)
 		{
 			ReciveLitDmg(i);
-			ShootOff(false);
+			ShootOff(NULL, SHOOT);
 		}
 	}
 
@@ -46,7 +46,7 @@ void Colisions(std::string tag1, std::string tag2)
 		if (tag1 == "ShootPlayer" && tag2 == "enMed" + i || tag2 == "ShootPlayer" && tag1 == "enMed" + i)
 		{
 			ReciveMidDmg(i);
-			ShootOff(false);
+			ShootOff(NULL, SHOOT);
 		}
 	}
 
@@ -55,7 +55,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "ShootPlayer" && tag2 == "enLarge" + i || tag2 == "ShootPlayer" && tag1 == "enLarge" + i)
 		{
-			ShootOff(false);
+			ShootOff(NULL, SHOOT);
 		}
 	}
 
@@ -65,7 +65,7 @@ void Colisions(std::string tag1, std::string tag2)
 		if (tag1 == "ShootPlayer" && tag2 == "enLargeFinal" + i || tag2 == "ShootPlayer" && tag1 == "enLargeFinal" + i)
 		{
 			ReciveLarDmg(i);
-			ShootOff(false);
+			ShootOff(NULL, SHOOT);
 		}
 	}
 
@@ -73,9 +73,125 @@ void Colisions(std::string tag1, std::string tag2)
 	if ((tag1 == "ShootPlayer" && tag2 == "FinalBoss") || (tag2 == "ShootPlayer" && tag1 == "FinalBoss"))
 	{
 		ReciveBossDmg();
-		ShootOff(false);
+		ShootOff(NULL, SHOOT);
 	}
 
+
+
+	/*Misiles - Enemigos*/
+
+
+
+	/*Misil de arriba*/
+
+	//Misil de arriba golpea a enemigos pequeños, se resetea el disparo
+	for (int i = 0; i < EnemiesLit; i++)
+	{
+		if (tag1 == "MisilPlayerUp" && tag2 == "enLit" + i || tag2 == "MisilPlayerUp" && tag1 == "enLit" + i)
+		{
+			ReciveLitDmg(i);
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ShootOff(true, MISIL);
+		}
+	}
+	
+	//Misil de arriba golpea a enemigos medianos, se resetea el disparo
+	for (int i = 0; i < EnemiesMid; i++)
+	{
+		if (tag1 == "MisilPlayerUp" && tag2 == "enMed" + i || tag2 == "MisilPlayerUp" && tag1 == "enMed" + i)
+		{
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ShootOff(true, MISIL);
+		}
+	}
+
+	//Misil de arriba reseteado al golpear a enemigos grandes, no reciben daño hasta fase final
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (tag1 == "MisilPlayerUp" && tag2 == "enLarge" + i || tag2 == "MisilPlayerUp" && tag1 == "enLarge" + i)
+		{
+			ShootOff(true, MISIL);
+		}
+	}
+
+	//Misil de arriba golpea a enemigos grandes, se resetea el disparo
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (tag1 == "MisilPlayerUp" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerUp" && tag1 == "enLargeFinal" + i)
+		{
+			ReciveLarDmg(i);
+			ShootOff(true, MISIL);
+		}
+	}
+
+	//Misil de arriba golpea al jefe final, se resetea el disparo
+	if ((tag1 == "MisilPlayerUp" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerUp" && tag1 == "FinalBoss"))
+	{
+		ReciveBossDmg();
+		ShootOff(true, MISIL);
+	}
+
+
+
+	/*Misil de abajo*/
+
+
+	//Misil de abajo golpea a enemigos pequeños, se resetea el disparo
+	for (int i = 0; i < EnemiesLit; i++)
+	{
+		if (tag1 == "MisilPlayerDown" && tag2 == "enLit" + i || tag2 == "MisilPlayerDown" && tag1 == "enLit" + i)
+		{
+			ReciveLitDmg(i);
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ShootOff(false, MISIL);
+		}
+	}
+
+	//Misil de abajo golpea a enemigos medianos, se resetea el disparo
+	for (int i = 0; i < EnemiesMid; i++)
+	{
+		if (tag1 == "MisilPlayerDown" && tag2 == "enMed" + i || tag2 == "MisilPlayerDown" && tag1 == "enMed" + i)
+		{
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ReciveMidDmg(i);
+			ShootOff(false, MISIL);
+		}
+	}
+
+	//Misil de abajo reseteado al golpear a enemigos grandes, no reciben daño hasta fase final
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (tag1 == "MisilPlayerDown" && tag2 == "enLarge" + i || tag2 == "MisilPlayerDown" && tag1 == "enLarge" + i)
+		{
+			ShootOff(false, MISIL);
+		}
+	}
+
+	//Misil de abajo golpea a enemigos grandes, se resetea el disparo
+	for (int i = 0; i < EnemiesLar; i++)
+	{
+		if (tag1 == "MisilPlayerDown" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerDown" && tag1 == "enLargeFinal" + i)
+		{
+			ReciveLarDmg(i);
+			ReciveLarDmg(i);
+			ReciveLarDmg(i);
+			ShootOff(false, MISIL);
+		}
+	}
+
+	//Misil de abajo golpea al jefe final, se resetea el disparo
+	if ((tag1 == "MisilPlayerDown" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerDown" && tag1 == "FinalBoss"))
+	{
+		ReciveBossDmg();
+		ReciveBossDmg();
+		ReciveBossDmg();
+		ShootOff(false, MISIL);
+	}
 
 
 	/*Player - Enemigos*/
@@ -108,19 +224,19 @@ void Colisions(std::string tag1, std::string tag2)
 
 	for (int l = 0; l < EnemiesLar; l++)
 	{
+		//Al pasar true hace 2 de daño
 		if (((tag1 == "Player" && tag2 == "enLarge" + l) || (tag2 == "Player" && tag1 == "enLarge" + l)) || ((tag1 == "PlayerInMove" && tag2 == "enLarge" + l) || (tag2 == "PlayerInMove" && tag1 == "enLarge" + l)))
 		{
-			//Entra en este if cuando no deberia entrar
-			//RecivePlayerDmg(true);
+			RecivePlayerDmg(true);
 		}
 	}
 
 	for (int l = 0; l < EnemiesLar; l++)
 	{
+		//Al pasar true hace 2 de daño
 		if (((tag1 == "Player" && tag2 == "enLargeFinal" + l) || (tag2 == "Player" && tag1 == "enLargeFinal" + l)) || ((tag1 == "PlayerInMove" && tag2 == "enLargeFinal" + l) || (tag2 == "PlayerInMove" && tag1 == "enLargeFinal" + l)))
 		{
-			//Entra en este if cuando no deberia entrar
-			//RecivePlayerDmg(true);
+			RecivePlayerDmg(true);
 		}
 	}
 
