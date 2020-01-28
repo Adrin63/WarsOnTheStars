@@ -338,8 +338,6 @@ void MovementPlayer()
 		{
 			FASG::WriteStringBuffer(7 + aux, 4, std::to_string((int)CDMisil + 1), FASG::EForeColor::Cyan);
 		}
-		
-
 	}
 
 	if (ableShoots <= 0)

@@ -157,8 +157,8 @@ void MovementSecPlayer()
 		{
 			secPlayer.sprite.Location.y += secPlayer.speed * FASG::GetDeltaTime();
 
-			if (secPlayer.sprite.Location.y >= 54)
-				secPlayer.sprite.Location.y = 54;
+			if (secPlayer.sprite.Location.y >= 56)
+				secPlayer.sprite.Location.y = 56;
 		}
 
 		if (FASG::IsKeyPressed('J'))
