@@ -13,8 +13,14 @@ PlayerMovement direction;
 //Variables de game para determinar el punto donde estas del juego
 Game game;
 
-//Struct de lOS disparoS del jugador
+//Struct de los disparos del jugador
 ShootP pShoot, pMisilUp, pMisilDown;
+
+//Cantidad de disparos de misiles
+int ableShoots = 4;
+int mapOffShoots = 0;
+float const	coolDownMisil = 5.f;
+float CDMisil = coolDownMisil;
 
 //Enum para la dificultad del juego
 Diff difficult;
@@ -64,6 +70,12 @@ void InitPlayer()
 	pShoot.type = ShootType::SHOOT;
 
 	//Inicialización de los misiles
+
+	ableShoots = 4;
+	mapOffShoots = 0;
+	CDMisil = 0;
+
+
 	pMisilUp.shootPlayer.LoadSprite("Misil.txt");
 	FASG::Sprite::AddToCollisionSystem(pMisilUp.shootPlayer, "MisilPlayerUp");
 	pMisilUp.speedSh = 75.f;
@@ -139,10 +151,16 @@ void DrawPlayer()
 			break;
 		case ONEPLAYER:
 			FASG::WriteStringBuffer(3, 2, "HP:", FASG::EForeColor::LightWhite);
+			FASG::WriteStringBuffer(3, 4, "MI:", FASG::EForeColor::Cyan);
 
 			for (int a = 0; a < player.life; a++)
 			{
 				FASG::WritePixelBuffer(7 + a + a, 2, FASG::EBackColor::LightWhite);
+			}
+
+			for (int a = 0; a < ableShoots; a++)
+			{
+				FASG::WritePixelBuffer(7 + a + a, 4, FASG::EBackColor::Cyan);
 			}
 			break;
 		}
@@ -247,6 +265,7 @@ void MovementPlayer()
 		pMisilDown.shootPlayer.Location.y = player.sprite.Location.y + 3;
 	}
 
+
 	switch (quantPlayers)
 	{
 	case ONEPLAYER:
@@ -259,8 +278,14 @@ void MovementPlayer()
 		//El MISIL sale del jugador en caso de pulsar la k
 		if (FASG::IsKeyPressed('K'))
 		{
-			pMisilUp.ShootOn = true;
-			pMisilDown.ShootOn = true;
+			if (CDMisil <= 0 && ableShoots > 0)
+			{
+				ableShoots--;
+				mapOffShoots = 0;
+				CDMisil = coolDownMisil;
+				pMisilUp.ShootOn = true;
+				pMisilDown.ShootOn = true;
+			}
 		}
 		break;
 		
@@ -269,15 +294,6 @@ void MovementPlayer()
 		if (FASG::IsKeyPressed('C'))
 		{
 			pShoot.ShootOn = true;
-		}
-
-		/*MISIL*/
-
-		//El MISIL sale del jugador en caso de pulsar la k
-		if (FASG::IsKeyPressed('V'))
-		{
-			pMisilUp.ShootOn = true;
-			pMisilDown.ShootOn = true;
 		}
 		break;
 	}
@@ -298,6 +314,37 @@ void MovementPlayer()
 	if (pMisilDown.ShootOn)
 	{
 		ShootPlayer(MISIL, false);
+	}
+
+	if (mapOffShoots >= 2)
+	{
+		TimeMinus(CDMisil);
+		int aux = 0;
+
+		switch (ableShoots)
+		{
+		case 1:
+			aux = 2;
+			break;
+		case 2:
+			aux = 4;
+			break;
+		case 3:
+			aux = 6;
+			break;
+		}
+
+		if (ableShoots > 0 && CDMisil > 0)
+		{
+			FASG::WriteStringBuffer(7 + aux, 4, std::to_string((int)CDMisil + 1), FASG::EForeColor::Cyan);
+		}
+		
+
+	}
+
+	if (ableShoots <= 0)
+	{
+		FASG::WriteStringBuffer(7, 4, "NO MORE SHOOTS", FASG::EForeColor::Cyan);
 	}
 
 	//Botón de pausa
@@ -331,6 +378,7 @@ void ShootPlayer(ShootType a, bool b)
 			if (pMisilUp.shootPlayer.Location.x >= 300)
 			{
 				pMisilUp.ShootOn = false;
+				mapOffShoots++;
 			}
 		}
 		else
@@ -343,6 +391,7 @@ void ShootPlayer(ShootType a, bool b)
 			if (pMisilDown.shootPlayer.Location.x >= 300)
 			{
 				pMisilDown.ShootOn = false;
+				mapOffShoots++;
 			}
 		}
 		break;
@@ -368,10 +417,12 @@ void ShootOff(bool a, ShootType b)
 		if (a)
 		{
 			pMisilUp.ShootOn = false;
+			mapOffShoots++;
 		}
 		else
 		{
 			pMisilDown.ShootOn = false;
+			mapOffShoots++;
 		}
 	case SHOOT:
 		pShoot.ShootOn = false;

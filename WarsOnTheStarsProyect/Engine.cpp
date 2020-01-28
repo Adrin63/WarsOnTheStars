@@ -90,7 +90,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enLit" + i || tag2 == "MisilPlayerUp" && tag1 == "enLit" + i)
 		{
-			ReciveMidDmg(i, 3);
+			ReciveMidDmg(i, 5);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -100,7 +100,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enMed" + i || tag2 == "MisilPlayerUp" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i, 3);
+			ReciveMidDmg(i, 5);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -119,7 +119,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerUp" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerUp" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i, 3);
+			ReciveLarDmg(i, 5);
 			ShootOff(true, MISIL);
 		}
 	}
@@ -127,7 +127,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Misil de arriba golpea al jefe final, se resetea el disparo
 	if ((tag1 == "MisilPlayerUp" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerUp" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg(3);
+		ReciveBossDmg(5);
 		ShootOff(true, MISIL);
 	}
 
@@ -141,7 +141,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enLit" + i || tag2 == "MisilPlayerDown" && tag1 == "enLit" + i)
 		{
-			ReciveLitDmg(i, 3);
+			ReciveLitDmg(i, 5);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -151,7 +151,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enMed" + i || tag2 == "MisilPlayerDown" && tag1 == "enMed" + i)
 		{
-			ReciveMidDmg(i, 3);
+			ReciveMidDmg(i, 5);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -170,7 +170,7 @@ void Colisions(std::string tag1, std::string tag2)
 	{
 		if (tag1 == "MisilPlayerDown" && tag2 == "enLargeFinal" + i || tag2 == "MisilPlayerDown" && tag1 == "enLargeFinal" + i)
 		{
-			ReciveLarDmg(i, 3);
+			ReciveLarDmg(i, 5);
 			ShootOff(false, MISIL);
 		}
 	}
@@ -178,7 +178,7 @@ void Colisions(std::string tag1, std::string tag2)
 	//Misil de abajo golpea al jefe final, se resetea el disparo
 	if ((tag1 == "MisilPlayerDown" && tag2 == "FinalBoss") || (tag2 == "MisilPlayerDown" && tag1 == "FinalBoss"))
 	{
-		ReciveBossDmg(3);
+		ReciveBossDmg(5);
 		ShootOff(false, MISIL);
 	}
 
