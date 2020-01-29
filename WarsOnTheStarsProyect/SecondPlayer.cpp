@@ -3,24 +3,32 @@
 #include "Engine.h"
 #include "Difficulty.h"
 
-//arreglar este extern, solo necesitas el game.H
+//Variables de game para determinar el punto donde estas del juego
 extern Game game;
 
+//Segundo player
 SecPlayer secPlayer;
 
+//Dificultad del juego
 Diff diffGame;
 
+//Direccion del segundo player
 SecPlayerMovement secDirection;
 
+//Indica si hay 2 jugadores
 QuantityPlayers secPlayerOn;
+
+//Disparo del segundo player
 ShootSecP secpShoot;
 
+//Tiene coolDown entre golpes
 float const coolDownLifeSec = 1.f;
 float CDLifeSec = coolDownLifeSec;
 bool hitOnSec = true;
 
 void InitSecPlayer()
 {
+	//Inicia los sprites
 	secPlayer.sprite.LoadSprite("secPlayer.txt");
 	FASG::Sprite::AddToCollisionSystem(secPlayer.sprite, "secPlayer");
 
@@ -33,8 +41,15 @@ void InitSecPlayer()
 
 	secPlayer.speed = 50.f;
 
+	//Inicialización del disparo del segundo player
+	secpShoot.shootPlayer.LoadSprite("secShoot.txt");
+	FASG::Sprite::AddToCollisionSystem(secpShoot.shootPlayer, "ShootSecPlayer");
+	secpShoot.speedSh = 60.f;
+	secpShoot.ShootOn = false;
+
 	secPlayerOn = envQuantityPlayers();
 
+	//En funcion de si hay 2 jugadores se pone en una posicion u otra
 	switch (secPlayerOn)
 	{
 	case TWOPLAYERS:
@@ -50,6 +65,7 @@ void InitSecPlayer()
 
 	diffGame = envDifficulty();
 
+	//En funcion de la dificultad tiene mas o menos vidas
 	switch (diffGame)
 	{
 	case INMORTAL:
@@ -63,16 +79,14 @@ void InitSecPlayer()
 		break;
 	}
 	
-	secpShoot.shootPlayer.LoadSprite("secShoot.txt");
-	FASG::Sprite::AddToCollisionSystem(secpShoot.shootPlayer, "ShootSecPlayer");
-	secpShoot.speedSh = 60.f;
-	secpShoot.ShootOn = false;
+
 }
 
 void DrawSecPlayer()
 {
 	if (secPlayerOn == TWOPLAYERS)
-	{
+
+	{	//En caso de que haya 2 jugadores y su dificultad muestra o no la barra de vida y dibuja al jugador
 		switch (diffGame)
 		{
 		case INMORTAL:
@@ -122,10 +136,12 @@ void DrawSecPlayer()
 
 void MovementSecPlayer()
 {
+	//Solo se dibuja y mueve si esta vivo
 	if (secPlayer.life > 0)
 	{
 		secDirection = SecPlayerMovement::secSTILL;
 
+		//CD entre golpes
 		if (!hitOnSec)
 			TimeMinus(CDLifeSec);
 
@@ -161,6 +177,7 @@ void MovementSecPlayer()
 				secPlayer.sprite.Location.y = 56;
 		}
 
+		//Disparo, funciona igual que el del player original
 		if (FASG::IsKeyPressed('J'))
 		{
 			secPlayer.sprite.Location.x -= secPlayer.speed * FASG::GetDeltaTime();

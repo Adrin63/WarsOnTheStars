@@ -19,6 +19,7 @@ void Difficulty()
 	FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "1 VIDA", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(35, FASG::EAligned::CENTER, "MODO 2 JUGADORES", FASG::EForeColor::LightWhite);
 	
+	//En funcion si hay 2 jugadores o no esta en rojo o verde
 	switch (twoPlayers)
 	{
 	case true:
@@ -31,7 +32,6 @@ void Difficulty()
 	
 	FASG::WriteStringBuffer(52, FASG::EAligned::CENTER, "R PARA SELECCIONAR", FASG::EForeColor::LightWhite);
 	FASG::WriteStringBuffer(55, FASG::EAligned::CENTER, "X PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
-
 
 	//Subrayar la opción en la que estas
 	switch (contadorDifficulty)

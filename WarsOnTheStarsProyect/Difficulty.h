@@ -9,6 +9,7 @@ enum Diff
 	INMORTAL, NORMAL, ONE
 };
 
+//Cantidad de jugadores
 enum QuantityPlayers
 {
 	ONEPLAYER, TWOPLAYERS

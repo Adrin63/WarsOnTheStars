@@ -25,7 +25,7 @@ void InitStars()
 	}
 }
 
-//Mostrar las estrellas en pantalla y en caso de que se vayan de esta reiniciarlas
+//Mostrar las estrellas en pantalla y en caso de que se vayan de esta reiniciarlas, en la preparación a la fase final se aceleran
 void DrawStars(bool a)
 {
 	for (int i = 0; i < MAX_INIT_STARS; i++)

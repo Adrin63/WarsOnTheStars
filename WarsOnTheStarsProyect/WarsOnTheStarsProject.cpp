@@ -89,6 +89,7 @@ int main()
 	FASG::DestroyConsole();
 }
 
+//Inicia el juego
 void InitGame()
 {
 	InitPlayer();
@@ -97,6 +98,7 @@ void InitGame()
 	InitEnemies();	
 }
 
+//Dibuja el juego
 void DrawGame()
 {
 	DrawStars(true);

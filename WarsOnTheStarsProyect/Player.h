@@ -7,6 +7,7 @@ enum PlayerMovement
 	RIGHT, STILL
 };
 
+//Tipo de disparo
 enum ShootType
 {
 	SHOOT, MISIL
@@ -21,6 +22,7 @@ struct Player
 	FASG::Sprite sprite;
 };
 
+//Disparos
 struct ShootP
 {
 	ShootType type;

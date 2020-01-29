@@ -48,6 +48,7 @@ void InitPlayer()
 
 	quantPlayers = envQuantityPlayers();
 
+	//En funcion de la cantidad de jugadores se cambia la posicion del jugador
 	switch (quantPlayers)
 	{
 	case ONEPLAYER:
@@ -75,7 +76,6 @@ void InitPlayer()
 	mapOffShoots = 0;
 	CDMisil = 0;
 
-
 	pMisilUp.shootPlayer.LoadSprite("Misil.txt");
 	FASG::Sprite::AddToCollisionSystem(pMisilUp.shootPlayer, "MisilPlayerUp");
 	pMisilUp.speedSh = 75.f;
@@ -88,10 +88,10 @@ void InitPlayer()
 	pMisilDown.ShootOn = false;
 	pMisilDown.type = ShootType::MISIL;
 
-	//en función de la dificultad, mas vidas o menos
+	
 	difficult = envDifficulty();
 
-	
+	//en función de la dificultad y la cantidad de jugadores, mas vidas o menos
 	switch (quantPlayers)
 	{
 	case ONEPLAYER:
@@ -316,6 +316,7 @@ void MovementPlayer()
 		ShootPlayer(MISIL, false);
 	}
 
+	//En caso de que los misiles hayan salido/impactado, se pone el contador donde estaba la carga del misil
 	if (mapOffShoots >= 2)
 	{
 		TimeMinus(CDMisil);
@@ -340,6 +341,7 @@ void MovementPlayer()
 		}
 	}
 
+	//Sin misiles, sale que no hay mas disparos
 	if (ableShoots <= 0)
 	{
 		FASG::WriteStringBuffer(7, 4, "NO MORE SHOOTS", FASG::EForeColor::Cyan);
@@ -425,8 +427,6 @@ void ShootOff(bool a, ShootType b)
 	case SHOOT:
 		pShoot.ShootOn = false;
 	}
-
-	
 }
 
 

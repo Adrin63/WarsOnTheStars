@@ -21,6 +21,7 @@ void GameOver()
 		FASG::WriteStringBuffer(30, FASG::EAligned::CENTER, "PULSA C PARA VOLVER AL MENU", FASG::EForeColor::LightWhite);
 	}
 
+	//Hace aparecer y desaparecer el sprite
 	if (coolDownDead <= 0)
 	{
 		switch (onDead)
